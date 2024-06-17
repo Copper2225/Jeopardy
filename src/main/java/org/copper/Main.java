@@ -3,6 +3,7 @@ package org.copper;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.copper.Admin.*;
+import org.copper.Buzzer.BuzzerServer;
 
 public class Main extends Application {
     public static void main(String[] args) {
@@ -15,5 +16,6 @@ public class Main extends Application {
         AdminScreen.setAdminStage(admin);
         AdminScreen.loadAdmin();
         AdminScreen.switchScene(ApplicationContext.AdminScenes.CONFIG);
+        BuzzerServer.initialize();
     }
 }

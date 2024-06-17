@@ -23,7 +23,6 @@ public class PlayScreen {
         playStage.setHeight(ApplicationContext.getScreenHeight());
         overview = new OverviewSzene();
         scene.setRoot(overview.getRoot());
-        BuzzerServer.initialize();
         playStage.show();
     }
 

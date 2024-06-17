@@ -1,5 +1,45 @@
+.root {
+    -fx-background-color: black;
+}
+
+* {
+    -fx-text-fill: white;
+}
+
 GridPane {
     -fx-vgap: 30px;
     -fx-hgap: 30px;
-    -fx-padding: 30px
+    -fx-padding: 30px;
+}
+
+.category {
+    -fx-alignment: center;
+    -fx-font-size: 3em;
+    -fx-text-alignment: center;
+}
+
+.myButton {
+    -fx-font-size: 3.2em;
+}
+
+HBox {
+    -fx-padding: 0 30px;
+}
+VBox {
+    -fx-spacing: 10px;
+    -fx-alignment: center;
+}
+
+
+.points {
+    -fx-padding: 10px 10px 0;
+    -fx-background-color: teal;
+    -fx-background-radius: 10px 10px 0 0;
+    -fx-font-size: 2.5em;
+}
+
+.teamName {
+    -fx-font-size: 2em;
+    -fx-wrap-text: true;
+    -fx-text-alignment: center;
 }

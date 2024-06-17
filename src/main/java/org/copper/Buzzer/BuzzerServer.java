@@ -22,7 +22,7 @@ public class BuzzerServer {
         post("/buzz", (req, res) -> {
             String ipAddress = req.ip();
             System.out.println("IP-Adresse des Clients: " + ipAddress);
-            return "Buzz received from IP: " + ipAddress;
+            return "Erfolgreich gebuzzert";
         });
 
         // Route zum Speichern der Eingabe
@@ -35,6 +35,13 @@ public class BuzzerServer {
             res.type("application/json");
             return gson.toJson(buzzers);
         });
+
+        buzzers.add(new Buzzer("Team 1", "h"));
+//        buzzers.add(new Buzzer("Gfgjhkdgksfsdfhskldfdssfs", "h"));
+//        buzzers.add(new Buzzer("Gfgjhkdgksfs dfhskldfdssfs", "h"));
+//        buzzers.add(new Buzzer("Gfgjhkdgksfsdfhskldfdssfs", "h"));
+//        buzzers.add(new Buzzer("Gfgjhkdgksfsdfhskldfdssfs", "h"));
+//        buzzers.add(new Buzzer("Gfgjhkdgksfsdfhskldfdssfs", "h"));
     }
 
     static class InputData {
@@ -47,5 +54,9 @@ public class BuzzerServer {
         public void setInput(String input) {
             this.input = input;
         }
+    }
+
+    public static List<Buzzer> getBuzzers() {
+        return buzzers;
     }
 }

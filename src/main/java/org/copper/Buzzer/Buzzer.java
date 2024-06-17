@@ -9,6 +9,14 @@ public class Buzzer {
         this.iPAddress = iPAddress;
     }
 
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public String getiPAddress() {
+        return iPAddress;
+    }
+
     @Override
     public String toString() {
         return "Buzzer{" +
