@@ -1,20 +1,26 @@
 [ [ {
-  "filename" : "Logo.jpeg",
-  "question" : "",
-  "answer" : "",
-  "type" : "bild"
-}, {
-  "filename" : "Check24_Logo_2020.svg.png",
-  "question" : "Check",
-  "answer" : "",
-  "type" : "bild"
-}, null ], [ {
-  "question" : "text",
-  "answer" : "Fa",
+  "question" : "Frage",
+  "answer" : "Aw",
+  "points" : 100,
   "type" : "text"
-}, null, null ], [ {
-  "filename" : "Check24_Logo_2020.svg.png",
-  "question" : "Fra",
-  "answer" : "An",
-  "type" : "bild"
-}, null, null ], [ null, null, null ] ]
+}, null, null, null, null ], [ {
+  "question" : "Frage ",
+  "answer" : "Ante",
+  "points" : 100,
+  "type" : "text"
+}, null, {
+  "question" : "Schwer",
+  "answer" : "ig",
+  "points" : 300,
+  "type" : "text"
+}, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ null, null, null, null, null ], [ {
+  "question" : "Frage",
+  "answer" : "Antowrt",
+  "points" : 500,
+  "type" : "text"
+}, {
+  "question" : "Andere",
+  "answer" : "Frage",
+  "points" : 500,
+  "type" : "text"
+}, null, null, null ] ]

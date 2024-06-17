@@ -1,7 +1,10 @@
 package org.copper.Buzzer;
 
 import static spark.Spark.*;
+import static spark.Spark.stop;
+
 import com.google.gson.Gson;
+import spark.Spark;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,12 +41,12 @@ public class BuzzerServer {
             return gson.toJson(buzzers);
         });
 
-        buzzers.add(new Buzzer("Team 1", "h"));
-//        buzzers.add(new Buzzer("Gfgjhkdgksfsdfhskldfdssfs", "h"));
-//        buzzers.add(new Buzzer("Gfgjhkdgksfs dfhskldfdssfs", "h"));
-//        buzzers.add(new Buzzer("Gfgjhkdgksfsdfhskldfdssfs", "h"));
-//        buzzers.add(new Buzzer("Gfgjhkdgksfsdfhskldfdssfs", "h"));
-//        buzzers.add(new Buzzer("Gfgjhkdgksfsdfhskldfdssfs", "h"));
+        buzzers.add(new Buzzer("Team 1", "192.168.177.2"));
+        buzzers.add(new Buzzer("Team 2", "192.168.177.2"));
+    }
+
+    public static void stop(){
+        Spark.stop();
     }
 
     static class InputData {

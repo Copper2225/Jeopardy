@@ -22,9 +22,10 @@ public class BildQuestion extends Question {
     public BildQuestion(
             @JsonProperty("filename") String filename,
             @JsonProperty("question") String question,
-            @JsonProperty("answer") String answer
+            @JsonProperty("answer") String answer,
+            @JsonProperty("points") int points
     ) {
-        super(ApplicationContext.QuestionTypes.BILD);
+        super(ApplicationContext.QuestionTypes.BILD, points);
         this.filename = filename;
         Path target = Paths.get("src/main/resources/images/" + filename);
         System.out.println(target.toUri().toString());

@@ -93,6 +93,6 @@ public class BildEdit extends EditPane {
 
     @Override
     public void save(int[] index) {
-        Questions.getQuestions()[index[0]][index[1]] = new BildQuestion(file.getName(),questionArea.getText(), solutionArea.getText());
+        Questions.getQuestions()[index[0]][index[1]] = new BildQuestion(file.getName(),questionArea.getText(), solutionArea.getText(), ApplicationContext.getPointMatrix()[index[0]][index[1]]);
     }
 }

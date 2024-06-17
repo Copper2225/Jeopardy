@@ -11,9 +11,10 @@ public class TextQuestion extends Question {
     @JsonCreator
     public TextQuestion(
             @JsonProperty("question") String question,
-            @JsonProperty("answer") String answer
+            @JsonProperty("answer") String answer,
+            @JsonProperty("points") int points
     ) {
-        super(ApplicationContext.QuestionTypes.TEXT);
+        super(ApplicationContext.QuestionTypes.TEXT, points);
         this.question = question;
         this.answer = answer;
     }

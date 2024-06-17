@@ -72,9 +72,7 @@
         })
         .then(response => {
             if (response.ok) {
-                response.text().then(text => {
-                    alert(text);  // Die Antwort des Servers anzeigen
-                });
+
             } else {
                 alert('Fehler beim Senden des Buzzes.');
             }

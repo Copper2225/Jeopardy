@@ -23,15 +23,14 @@ public class ApplicationContext {
         String BILD = "bild";
     }
 
-
-
     private static double screenWidth;
     private static double screenHeight;
 
-    private static int columns = 4;
-    private static int rows = 3;
+    private static int columns = 5;
+    private static int rows = 5;
     private static int[] currentIndex = new int[2];
     private static int[][] pointMatrix = new int[columns][rows];
+    private static String[] categories = new String[columns];
 
     public static void loadApplicationContext(){
         Rectangle2D bounds = Screen.getPrimary().getBounds();
@@ -77,6 +76,14 @@ public class ApplicationContext {
 
     public static int getColumns() {
         return columns;
+    }
+
+    public static String[] getCategories() {
+        return categories;
+    }
+
+    public static void setCategories(String[] categories) {
+        ApplicationContext.categories = categories;
     }
 
     public static void setColumns(int columns) {

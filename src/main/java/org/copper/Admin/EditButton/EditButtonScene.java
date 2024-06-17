@@ -46,7 +46,6 @@ public class EditButtonScene {
     }
 
     public void loadConfig(){
-        System.out.println("load2");
         index = ApplicationContext.getCurrentIndex();
         question = Questions.getQuestions()[index[0]][index[1]];
         String type = switch (question != null ? question.getType() : null){
@@ -54,10 +53,12 @@ public class EditButtonScene {
             case ApplicationContext.QuestionTypes.BILD -> Types.BILD;
             case null, default -> Types.TEXT;
         };
-        typeChoose.valueProperty().setValue(type);
+        if(type.equals(typeChoose.getValue())) switchType(type);
+        else typeChoose.valueProperty().setValue(type);
     }
 
     private void switchType(String type) {
+        System.out.println("Type : " + type);
         switch (type){
             case Types.TEXT -> editPane = new TextEdit();
             case Types.BILD -> editPane = new BildEdit();

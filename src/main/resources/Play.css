@@ -21,6 +21,12 @@ GridPane {
 
 .myButton {
     -fx-font-size: 3.2em;
+    -fx-background-color: teal;
+    -fx-background-radius: 40px;
+}
+
+myButton :disabled {
+    -fx-opacity: 10;
 }
 
 HBox {
@@ -34,7 +40,7 @@ VBox {
 
 .points {
     -fx-padding: 10px 10px 0;
-    -fx-background-color: teal;
+    -fx-background-color: purple;
     -fx-background-radius: 10px 10px 0 0;
     -fx-font-size: 2.5em;
 }

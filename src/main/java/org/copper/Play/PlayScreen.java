@@ -3,6 +3,8 @@ package org.copper.Play;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.copper.ApplicationContext;
@@ -18,7 +20,10 @@ public class PlayScreen {
         Scene scene = new Scene(new Pane());
         scene.getStylesheets().add("Play.css");
         playStage.setScene(scene);
-        playStage.setX(-ApplicationContext.getScreenWidth());
+        scene.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.F11) playStage.setFullScreen(true);
+        });
+//        playStage.setX(-ApplicationContext.getScreenWidth());
         playStage.setWidth(ApplicationContext.getScreenWidth());
         playStage.setHeight(ApplicationContext.getScreenHeight());
         overview = new OverviewSzene();

@@ -10,6 +10,8 @@ import org.copper.ApplicationContext;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
 
+import static org.copper.Buzzer.BuzzerServer.stop;
+
 public class AdminScreen {
     private static Stage adminStage;
     private static Scene adminScene;
@@ -29,6 +31,9 @@ public class AdminScreen {
 //        adminStage.setMaximized(true);
         adminStage.setAlwaysOnTop(true);
         adminStage.getScene().getStylesheets().add("General.css");
+        adminStage.setOnCloseRequest((event) -> {
+            stop();
+        });
         adminStage.show();
     }
 
