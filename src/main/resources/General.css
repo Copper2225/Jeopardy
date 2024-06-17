@@ -1,0 +1,24 @@
+.root {
+    -fx-padding: 20px;
+    -my-grid-spacing: 50px;
+}
+
+.text-area {
+    -fx-pref-height: 150px;
+}
+
+VBox, HBox {
+    -fx-spacing: 30px;
+}
+
+.grid {
+    -fx-spacing: -my-grid-spacing;
+}
+
+.grid VBox {
+    -fx-spacing: -my-grid-spacing;
+}
+
+.grid .button{
+    -fx-pref-height: 80px;
+}

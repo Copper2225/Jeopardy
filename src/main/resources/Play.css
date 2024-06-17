@@ -1,0 +1,5 @@
+GridPane {
+    -fx-vgap: 30px;
+    -fx-hgap: 30px;
+    -fx-padding: 30px
+}

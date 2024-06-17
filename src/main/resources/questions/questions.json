@@ -1,0 +1,20 @@
+[ [ {
+  "filename" : "Logo.jpeg",
+  "question" : "",
+  "answer" : "",
+  "type" : "bild"
+}, {
+  "filename" : "Check24_Logo_2020.svg.png",
+  "question" : "Check",
+  "answer" : "",
+  "type" : "bild"
+}, null ], [ {
+  "question" : "text",
+  "answer" : "Fa",
+  "type" : "text"
+}, null, null ], [ {
+  "filename" : "Check24_Logo_2020.svg.png",
+  "question" : "Fra",
+  "answer" : "An",
+  "type" : "bild"
+}, null, null ], [ null, null, null ] ]
