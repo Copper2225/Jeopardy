@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class BuzzerServer {
     private static List<Buzzer> buzzers = new ArrayList<>();
@@ -21,7 +22,8 @@ public class BuzzerServer {
         // Route zum Empfangen des Buzz
         post("/buzz", (req, res) -> {
             String ipAddress = req.ip();
-            System.out.println("IP-Adresse des Clients: " + ipAddress);
+            Optional<Buzzer> optionalBuzzer = buzzers.stream().filter((buzzer -> buzzer.iPAddress.equals(ipAddress))).findFirst();
+            optionalBuzzer.ifPresent(buzzer -> System.out.println(buzzer.teamName + " hat gebuzzert"));
             return "Erfolgreich gebuzzert";
         });
 
