@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buzzer</title>
+    <style>
+        body, html {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        #buzzerButton {
+            width: 100%;
+            height: 100%;
+            font-size: 3em;
+            box-sizing: border-box;
+        }
+
+        #inputContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        #inputField {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        #saveButton {
+            font-size: 1.5em;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<button id="buzzerButton" onclick="sendBuzz()">Buzz</button>
+<div id="inputContainer">
+    <input type="text" id="inputField" placeholder="Eingabe">
+    <button id="saveButton" onclick="saveInput()">Speichern</button>
+</div>
+
+<script>
+    function sendBuzz() {
+        fetch('/buzz', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                response.text().then(text => {
+                    alert(text);  // Die Antwort des Servers anzeigen
+                });
+            } else {
+                alert('Fehler beim Senden des Buzzes.');
+            }
+        })
+        .catch(error => {
+            console.error('Fehler:', error);
+            alert('Ein Fehler ist aufgetreten.');
+        });
+    }
+
+    function saveInput() {
+        const inputField = document.getElementById('inputField');
+        const inputValue = inputField.value;
+
+        fetch('/save', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ input: inputValue })
+        })
+        .then(response => response.json())
+        .then(() => {
+            // Verstecke das Textfeld und den Button nach der Eingabe
+            document.getElementById('inputContainer').style.display = 'none';
+        })
+        .catch(error => {
+            console.error('Fehler:', error);
+        });
+
+        inputField.value = ''; // Textfeld leeren
+    }
+</script>
+</body>
+</html>

@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.copper.ApplicationContext;
+import org.copper.Buzzer.BuzzerServer;
 import org.copper.Play.Overview.OverviewSzene;
 
 public class PlayScreen {
@@ -22,6 +23,7 @@ public class PlayScreen {
         playStage.setHeight(ApplicationContext.getScreenHeight());
         overview = new OverviewSzene();
         scene.setRoot(overview.getRoot());
+        BuzzerServer.initialize();
         playStage.show();
     }
 
