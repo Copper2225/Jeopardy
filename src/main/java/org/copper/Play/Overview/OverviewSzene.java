@@ -1,5 +1,6 @@
 package org.copper.Play.Overview;
 
+import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -19,6 +20,7 @@ public class OverviewSzene {
         for(int i = 0; i < ApplicationContext.getColumns(); i++){
             Label label = new Label("Kategorie");
             label.getStyleClass().add("category");
+            GridPane.setHalignment(label, HPos.CENTER);
             grid.add(label, i, 0);
             for (int j = 1; j <= ApplicationContext.getRows(); j++){
                 Button bt = new Button("Frage");

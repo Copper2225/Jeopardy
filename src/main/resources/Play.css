@@ -10,6 +10,7 @@ GridPane {
     -fx-vgap: 30px;
     -fx-hgap: 30px;
     -fx-padding: 30px;
+    -fx-text-alignment: center;
 }
 
 .category {
