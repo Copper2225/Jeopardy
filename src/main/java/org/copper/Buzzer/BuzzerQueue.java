@@ -36,6 +36,8 @@ public class BuzzerQueue {
             AdminPlayScene.getEdit().removeBuzzer();
             if(peek() != null){
                 PlayScreen.gettB().buzzer(peek());
+            }else{
+                PlayScreen.gettB().clearBuzzer();
             }
         }
         return element;
