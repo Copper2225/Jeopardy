@@ -1,11 +1,9 @@
 package org.copper.Play.Overview;
 
-import javafx.geometry.Pos;
-import javafx.scene.Node;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.IntegerProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerServer;
@@ -15,6 +13,8 @@ import static org.copper.ApplicationContext.createSpacer;
 
 public class Teamsbar {
     private final HBox root;
+
+    private IntegerProperty points;
 
     public Teamsbar(){
         root = new HBox(createSpacer(true));
@@ -31,7 +31,8 @@ public class Teamsbar {
     private VBox teamElement(int number){
         Label teamName = new Label(BuzzerServer.getBuzzers().get(number).getTeamName());
         teamName.getStyleClass().add("teamName");
-        Label points = new Label("Punkte: " + 0);
+        Label points = new Label();
+        points.textProperty().bind(Bindings.concat("Punkte: ", BuzzerServer.getBuzzers().get(number).getPoints().asString()));
         points.getStyleClass().add("points");
         return new VBox(teamName, points);
     }

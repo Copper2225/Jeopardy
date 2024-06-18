@@ -4,7 +4,9 @@ import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import org.copper.Admin.AdminScreen;
 import org.copper.ApplicationContext;
+import org.copper.Play.PlayScreen;
 import org.copper.Questions.Questions;
 
 public class Overview {
@@ -25,7 +27,10 @@ public class Overview {
                 int finalI = i;
                 int finalJ = j;
                 bt.setOnAction((event -> {
-                    Questions.getQuestions()[finalI][finalJ].showQuestion();
+                    switch (AdminPlayScene.getEdit().getButtonMode()){
+                        case buttonModes.QUESTION -> Questions.getQuestions()[finalI][finalJ].showQuestion();
+                        case buttonModes.DISABLE -> PlayScreen.getOverview().toggleButtonDisabled(finalI, finalJ);
+                    }
                 }));
                 GridPane.setHgrow(bt, Priority.ALWAYS);
                 GridPane.setHalignment(bt, HPos.CENTER);
@@ -33,9 +38,9 @@ public class Overview {
             }
         }
         VBox play = new VBox(categories, grid);
-        play.prefWidthProperty().bind(AdminPlaySzene.getRoot().widthProperty().divide(2));
+        play.prefWidthProperty().bind(AdminPlayScene.getRoot().widthProperty().divide(2));
         grid.prefWidthProperty().bind(play.widthProperty());
         categories.prefWidthProperty().bind(play.widthProperty());
-        AdminPlaySzene.getRoot().add(play , 0, 0);
+        AdminPlayScene.getRoot().add(play , 0, 0);
     }
 }

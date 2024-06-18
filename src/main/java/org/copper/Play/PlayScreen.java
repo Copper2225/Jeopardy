@@ -49,6 +49,10 @@ public class PlayScreen {
         VBox.setVgrow(childRoot, Priority.ALWAYS);
     }
 
+    public static void goToOverview(){
+        root.getChildren().set(1, overview.getRoot());
+    }
+
     public static Stage getPlayStage() {
         return playStage;
     }
@@ -75,5 +79,9 @@ public class PlayScreen {
 
     public static ImageView getLogo() {
         return logo;
+    }
+
+    public static OverviewSzene getOverview() {
+        return overview;
     }
 }

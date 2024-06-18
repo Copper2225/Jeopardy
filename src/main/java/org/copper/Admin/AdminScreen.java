@@ -3,7 +3,7 @@ package org.copper.Admin;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.copper.Admin.AdminPlay.AdminPlaySzene;
+import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.Admin.AdminPlay.Overview;
 import org.copper.Admin.ConfigScene.ConfigScene;
 import org.copper.Admin.EditButton.EditButtonScene;
@@ -19,7 +19,7 @@ public class AdminScreen {
     private static ConfigScene configScene;
     private static EditButtonsScene editButtonsScene;
     private static EditButtonScene editButtonScene;
-    private static Overview overview;
+    private static AdminPlayScene adminPlayScene;
 
     public static void loadAdmin(){
         Questions.load();
@@ -55,7 +55,7 @@ public class AdminScreen {
                 editButtonScene.loadConfig();
                 adminScene.setRoot(editButtonScene.getRoot());
             }
-            case ADMIN_OVERVIEW -> adminScene.setRoot(AdminPlaySzene.getRoot());
+            case ADMIN_OVERVIEW -> adminScene.setRoot(AdminPlayScene.getRoot());
         }
     }
 
@@ -67,11 +67,7 @@ public class AdminScreen {
         AdminScreen.adminStage = adminStage;
     }
 
-    public static Overview getOverviewSzene() {
-        return overview;
-    }
-
-    public static void setOverviewSzene(Overview overview) {
-        AdminScreen.overview = overview;
+    public static void setAdminPlayScene(AdminPlayScene adminPlayScene) {
+        AdminScreen.adminPlayScene = adminPlayScene;
     }
 }

@@ -1,6 +1,7 @@
 package org.copper.Play.Overview;
 
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -18,8 +19,9 @@ import static org.copper.Buzzer.BuzzerServer.stop;
 public class OverviewSzene {
     private VBox root;
 
+    GridPane grid = new GridPane();
+
     public OverviewSzene() {
-        GridPane grid = new GridPane();
         HBox categories = new HBox();
         categories.getStyleClass().add("categories");
         for(int i = 0; i < ApplicationContext.getColumns(); i++){
@@ -38,6 +40,15 @@ public class OverviewSzene {
         VBox.setVgrow(categories, Priority.ALWAYS);
         VBox.setVgrow(grid, Priority.ALWAYS);
         root = new VBox(categories, grid);
+    }
+
+    public void toggleButtonDisabled(int c, int r) {
+        for (Node node : grid.getChildren()) {
+            if (GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) == r &&
+                    GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == c) {
+                node.setDisable(!node.isDisabled());
+            }
+        }
     }
 
     public VBox getRoot() {
