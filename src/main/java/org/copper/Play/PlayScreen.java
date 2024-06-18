@@ -31,7 +31,7 @@ public class PlayScreen {
         scene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.F11) playStage.setFullScreen(true);
         });
-        playStage.setX(-ApplicationContext.getScreenWidth());
+//        playStage.setX(-ApplicationContext.getScreenWidth());
         playStage.setFullScreen(true);
         playStage.setWidth(ApplicationContext.getScreenWidth());
         playStage.setHeight(ApplicationContext.getScreenHeight());

@@ -38,9 +38,9 @@ public class BuzzerServer {
             return gson.toJson(teams);
         });
 
-        teams.add(new Team("Team 1", "192.168.177.2"));
-        teams.add(new Team("Mac", "0:0:0:0:0:0:0:1"));
-        teams.add(new Team("Team 2 mit etwas längerem Namen", "192.168.177.2"));
+//        teams.add(new Team("Team 1", "192.168.177.2"));
+//        teams.add(new Team("Mac", "0:0:0:0:0:0:0:1"));
+//        teams.add(new Team("Team 2 mit etwas längerem Namen", "192.168.177.2"));
     }
 
     public static void stop(){

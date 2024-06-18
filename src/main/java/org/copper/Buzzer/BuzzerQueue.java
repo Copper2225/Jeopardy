@@ -19,10 +19,12 @@ public class BuzzerQueue {
 
     public boolean offer(Team element) {
         if (!set.contains(element)) {
+            boolean wasEmpty = queue.isEmpty();
             queue.offer(element);
             set.add(element);
-            PlayScreen.gettB().buzzer(element);
-            System.out.println(element.getiPAddress());
+            if(wasEmpty){
+                PlayScreen.gettB().buzzer(element);
+            }
             AdminPlayScene.getEdit().addBuzzer(element);
             return true;
         }
