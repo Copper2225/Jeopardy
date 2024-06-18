@@ -17,10 +17,10 @@ public class Teamsbar {
     private final HBox root;
 
     public Teamsbar(){
-        root = new HBox(createSpacer());
+        root = new HBox(createSpacer(true));
         PlayScreen.bindProperties(root.prefWidthProperty(), ApplicationContext.Layouts.WITDH, 30 ,0 ,0);
         for (int i = 0; i < BuzzerServer.getBuzzers().size(); i++){
-            root.getChildren().addAll(teamElement(i), createSpacer());
+            root.getChildren().addAll(teamElement(i), createSpacer(true));
         }
     }
 

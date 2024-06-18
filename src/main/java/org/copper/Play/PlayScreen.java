@@ -20,6 +20,8 @@ public class PlayScreen {
     private static Stage playStage;
     private static OverviewSzene overview;
     private static VBox root;
+    private static Teamsbar tB;
+    private static ImageView logo;
 
     public static void start(){
         playStage = new Stage();
@@ -34,8 +36,8 @@ public class PlayScreen {
         playStage.setWidth(ApplicationContext.getScreenWidth());
         playStage.setHeight(ApplicationContext.getScreenHeight());
         overview = new OverviewSzene();
-        Teamsbar tB = new Teamsbar();
-        ImageView logo = new ImageView(new Image("Kneipenquiz.png"));
+        tB = new Teamsbar();
+        logo = new ImageView(new Image("Kneipenquiz.png"));
         root = new VBox(logo, overview.getRoot(), tB.getRoot());
         VBox.setVgrow(overview.getRoot(), Priority.ALWAYS);
         scene.setRoot(root);
@@ -65,5 +67,13 @@ public class PlayScreen {
             elements = 1;
         }
         property.bind(adminProp.subtract(padding*2).subtract((elements - 1) * spacing).divide(elements));
+    }
+
+    public static Teamsbar gettB() {
+        return tB;
+    }
+
+    public static ImageView getLogo() {
+        return logo;
     }
 }

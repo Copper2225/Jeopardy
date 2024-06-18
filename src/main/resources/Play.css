@@ -59,20 +59,39 @@ VBox {
     -fx-text-alignment: center;
 }
 
-.flowQuestion {
-    -fx-background-color: grey;
+.stackQuestion {
+    -fx-background-color: #505050;
     -fx-border-color: teal;
     -fx-border-radius: 50px;
     -fx-border-width: 10px;
-    -fx-background-radius: 40px;
-    -fx-padding: 50px;
-    -fx-border-insets: 5px 85px;
-    -fx-background-insets: 20px 100px;
-    -fx-font-size: 6.5em;
+    -fx-background-radius: 30px;
+    -fx-border-insets: 0 75px;
+    -fx-background-insets: 25px 100px;
 }
 
-.flowQuestion Label {
+.textQuestion Label {
     -fx-alignment: center;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
+}
+
+.textQuestion {
+    -fx-font-size: 6.5em;
+    -fx-padding: 50px;
+}
+
+.bildQuestion {
+    -fx-alignment: top-center;
+    -fx-padding: 15px;
+}
+
+.bildQuestion Label {
+    -fx-background-color: teal;
+    -fx-background-radius: 30px 30px 0 0;
+    -fx-border-color: teal;
+    -fx-border-radius: 50px;
+    -fx-border-width: 15px;
+    -fx-font-size: 4em;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
 }

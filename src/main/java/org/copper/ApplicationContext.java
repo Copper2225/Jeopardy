@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
 import org.copper.Admin.AdminScreen;
@@ -58,11 +59,15 @@ public class ApplicationContext {
         property.bind(adminProp.subtract(padding*2).subtract((elements - 1) * spacing).divide(elements));
     }
 
-    public static Node createSpacer() {
+    public static Node createSpacer(boolean horizontal) {
         final Region spacer = new Region();
-        // Make it always grow or shrink according to the available space
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        spacer.setMinWidth(20);
+        if(horizontal){
+            // Make it always grow or shrink according to the available space
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+        }else{
+            VBox.setVgrow(spacer, Priority.ALWAYS);
+        }
+
         return spacer;
     }
 

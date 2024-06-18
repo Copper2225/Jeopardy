@@ -3,12 +3,19 @@ package org.copper.Questions;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
+import org.copper.Play.PlayScreen;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import static org.copper.ApplicationContext.createSpacer;
 
 public class BildQuestion extends Question {
     @JsonIgnore
@@ -28,7 +35,6 @@ public class BildQuestion extends Question {
         super(ApplicationContext.QuestionTypes.BILD, points);
         this.filename = filename;
         Path target = Paths.get("src/main/resources/images/" + filename);
-        System.out.println(target.toUri().toString());
         image = new Image(target.toUri().toString());
         this.answer = answer;
         this.question = question;
@@ -36,7 +42,17 @@ public class BildQuestion extends Question {
 
     @Override
     public void showQuestion() {
-
+        Label question = new Label(getQuestion());
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
+        imageView.fitHeightProperty().bind(PlayScreen.getPlayStage().heightProperty().subtract(PlayScreen.gettB().getRoot().heightProperty()).subtract(PlayScreen.getLogo().fitHeightProperty()).subtract(350));
+        VBox vBox = new VBox(question, createSpacer(false), imageView, createSpacer(false));
+        question.prefWidthProperty().bind(vBox.widthProperty());
+        imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().subtract(300));
+        vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
+        PlayScreen.setChildRoot(vBox);
     }
 
     public Image getImage() {

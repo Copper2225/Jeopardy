@@ -18,13 +18,25 @@
   "answer" : "ig",
   "points" : 300,
   "type" : "text"
-}, null, null ], [ null, null, null, null, null ], [ {
+}, null, null ], [ {
+  "filename" : "Logo.jpeg",
+  "question" : "",
+  "answer" : "",
+  "points" : 100,
+  "type" : "bild"
+}, null, null, null, null ], [ {
   "filename" : "Check24_Logo_2020.svg.png",
   "question" : "Welche Firma",
   "answer" : "",
   "points" : 100,
   "type" : "bild"
-}, null, null, null, null ], [ null, null, null, null, null ], [ {
+}, {
+  "filename" : "Logo.jpeg",
+  "question" : "Ich würde behaupten das wäre eine aktzeptable fragenlänge?",
+  "answer" : "",
+  "points" : 200,
+  "type" : "bild"
+}, null, null, null ], [ null, null, null, null, null ], [ {
   "question" : "Frage",
   "answer" : "Antowrt",
   "points" : 500,

@@ -7,10 +7,9 @@ import javafx.scene.layout.*;
 import org.copper.ApplicationContext;
 import org.copper.Questions.Questions;
 
-public class OverviewSzene {
-    GridPane all = new GridPane();
+public class Overview {
 
-    public OverviewSzene() {
+    public Overview() {
         HBox categories = new HBox();
         for( String cat : ApplicationContext.getCategories()){
             Label l = new Label(cat);
@@ -34,13 +33,9 @@ public class OverviewSzene {
             }
         }
         VBox play = new VBox(categories, grid);
-        play.prefWidthProperty().bind(all.widthProperty().divide(2));
+        play.prefWidthProperty().bind(AdminPlaySzene.getRoot().widthProperty().divide(2));
         grid.prefWidthProperty().bind(play.widthProperty());
         categories.prefWidthProperty().bind(play.widthProperty());
-        all.add(play, 0, 0);
-    }
-
-    public GridPane getRoot() {
-        return all;
+        AdminPlaySzene.getRoot().add(play , 0, 0);
     }
 }

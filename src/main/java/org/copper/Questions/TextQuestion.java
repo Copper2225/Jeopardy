@@ -29,7 +29,7 @@ public class TextQuestion extends Question {
     public void showQuestion() {
         Label question = new Label(getQuestion());
         StackPane pane = new StackPane(question);
-        pane.getStyleClass().add("flowQuestion");
+        pane.getStyleClass().addAll("stackQuestion", "textQuestion");
         PlayScreen.setChildRoot(pane);
     }
 
