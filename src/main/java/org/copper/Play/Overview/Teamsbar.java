@@ -10,6 +10,8 @@ import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerServer;
 import org.copper.Play.PlayScreen;
 
+import static org.copper.ApplicationContext.createSpacer;
+
 public class Teamsbar {
     private final HBox root;
 
@@ -31,13 +33,5 @@ public class Teamsbar {
         Label points = new Label("Punkte: " + 0);
         points.getStyleClass().add("points");
         return new VBox(teamName, points);
-    }
-
-    private Node createSpacer() {
-        final Region spacer = new Region();
-        // Make it always grow or shrink according to the available space
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        spacer.setMinWidth(20);
-        return spacer;
     }
 }

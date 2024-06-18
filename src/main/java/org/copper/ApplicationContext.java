@@ -2,6 +2,10 @@ package org.copper;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.scene.Node;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
 import org.copper.Admin.AdminScreen;
@@ -15,7 +19,8 @@ public class ApplicationContext {
     public enum AdminScenes {
         CONFIG,
         EDIT_BUTTON,
-        EDIT_BUTTONS
+        EDIT_BUTTONS,
+        ADMIN_OVERVIEW,
     }
 
     public interface QuestionTypes {
@@ -26,7 +31,7 @@ public class ApplicationContext {
     private static double screenWidth;
     private static double screenHeight;
 
-    private static int columns = 5;
+    private static int columns = 6;
     private static int rows = 5;
     private static int[] currentIndex = new int[2];
     private static int[][] pointMatrix = new int[columns][rows];
@@ -48,6 +53,14 @@ public class ApplicationContext {
             }
         };
         property.bind(adminProp.subtract(padding*2).subtract((elements - 1) * spacing).divide(elements));
+    }
+
+    public static Node createSpacer() {
+        final Region spacer = new Region();
+        // Make it always grow or shrink according to the available space
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        spacer.setMinWidth(20);
+        return spacer;
     }
 
     public static int[] getCurrentIndex() {

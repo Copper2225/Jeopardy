@@ -1,14 +1,15 @@
 .root {
     -fx-padding: 20px;
     -my-grid-spacing: 50px;
+    -box-spacing: 30px;
+}
+
+.spacedBox {
+   -fx-spacing: -box-spacing;
 }
 
 .text-area {
     -fx-pref-height: 150px;
-}
-
-VBox, HBox {
-    -fx-spacing: 30px;
 }
 
 .grid {

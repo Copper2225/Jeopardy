@@ -21,7 +21,6 @@ public class TextEdit extends EditPane {
     @Override
     public void load(Question question) {
         if(question instanceof TextQuestion){
-            System.out.println(question);
             questionArea.setText(((TextQuestion) question).getQuestion());
             solutionArea.setText(((TextQuestion) question).getAnswer());
         }else {

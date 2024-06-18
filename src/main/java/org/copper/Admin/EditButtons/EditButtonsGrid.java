@@ -17,7 +17,7 @@ public class EditButtonsGrid {
         hBox = new HBox();
         hBox.getStyleClass().add("grid");
         for(int i = 0; i < ApplicationContext.getColumns(); i++) {
-            Label category = new Label("Category");
+            Label category = new Label(ApplicationContext.getCategories()[i]);
             VBox vBox = new VBox(category);
             vBox.setAlignment(Pos.CENTER);
             for (int j = 0; j < ApplicationContext.getRows(); j++) {

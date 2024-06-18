@@ -2,6 +2,8 @@ package org.copper.Admin.ConfigScene;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
 
@@ -16,6 +18,7 @@ public class ConfigScene {
     public ConfigScene() {
         ConfigMenu menu = new ConfigMenu();
         this.vBox = new VBox(menu.getMenu(), grid.gethBox());
+        vBox.getStyleClass().add("spacedBox");
     }
 
     public static String[] getCategories() {

@@ -58,7 +58,6 @@ public class EditButtonScene {
     }
 
     private void switchType(String type) {
-        System.out.println("Type : " + type);
         switch (type){
             case Types.TEXT -> editPane = new TextEdit();
             case Types.BILD -> editPane = new BildEdit();

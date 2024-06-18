@@ -17,6 +17,7 @@ GridPane {
     -fx-alignment: center;
     -fx-font-size: 3em;
     -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 
 .myButton {
@@ -25,12 +26,18 @@ GridPane {
     -fx-background-radius: 40px;
 }
 
+.categories {
+    -fx-spacing: 30px;
+    -fx-alignment: center;
+}
+
 myButton :disabled {
     -fx-opacity: 10;
 }
 
 HBox {
     -fx-padding: 0 30px;
+    -fx-text-alignment: center;
 }
 VBox {
     -fx-spacing: 10px;
@@ -40,7 +47,7 @@ VBox {
 
 .points {
     -fx-padding: 10px 10px 0;
-    -fx-background-color: purple;
+    -fx-background-color: #C0597D;
     -fx-background-radius: 10px 10px 0 0;
     -fx-font-size: 2.5em;
 }
