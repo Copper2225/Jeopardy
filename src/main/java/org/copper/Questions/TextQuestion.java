@@ -2,7 +2,13 @@ package org.copper.Questions;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.text.TextFlow;
 import org.copper.ApplicationContext;
+import org.copper.Play.PlayScreen;
 
 public class TextQuestion extends Question {
     private String question;
@@ -17,6 +23,14 @@ public class TextQuestion extends Question {
         super(ApplicationContext.QuestionTypes.TEXT, points);
         this.question = question;
         this.answer = answer;
+    }
+
+    @Override
+    public void showQuestion() {
+        Label question = new Label(getQuestion());
+        StackPane pane = new StackPane(question);
+        pane.getStyleClass().add("flowQuestion");
+        PlayScreen.setChildRoot(pane);
     }
 
     public String getQuestion() {

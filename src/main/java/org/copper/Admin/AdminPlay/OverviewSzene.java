@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.copper.ApplicationContext;
+import org.copper.Questions.Questions;
 
 public class OverviewSzene {
     GridPane all = new GridPane();
@@ -18,9 +19,15 @@ public class OverviewSzene {
             categories.getChildren().add(l);
         }
         GridPane grid = new GridPane();
+        grid.getStyleClass().add("buttonGrid");
         for(int i = 0; i < ApplicationContext.getColumns(); i++){
             for(int j = 0; j < ApplicationContext.getRows(); j++){
                 Button bt = new Button(Integer.toString(ApplicationContext.getPointMatrix()[i][j]));
+                int finalI = i;
+                int finalJ = j;
+                bt.setOnAction((event -> {
+                    Questions.getQuestions()[finalI][finalJ].showQuestion();
+                }));
                 GridPane.setHgrow(bt, Priority.ALWAYS);
                 GridPane.setHalignment(bt, HPos.CENTER);
                 grid.add(bt, i, j);

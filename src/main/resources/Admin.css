@@ -23,3 +23,7 @@
 .grid .button{
     -fx-pref-height: 80px;
 }
+
+.buttonGrid {
+    -fx-vgap: 30px;
+}

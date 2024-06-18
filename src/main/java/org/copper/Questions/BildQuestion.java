@@ -34,6 +34,11 @@ public class BildQuestion extends Question {
         this.question = question;
     }
 
+    @Override
+    public void showQuestion() {
+
+    }
+
     public Image getImage() {
         return image;
     }

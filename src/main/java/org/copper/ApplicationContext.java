@@ -52,6 +52,9 @@ public class ApplicationContext {
                 yield AdminScreen.getAdminStage().heightProperty();
             }
         };
+        if(elements == 0){
+            elements = 1;
+        }
         property.bind(adminProp.subtract(padding*2).subtract((elements - 1) * spacing).divide(elements));
     }
 

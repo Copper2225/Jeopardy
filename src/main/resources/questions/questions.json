@@ -3,7 +3,12 @@
   "answer" : "Aw",
   "points" : 100,
   "type" : "text"
-}, null, null, null, null ], [ {
+}, {
+  "question" : "Dies ist aus reinen testzwecken (Groß geschrieben) eine sehr sehr lange Frage, um zu testen wie voll das Pane auf dem Play Screen ist bei Fragen, die nie so lang sein sollten. Was hält man so davon?",
+  "answer" : "Nicht Viel",
+  "points" : 200,
+  "type" : "text"
+}, null, null, null ], [ {
   "question" : "Frage ",
   "answer" : "Ante",
   "points" : 100,

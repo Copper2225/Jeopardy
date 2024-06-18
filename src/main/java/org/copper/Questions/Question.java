@@ -37,6 +37,8 @@ public abstract class Question {
         this.points = points;
     }
 
+    abstract public void showQuestion();
+
     @Override
     public abstract String toString();
 }

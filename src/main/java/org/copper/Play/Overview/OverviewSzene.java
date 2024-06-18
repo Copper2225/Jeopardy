@@ -11,6 +11,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
+import org.copper.Questions.Questions;
 
 import static org.copper.Buzzer.BuzzerServer.stop;
 
@@ -18,7 +19,6 @@ public class OverviewSzene {
     private VBox root;
 
     public OverviewSzene() {
-        ImageView logo = new ImageView(new Image("Kneipenquiz.png"));
         GridPane grid = new GridPane();
         HBox categories = new HBox();
         categories.getStyleClass().add("categories");
@@ -35,11 +35,9 @@ public class OverviewSzene {
                 grid.add(bt, i, j);
             }
         }
-        Teamsbar tB = new Teamsbar();
-        VBox.setVgrow(tB.getRoot(), Priority.ALWAYS);
         VBox.setVgrow(categories, Priority.ALWAYS);
         VBox.setVgrow(grid, Priority.ALWAYS);
-        root = new VBox(logo, categories, grid, tB.getRoot());
+        root = new VBox(categories, grid);
     }
 
     public VBox getRoot() {
