@@ -16,6 +16,8 @@ public class Teamsbar {
     private final HBox root;
 
     private IntegerProperty points;
+    private Label buzzering;
+    private Label[] buzzerIndicates = new Label[BuzzerServer.getBuzzers().size()];
 
     public Teamsbar(){
         root = new HBox(createSpacer(true));
@@ -30,16 +32,27 @@ public class Teamsbar {
     }
 
     public void buzzer(Team team){
+        if(buzzering != null) {
+            buzzering.getStyleClass().remove("buzzered");
+        }
         int index = BuzzerServer.getBuzzers().indexOf(team);
-        System.out.println(index);
-        Label label = (Label) ((VBox) root.getChildren().get((index*2)+1)).getChildren().get(1);
-        label.getStyleClass().add("buzzered");
+        buzzering = buzzerIndicates[index];
+        buzzering.getStyleClass().add("buzzered");
+    }
+
+    public void clearBuzzer() {
+        System.out.println(buzzering.getText());
+        if(buzzering != null) {
+            buzzering.getStyleClass().remove("buzzered");
+        }
+        buzzering = null;
     }
 
     private VBox teamElement(int number){
         Label teamName = new Label(BuzzerServer.getBuzzers().get(number).getTeamName());
         teamName.getStyleClass().add("teamName");
         Label points = new Label();
+        buzzerIndicates[number] = points;
         points.textProperty().bind(Bindings.concat("Punkte: ", BuzzerServer.getBuzzers().get(number).getPoints().asString()));
         points.getStyleClass().add("points");
         return new VBox(teamName, points);

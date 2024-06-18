@@ -34,6 +34,9 @@ public class BuzzerQueue {
         if (element != null) {
             set.remove(element);
             AdminPlayScene.getEdit().removeBuzzer();
+            if(peek() != null){
+                PlayScreen.gettB().buzzer(peek());
+            }
         }
         return element;
     }
@@ -41,13 +44,14 @@ public class BuzzerQueue {
     public static void clear() {
         queue.clear();
         set.clear();
+        PlayScreen.gettB().clearBuzzer();
     }
 
     public boolean isEmpty() {
         return queue.isEmpty();
     }
 
-    public Team peek() {
+    public static Team peek() {
         return queue.peek();
     }
 }
