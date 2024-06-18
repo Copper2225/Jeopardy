@@ -93,7 +93,11 @@ public class Edit {
     }
 
     public void removeBuzzer(){
-        buzzerQueue.setText(buzzerQueue.getText().substring(buzzerQueue.getText().indexOf("\n")).trim());
+        int index = buzzerQueue.getText().indexOf("\n");
+        if (index > 0){
+            buzzerQueue.setText(buzzerQueue.getText().substring(buzzerQueue.getText().indexOf("\n")).trim());
+        }
+        else buzzerQueue.setText("");
     }
 
     public String getButtonMode() {
