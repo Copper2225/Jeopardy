@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.copper.ApplicationContext;
+import org.copper.Buzzer.BuzzerQueue;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -19,10 +20,12 @@ import org.copper.ApplicationContext;
 public abstract class Question {
     private final String type;
     private int points;
+    private boolean buzzer;
 
-    public Question(@JsonProperty("type") String type, @JsonProperty("points") int points) {
+    public Question(@JsonProperty("type") String type, @JsonProperty("points") int points, @JsonProperty("buzzer") boolean buzzer) {
         this.type = type;
         this.points = points;
+        this.buzzer = buzzer;
     }
 
     public String getType() {
@@ -37,7 +40,19 @@ public abstract class Question {
         this.points = points;
     }
 
-    abstract public void showQuestion();
+    public boolean isBuzzer() {
+        return buzzer;
+    }
+
+    public void setBuzzer(boolean buzzer) {
+        this.buzzer = buzzer;
+    }
+
+    public void showQuestion(){
+        if (buzzer){
+            BuzzerQueue.setAllowBuzzer(true);
+        }
+    };
 
     @Override
     public abstract String toString();

@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 public class BuzzerQueue {
     private static final Queue<Team> queue = new LinkedList<>();
     private static final Set<Team> set = new HashSet<>();
+    private static boolean allowBuzzer = false;
 
     public BuzzerQueue() {
     }
@@ -49,6 +50,14 @@ public class BuzzerQueue {
         queue.clear();
         set.clear();
         PlayScreen.gettB().clearBuzzer();
+    }
+
+    public static boolean isAllowBuzzer() {
+        return allowBuzzer;
+    }
+
+    public static void setAllowBuzzer(boolean allowBuzzer) {
+        BuzzerQueue.allowBuzzer = allowBuzzer;
     }
 
     public boolean isEmpty() {

@@ -21,10 +21,13 @@ public class BuzzerServer {
 
         // Route zum Empfangen des Buzz
         post("/buzz", (req, res) -> {
-            String ipAddress = req.ip();
-            Optional<Team> optionalTeam = teams.stream().filter((team -> team.getiPAddress().equals(ipAddress))).findFirst();
-            optionalTeam.ifPresent(team -> buzzerQueue.offer(team));
-            return "Erfolgreich gebuzzert";
+            if(BuzzerQueue.isAllowBuzzer()){
+                String ipAddress = req.ip();
+                Optional<Team> optionalTeam = teams.stream().filter((team -> team.getiPAddress().equals(ipAddress))).findFirst();
+                optionalTeam.ifPresent(team -> buzzerQueue.offer(team));
+                return "Erfolgreich gebuzzert";
+            }
+            else return "Buzzer nicht freigegeben";
         });
 
         // Route zum Speichern der Eingabe
@@ -39,7 +42,7 @@ public class BuzzerServer {
         });
 
 //        teams.add(new Team("Team 1", "192.168.177.2"));
-//        teams.add(new Team("Mac", "0:0:0:0:0:0:0:1"));
+        teams.add(new Team("Mac", "0:0:0:0:0:0:0:1"));
 //        teams.add(new Team("Team 2 mit etwas längerem Namen", "192.168.177.2"));
     }
 

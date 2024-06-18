@@ -30,9 +30,10 @@ public class BildQuestion extends Question {
             @JsonProperty("filename") String filename,
             @JsonProperty("question") String question,
             @JsonProperty("answer") String answer,
-            @JsonProperty("points") int points
+            @JsonProperty("points") int points,
+            @JsonProperty("buzzer") boolean buzzer
     ) {
-        super(ApplicationContext.QuestionTypes.BILD, points);
+        super(ApplicationContext.QuestionTypes.BILD, points, buzzer);
         this.filename = filename;
         Path target = Paths.get("src/main/resources/images/" + filename);
         image = new Image(target.toUri().toString());
@@ -42,6 +43,7 @@ public class BildQuestion extends Question {
 
     @Override
     public void showQuestion() {
+        super.showQuestion();
         Label question = new Label(getQuestion());
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);

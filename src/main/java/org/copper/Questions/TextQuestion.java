@@ -18,15 +18,17 @@ public class TextQuestion extends Question {
     public TextQuestion(
             @JsonProperty("question") String question,
             @JsonProperty("answer") String answer,
-            @JsonProperty("points") int points
+            @JsonProperty("points") int points,
+            @JsonProperty("buzzer") boolean buzzer
     ) {
-        super(ApplicationContext.QuestionTypes.TEXT, points);
+        super(ApplicationContext.QuestionTypes.TEXT, points, buzzer);
         this.question = question;
         this.answer = answer;
     }
 
     @Override
     public void showQuestion() {
+        super.showQuestion();
         Label question = new Label(getQuestion());
         StackPane pane = new StackPane(question);
         pane.getStyleClass().addAll("stackQuestion", "textQuestion");

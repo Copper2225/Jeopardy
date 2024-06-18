@@ -12,6 +12,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.copper.ApplicationContext;
+import org.copper.Buzzer.BuzzerQueue;
 import org.copper.Buzzer.BuzzerServer;
 import org.copper.Play.Overview.OverviewSzene;
 import org.copper.Play.Overview.Teamsbar;
@@ -50,6 +51,7 @@ public class PlayScreen {
     }
 
     public static void goToOverview(){
+        BuzzerQueue.setAllowBuzzer(false);
         root.getChildren().set(1, overview.getRoot());
     }
 

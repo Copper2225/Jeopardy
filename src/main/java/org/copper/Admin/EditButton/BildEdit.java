@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ import org.copper.ApplicationContext;
 import org.copper.Questions.BildQuestion;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
+import org.copper.Questions.TextQuestion;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +32,7 @@ public class BildEdit extends EditPane {
     private final TextArea solutionArea;
     private final TextArea questionArea;
     private File file;
+    private final CheckBox buzzer;
 
     public BildEdit() {
         super();
@@ -41,11 +44,12 @@ public class BildEdit extends EditPane {
         preview.fitHeightProperty().bind(AdminScreen.getAdminStage().heightProperty().divide(2.5));
         solutionArea = new TextArea();
         questionArea = new TextArea();
+        buzzer = new CheckBox("Buzzerfrage");
         loadFiles();
         upload.setOnAction((event -> {
             upload();
         }));
-        VBox vBox = new VBox(new HBox(upload, listFiles), questionArea, solutionArea, preview);
+        VBox vBox = new VBox(new HBox(upload, listFiles), buzzer, questionArea, solutionArea, preview);
         vBox.setAlignment(Pos.TOP_CENTER);
         pane = vBox;
     }
@@ -87,12 +91,14 @@ public class BildEdit extends EditPane {
     public void load(Question question) {
         if (question instanceof BildQuestion){
             listFiles.setValue(((BildQuestion) question).getFilename());
+            questionArea.setText(((BildQuestion) question).getQuestion());
+            solutionArea.setText(((BildQuestion) question).getAnswer());
             ((BildQuestion) question).setAnswer(solutionArea.getText());
         }
     }
 
     @Override
     public void save(int[] index) {
-        Questions.getQuestions()[index[0]][index[1]] = new BildQuestion(file.getName(),questionArea.getText(), solutionArea.getText(), ApplicationContext.getPointMatrix()[index[0]][index[1]]);
+        Questions.getQuestions()[index[0]][index[1]] = new BildQuestion(file.getName(),questionArea.getText(), solutionArea.getText(), ApplicationContext.getPointMatrix()[index[0]][index[1]], buzzer.isSelected());
     }
 }
