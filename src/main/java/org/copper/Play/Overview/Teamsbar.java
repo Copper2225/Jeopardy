@@ -7,6 +7,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerServer;
+import org.copper.Buzzer.Team;
 import org.copper.Play.PlayScreen;
 
 import static org.copper.ApplicationContext.createSpacer;
@@ -26,6 +27,13 @@ public class Teamsbar {
 
     public HBox getRoot() {
         return root;
+    }
+
+    public void buzzer(Team team){
+        int index = BuzzerServer.getBuzzers().indexOf(team);
+        System.out.println(index);
+        Label label = (Label) ((VBox) root.getChildren().get((index*2)+1)).getChildren().get(1);
+        label.getStyleClass().add("buzzered");
     }
 
     private VBox teamElement(int number){

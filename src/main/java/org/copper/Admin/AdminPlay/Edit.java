@@ -1,14 +1,13 @@
 package org.copper.Admin.AdminPlay;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.copper.Buzzer.BuzzerQueue;
 import org.copper.Buzzer.Team;
 import org.copper.Buzzer.BuzzerServer;
 import org.copper.Play.PlayScreen;
@@ -19,9 +18,10 @@ import java.util.regex.Pattern;
 public class Edit {
     private final GridPane gridPane = new GridPane();
     private String buttonMode;
+    private Label buzzerQueue;
 
     public Edit() {
-        AdminPlayScene.getRoot().add(new VBox(editPoints(), overViewEdit()), 1 , 0);
+        AdminPlayScene.getRoot().add(new VBox(editPoints(), overViewEdit(), buzzerZone()), 1 , 0);
     }
 
     public GridPane getRoot() {
@@ -73,6 +73,27 @@ public class Edit {
             PlayScreen.goToOverview();
         }));
         return new HBox(selectButtonMode(), toOverview);
+    }
+
+    private HBox buzzerZone(){
+        buzzerQueue = new Label("");
+        buzzerQueue.setMinWidth(200);
+        Button next = new Button("Nächster");
+        next.setOnAction(event -> BuzzerQueue.poll());
+        Button clear = new Button("Leeren");
+        clear.setOnAction(event -> {
+            BuzzerQueue.clear();
+            buzzerQueue.setText("");
+        });
+        return new HBox(buzzerQueue, next, clear);
+    }
+
+    public void addBuzzer(Team team){
+        Platform.runLater(() -> buzzerQueue.setText((buzzerQueue.getText() + "\n" + team.getTeamName()).trim()));
+    }
+
+    public void removeBuzzer(){
+        buzzerQueue.setText(buzzerQueue.getText().substring(buzzerQueue.getText().indexOf("\n")).trim());
     }
 
     public String getButtonMode() {

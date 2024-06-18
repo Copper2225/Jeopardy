@@ -1,5 +1,9 @@
 package org.copper.Buzzer;
 
+import org.copper.Admin.AdminPlay.AdminPlayScene;
+import org.copper.Admin.AdminScreen;
+import org.copper.Play.PlayScreen;
+
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -9,41 +13,34 @@ import java.util.function.Consumer;
 public class BuzzerQueue {
     private static final Queue<Team> queue = new LinkedList<>();
     private static final Set<Team> set = new HashSet<>();
-    private static final Consumer<Team> onFirstElementChange = team -> System.out.println(team.getTeamName());
 
     public BuzzerQueue() {
     }
 
     public boolean offer(Team element) {
         if (!set.contains(element)) {
-            boolean wasEmpty = queue.isEmpty();
             queue.offer(element);
             set.add(element);
-            if (wasEmpty) {
-                onFirstElementChange.accept(element);
-            }
+            PlayScreen.gettB().buzzer(element);
+            System.out.println(element.getiPAddress());
+            AdminPlayScene.getEdit().addBuzzer(element);
             return true;
         }
         return false;
     }
 
-    public Team poll() {
+    public static Team poll() {
         Team element = queue.poll();
         if (element != null) {
             set.remove(element);
-            if (!queue.isEmpty()) {
-                onFirstElementChange.accept(queue.peek());
-            } else {
-                onFirstElementChange.accept(null);
-            }
+            AdminPlayScene.getEdit().removeBuzzer();
         }
         return element;
     }
 
-    public void clear() {
+    public static void clear() {
         queue.clear();
         set.clear();
-        onFirstElementChange.accept(null);
     }
 
     public boolean isEmpty() {
