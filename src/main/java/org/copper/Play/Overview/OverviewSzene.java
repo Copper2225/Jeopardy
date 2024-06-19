@@ -1,6 +1,7 @@
 package org.copper.Play.Overview;
 
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -32,14 +33,16 @@ public class OverviewSzene {
             for (int j = 0; j < ApplicationContext.getRows(); j++){
                 Button bt = new Button(Integer.toString(ApplicationContext.getPointMatrix()[i][j]));
                 bt.getStyleClass().add("myButton");
-                bt.prefHeightProperty().bind(grid.heightProperty().subtract(30*2).subtract((ApplicationContext.getRows() - 1) * 30).divide(ApplicationContext.getRows()));
+                bt.prefHeightProperty().bind(grid.heightProperty().subtract(40*2).subtract((ApplicationContext.getRows() - 1) * 30).divide(ApplicationContext.getRows()));
                 PlayScreen.bindProperties(bt.prefWidthProperty(), ApplicationContext.Layouts.WITDH, 30, ApplicationContext.getColumns(), 30);
                 grid.add(bt, i, j);
             }
         }
-        VBox.setVgrow(categories, Priority.ALWAYS);
+        VBox.setVgrow(categories, Priority.SOMETIMES);
         VBox.setVgrow(grid, Priority.ALWAYS);
+        grid.getStyleClass().add("overview");
         root = new VBox(categories, grid);
+        root.setAlignment(Pos.CENTER);
     }
 
     public void toggleButtonDisabled(int c, int r) {

@@ -17,11 +17,11 @@ import java.util.regex.Pattern;
 
 public class Edit {
     private final GridPane gridPane = new GridPane();
-    private String buttonMode;
+    private String buttonMode = buttonModes.QUESTION;
     private Label buzzerQueue;
 
     public Edit() {
-        AdminPlayScene.getRoot().add(new VBox(editPoints(), overViewEdit(), buzzerZone()), 1 , 0);
+        AdminPlayScene.getRoot().add(new VBox(editPoints(), overViewEdit(), buzzerZone(), teamsEdit()), 1 , 0);
     }
 
     public GridPane getRoot() {
@@ -29,9 +29,7 @@ public class Edit {
     }
 
     private HBox editPoints() {
-        ComboBox<String> teams = new ComboBox<>();
-        teams.getItems().add("");
-        teams.getItems().addAll(BuzzerServer.getBuzzers().stream().map(Team::getTeamName).toList());
+        ComboBox<String> teams = new ComboBox<>(PlayScreen.getTeamNames());
         Pattern validEditingState = Pattern.compile("-?\\d*");
         TextFormatter<String> textFormatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -44,12 +42,12 @@ public class Edit {
         points.setTextFormatter(textFormatter);
         Button add = new Button("Hinzufügen");
         add.setOnAction((event -> {
-            Optional<Team> optionalTeam = BuzzerServer.getBuzzers().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
+            Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
             optionalTeam.ifPresent(team -> team.getPoints().set(team.getPoints().getValue() + Integer.parseInt(points.getText())));
         }));
         Button set = new Button("Setzen");
         set.setOnAction((event -> {
-            Optional<Team> optionalTeam = BuzzerServer.getBuzzers().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
+            Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
             optionalTeam.ifPresent(team -> team.getPoints().set(Integer.parseInt(points.getText())));
         }));
         return new HBox(teams, points, add, set);
@@ -58,6 +56,7 @@ public class Edit {
     private ComboBox<String> selectButtonMode(){
         ComboBox<String> modes = new ComboBox<>();
         modes.getItems().addAll(buttonModes.QUESTION, buttonModes.SOLUTION, buttonModes.DISABLE);
+        modes.setValue(buttonModes.QUESTION);
         modes.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -86,6 +85,20 @@ public class Edit {
             buzzerQueue.setText("");
         });
         return new HBox(buzzerQueue, next, clear);
+    }
+
+    private HBox teamsEdit(){
+        ComboBox<String> buzzerNames = new ComboBox<>(BuzzerServer.getBuzzerNames());
+        ComboBox<String> displayNames = new ComboBox<>(PlayScreen.getTeamNames());
+        Button link = new Button("Überschreiben");
+        link.setOnAction(event -> {
+            int oldIndex = displayNames.getSelectionModel().getSelectedIndex();
+            int newIndex = buzzerNames.getSelectionModel().getSelectedIndex();
+            PlayScreen.gettB().switchTeamName(oldIndex, buzzerNames.getValue());
+            PlayScreen.getTeams().set(oldIndex, BuzzerServer.getTeams().get(newIndex));
+            PlayScreen.getTeamNames().set(oldIndex, buzzerNames.getValue());
+        });
+        return new HBox(displayNames, buzzerNames, link);
     }
 
     public void addBuzzer(Team team){

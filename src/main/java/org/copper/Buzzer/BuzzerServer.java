@@ -3,6 +3,8 @@ package org.copper.Buzzer;
 import static spark.Spark.*;
 
 import com.google.gson.Gson;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import spark.Spark;
 
 import java.util.*;
@@ -10,6 +12,7 @@ import java.util.*;
 public class BuzzerServer {
     private static List<Team> teams = new ArrayList<>();
     private static BuzzerQueue buzzerQueue = new BuzzerQueue();
+    private static ObservableList<String> buzzerNames = FXCollections.observableArrayList();
     public static void initialize(){
         port(4567);
 
@@ -23,6 +26,7 @@ public class BuzzerServer {
         post("/buzz", (req, res) -> {
             if(BuzzerQueue.isAllowBuzzer()){
                 String ipAddress = req.ip();
+                System.out.println(Arrays.deepToString(teams.toArray()));
                 Optional<Team> optionalTeam = teams.stream().filter((team -> team.getiPAddress().equals(ipAddress))).findFirst();
                 optionalTeam.ifPresent(team -> buzzerQueue.offer(team));
                 return "Erfolgreich gebuzzert";
@@ -35,15 +39,10 @@ public class BuzzerServer {
             Gson gson = new Gson();
             InputData inputData = gson.fromJson(req.body(), InputData.class);
             teams.add(new Team(inputData.getInput(), req.ip()));
-            System.out.println(Arrays.deepToString(teams.toArray()));
-
+            buzzerNames.add(inputData.getInput());
             res.type("application/json");
             return gson.toJson(teams);
         });
-
-//        teams.add(new Team("Team 1", "192.168.177.2"));
-        teams.add(new Team("Mac", "0:0:0:0:0:0:0:1"));
-//        teams.add(new Team("Team 2 mit etwas längerem Namen", "192.168.177.2"));
     }
 
     public static void stop(){
@@ -64,5 +63,17 @@ public class BuzzerServer {
 
     public static List<Team> getBuzzers() {
         return teams;
+    }
+
+    public static List<Team> getTeams() {
+        return teams;
+    }
+
+    public static BuzzerQueue getBuzzerQueue() {
+        return buzzerQueue;
+    }
+
+    public static ObservableList<String> getBuzzerNames() {
+        return buzzerNames;
     }
 }

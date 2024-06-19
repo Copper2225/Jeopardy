@@ -1,5 +1,6 @@
 .root {
     -fx-background-color: black;
+    -fx-alignment: bottom-center;
 }
 
 * {
@@ -15,7 +16,7 @@ GridPane {
 
 .category {
     -fx-alignment: center;
-    -fx-font-size: 3em;
+    -fx-font-size: 2.7em;
     -fx-text-alignment: center;
     -fx-wrap-text: true;
 }
@@ -28,23 +29,12 @@ GridPane {
 
 .categories {
     -fx-spacing: 30px;
-    -fx-alignment: center;
+    -fx-alignment: bottom-center;
 }
 
 myButton :disabled {
     -fx-opacity: 10;
 }
-
-HBox {
-    -fx-padding: 0 30px;
-    -fx-text-alignment: center;
-}
-
-VBox {
-    -fx-spacing: 10px;
-    -fx-alignment: center;
-}
-
 
 .points {
     -fx-padding: 10px 10px 0;
@@ -67,8 +57,8 @@ VBox {
     -fx-border-radius: 50px;
     -fx-border-width: 10px;
     -fx-background-radius: 30px;
-    -fx-border-insets: 0 75px;
-    -fx-background-insets: 25px 100px;
+    -fx-border-insets: 20 75px;
+    -fx-background-insets: 45px 100px;
 }
 
 .textQuestion Label {
@@ -100,4 +90,17 @@ VBox {
 
 .buzzered {
     -fx-background-color: #FF8749;
+}
+
+.team {
+    -fx-alignment: bottom-center;
+}
+
+.overview {
+    -fx-alignment: center;
+}
+
+.teamsbar {
+    -fx-spacing: 30px;
+    -fx-padding: 0 30px;
 }

@@ -8,6 +8,10 @@ public class Team {
     private String iPAddress;
     private transient IntegerProperty points = new SimpleIntegerProperty(0);
 
+    public Team(String teamName) {
+        this.teamName = teamName;
+    }
+
     public Team(String teamName, String iPAddress) {
         this.teamName = teamName;
         this.iPAddress = iPAddress;

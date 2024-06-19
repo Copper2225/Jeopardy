@@ -2,6 +2,8 @@ package org.copper.Play;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,8 +16,12 @@ import javafx.stage.Stage;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerQueue;
 import org.copper.Buzzer.BuzzerServer;
+import org.copper.Buzzer.Team;
 import org.copper.Play.Overview.OverviewSzene;
 import org.copper.Play.Overview.Teamsbar;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayScreen {
     private static Stage playStage;
@@ -23,6 +29,8 @@ public class PlayScreen {
     private static VBox root;
     private static Teamsbar tB;
     private static ImageView logo;
+    private static final List<Team> teams = new ArrayList<>();
+    private static ObservableList<String> teamNames = FXCollections.observableArrayList();
 
     public static void start(){
         playStage = new Stage();
@@ -32,14 +40,19 @@ public class PlayScreen {
         scene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.F11) playStage.setFullScreen(true);
         });
-//        playStage.setX(-ApplicationContext.getScreenWidth());
+        playStage.setX(-ApplicationContext.getScreenWidth());
         playStage.setFullScreen(true);
         playStage.setWidth(ApplicationContext.getScreenWidth());
         playStage.setHeight(ApplicationContext.getScreenHeight());
         overview = new OverviewSzene();
+        for(int i = 0; i < ApplicationContext.getTeamAmount(); i++){
+            teams.add(new Team("Team " + (i + 1)));
+            teamNames.add("Team " + (i + 1));
+        }
         tB = new Teamsbar();
         logo = new ImageView(new Image("Kneipenquiz.png"));
         root = new VBox(logo, overview.getRoot(), tB.getRoot());
+        VBox.setVgrow(tB.getRoot(), Priority.SOMETIMES);
         VBox.setVgrow(overview.getRoot(), Priority.ALWAYS);
         scene.setRoot(root);
         playStage.show();
@@ -86,4 +99,18 @@ public class PlayScreen {
     public static OverviewSzene getOverview() {
         return overview;
     }
+
+    public static VBox getRoot() {
+        return root;
+    }
+
+    public static ObservableList<String> getTeamNames() {
+        return teamNames;
+    }
+
+    public static List<Team> getTeams(){
+        return teams;
+    }
+
+
 }

@@ -34,6 +34,7 @@ public class ApplicationContext {
 
     private static int columns = 6;
     private static int rows = 5;
+    private static int teamAmount = 5;
     private static int[] currentIndex = new int[2];
     private static int[][] pointMatrix = new int[columns][rows];
     private static String[] categories = new String[columns];
@@ -125,5 +126,13 @@ public class ApplicationContext {
 
     public static void setPointMatrix(int[][] pointMatrix) {
         ApplicationContext.pointMatrix = pointMatrix;
+    }
+
+    public static int getTeamAmount() {
+        return teamAmount;
+    }
+
+    public static void setTeamAmount(int teamAmount) {
+        ApplicationContext.teamAmount = teamAmount;
     }
 }

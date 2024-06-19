@@ -2,8 +2,11 @@ package org.copper.Play.Overview;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.IntegerProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerServer;
@@ -17,13 +20,15 @@ public class Teamsbar {
 
     private IntegerProperty points;
     private Label buzzering;
-    private Label[] buzzerIndicates = new Label[BuzzerServer.getBuzzers().size()];
+    private final Label[] buzzerIndicates = new Label[ApplicationContext.getTeamAmount()];
+    private final Label[] teamNames = new Label[ApplicationContext.getTeamAmount()];
 
     public Teamsbar(){
-        root = new HBox(createSpacer(true));
-        PlayScreen.bindProperties(root.prefWidthProperty(), ApplicationContext.Layouts.WITDH, 30 ,0 ,0);
-        for (int i = 0; i < BuzzerServer.getBuzzers().size(); i++){
-            root.getChildren().addAll(teamElement(i), createSpacer(true));
+        root = new HBox();
+        PlayScreen.bindProperties(root.prefWidthProperty(), ApplicationContext.Layouts.WITDH, 0 ,0 ,0);
+        root.getStyleClass().add("teamsbar");
+        for (int i = 0; i < PlayScreen.getTeams().size(); i++){
+            root.getChildren().addAll(teamElement(i));
         }
     }
 
@@ -49,12 +54,21 @@ public class Teamsbar {
     }
 
     private VBox teamElement(int number){
-        Label teamName = new Label(BuzzerServer.getBuzzers().get(number).getTeamName());
+        Label teamName = new Label(PlayScreen.getTeams().get(number).getTeamName());
+        teamNames[number] = teamName;
         teamName.getStyleClass().add("teamName");
         Label points = new Label();
         buzzerIndicates[number] = points;
-        points.textProperty().bind(Bindings.concat("Punkte: ", BuzzerServer.getBuzzers().get(number).getPoints().asString()));
+        points.textProperty().bind(Bindings.concat("Punkte: ", PlayScreen.getTeams().get(number).getPoints().asString()));
         points.getStyleClass().add("points");
-        return new VBox(teamName, points);
+        VBox team = new VBox(teamName, points);
+        team.maxWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(30));
+        team.getStyleClass().add("team");
+        HBox.setHgrow(team, Priority.ALWAYS);
+        return team;
+    }
+
+    public void switchTeamName(int index, String newName){
+        teamNames[index].setText(newName);
     }
 }
