@@ -13,14 +13,18 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerQueue;
 import org.copper.Buzzer.BuzzerServer;
 import org.copper.Buzzer.Team;
 import org.copper.Play.Overview.OverviewSzene;
 import org.copper.Play.Overview.Teamsbar;
+import org.copper.Questions.Question;
+import org.copper.Questions.Questions;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayScreen {
@@ -64,8 +68,16 @@ public class PlayScreen {
     }
 
     public static void goToOverview(){
-        BuzzerQueue.setAllowBuzzer(false);
-        root.getChildren().set(1, overview.getRoot());
+        if(root.getChildren().get(1) != overview.getRoot()){
+            BuzzerQueue.setAllowBuzzer(false);
+            int [] index = Questions.findQuestion(AdminPlayScene.getQuest().getQuestion());
+            if(index.length == 2){
+                PlayScreen.getOverview().toggleButtonDisabled(index[0], index[1], true);
+            }
+            BuzzerQueue.clear();
+            root.getChildren().set(1, overview.getRoot());
+        }
+
     }
 
     public static Stage getPlayStage() {

@@ -6,10 +6,12 @@ public class AdminPlayScene {
     private static final GridPane all = new GridPane();
     private static Overview overview;
     private static Edit edit;
+    private static Quest quest;
 
     public AdminPlayScene() {
         overview = new Overview();
         edit = new Edit();
+        quest = new Quest();
     }
 
     public static Overview getOverview() {
@@ -22,5 +24,9 @@ public class AdminPlayScene {
 
     public static GridPane getRoot(){
         return all;
+    }
+
+    public static Quest getQuest() {
+        return quest;
     }
 }

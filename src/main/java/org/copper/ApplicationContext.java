@@ -38,6 +38,7 @@ public class ApplicationContext {
     private static int[] currentIndex = new int[2];
     private static int[][] pointMatrix = new int[columns][rows];
     private static String[] categories = new String[columns];
+    private static int wrongMultiplier = 2;
 
     public static void loadApplicationContext(){
         Rectangle2D bounds = Screen.getPrimary().getBounds();
@@ -134,5 +135,13 @@ public class ApplicationContext {
 
     public static void setTeamAmount(int teamAmount) {
         ApplicationContext.teamAmount = teamAmount;
+    }
+
+    public static int getWrongMultiplier() {
+        return wrongMultiplier;
+    }
+
+    public static void setWrongMultiplier(int wrongMultiplier) {
+        ApplicationContext.wrongMultiplier = wrongMultiplier;
     }
 }

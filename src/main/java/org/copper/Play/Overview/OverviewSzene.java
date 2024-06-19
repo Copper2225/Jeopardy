@@ -45,11 +45,11 @@ public class OverviewSzene {
         root.setAlignment(Pos.CENTER);
     }
 
-    public void toggleButtonDisabled(int c, int r) {
+    public void toggleButtonDisabled(int c, int r, boolean alwaysDisable) {
         for (Node node : grid.getChildren()) {
             if (GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) == r &&
                     GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == c) {
-                node.setDisable(!node.isDisabled());
+                node.setDisable(!node.isDisabled() || alwaysDisable);
             }
         }
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerQueue;
 
@@ -49,6 +50,7 @@ public abstract class Question {
     }
 
     public void showQuestion(){
+        AdminPlayScene.getQuest().setQuestion(this);
         if (buzzer){
             BuzzerQueue.setAllowBuzzer(true);
         }

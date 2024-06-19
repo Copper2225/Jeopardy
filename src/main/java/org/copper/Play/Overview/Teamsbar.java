@@ -46,7 +46,6 @@ public class Teamsbar {
     }
 
     public void clearBuzzer() {
-        System.out.println(buzzering.getText());
         if(buzzering != null) {
             buzzering.getStyleClass().remove("buzzered");
         }

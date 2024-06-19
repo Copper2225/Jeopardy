@@ -7,6 +7,7 @@ import org.copper.ApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Questions {
     private static Question[][] questions = new Question[ApplicationContext.getColumns()][ApplicationContext.getRows()];
@@ -33,6 +34,17 @@ public class Questions {
         }
     }
 
+    public static int[] findQuestion(Question question){
+        for( Question[] column: questions){
+            for (Question quest: column){
+                if(quest == question){
+                    return new int[]{Arrays.asList(questions).indexOf(column), Arrays.asList(column).indexOf(quest)};
+                }
+            }
+        }
+        return new int[]{};
+    }
+
     public static void load(){
         ObjectMapper mapper = new ObjectMapper();
         File fQuestions = new File("src/main/resources/" + "questions/questions" +".json");
@@ -44,6 +56,5 @@ public class Questions {
         catch (IOException e){
             e.printStackTrace();
         }
-
     }
 }

@@ -1,5 +1,6 @@
 package org.copper.Buzzer;
 
+import javafx.application.Platform;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.Admin.AdminScreen;
 import org.copper.Play.PlayScreen;
@@ -25,6 +26,7 @@ public class BuzzerQueue {
             set.add(element);
             if(wasEmpty){
                 PlayScreen.gettB().buzzer(element);
+                Platform.runLater(() -> AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(element.getTeamName()));
             }
             AdminPlayScene.getEdit().addBuzzer(element);
             return true;
@@ -39,8 +41,10 @@ public class BuzzerQueue {
             AdminPlayScene.getEdit().removeBuzzer();
             if(peek() != null){
                 PlayScreen.gettB().buzzer(peek());
+                AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(element.getTeamName());
             }else{
                 PlayScreen.gettB().clearBuzzer();
+                AdminPlayScene.getQuest().getBuzzeringTeamProperty().set("");
             }
         }
         return element;

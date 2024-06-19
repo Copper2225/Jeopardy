@@ -95,7 +95,7 @@ public class Edit {
             int oldIndex = displayNames.getSelectionModel().getSelectedIndex();
             int newIndex = buzzerNames.getSelectionModel().getSelectedIndex();
             PlayScreen.gettB().switchTeamName(oldIndex, buzzerNames.getValue());
-            PlayScreen.getTeams().set(oldIndex, BuzzerServer.getTeams().get(newIndex));
+            PlayScreen.getTeams().get(newIndex).setTeamName(buzzerNames.getValue());
             PlayScreen.getTeamNames().set(oldIndex, buzzerNames.getValue());
         });
         return new HBox(displayNames, buzzerNames, link);

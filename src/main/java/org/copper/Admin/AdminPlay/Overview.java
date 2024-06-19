@@ -29,7 +29,7 @@ public class Overview {
                 bt.setOnAction((event -> {
                     switch (AdminPlayScene.getEdit().getButtonMode()){
                         case buttonModes.QUESTION -> Questions.getQuestions()[finalI][finalJ].showQuestion();
-                        case buttonModes.DISABLE -> PlayScreen.getOverview().toggleButtonDisabled(finalI, finalJ);
+                        case buttonModes.DISABLE -> PlayScreen.getOverview().toggleButtonDisabled(finalI, finalJ, false);
                     }
                 }));
                 GridPane.setHgrow(bt, Priority.ALWAYS);
