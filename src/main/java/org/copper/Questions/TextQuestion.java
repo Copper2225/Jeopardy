@@ -3,12 +3,16 @@ package org.copper.Questions;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
 import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
+
+import static org.copper.ApplicationContext.createSpacer;
 
 public class TextQuestion extends Question {
     private String question;
@@ -33,6 +37,18 @@ public class TextQuestion extends Question {
         StackPane pane = new StackPane(question);
         pane.getStyleClass().addAll("stackQuestion", "textQuestion");
         PlayScreen.setChildRoot(pane);
+    }
+
+    @Override
+    public void showSolution(){
+        Label question = new Label(getQuestion());
+        question.getStyleClass().add("topLabel");
+        Label solution = new Label(getAnswer());
+        solution.getStyleClass().add("textQuestion");
+        VBox vBox = new VBox(question, createSpacer(false), solution, createSpacer(false));
+        question.prefWidthProperty().bind(vBox.widthProperty());
+        vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
+        PlayScreen.setChildRoot(vBox);
     }
 
     public String getQuestion() {

@@ -43,7 +43,21 @@
   "points" : 200,
   "buzzer" : false,
   "type" : "bild"
-}, null, null, null ], [ null, null, null, null, null ], [ {
+}, null, null, null ], [ {
+  "filename" : "WM-Song feat.Joeysjungle.mp3",
+  "question" : "Wer",
+  "answer" : "Rezo",
+  "points" : 100,
+  "buzzer" : false,
+  "type" : "audio"
+}, {
+  "filename" : "WM-Song feat.Joeysjungle.mp3",
+  "question" : "",
+  "answer" : "",
+  "points" : 200,
+  "buzzer" : false,
+  "type" : "audio"
+}, null, null, null ], [ {
   "question" : "Frage",
   "answer" : "Antowrt",
   "points" : 500,

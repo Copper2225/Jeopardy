@@ -10,7 +10,9 @@ import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerQueue;
 import org.copper.Buzzer.Team;
 import org.copper.Play.PlayScreen;
+import org.copper.Questions.BildQuestion;
 import org.copper.Questions.Question;
+import org.copper.Questions.TextQuestion;
 
 import java.util.Optional;
 
@@ -18,15 +20,19 @@ public class Quest {
     VBox root;
     Question question;
     ObjectProperty<String> buzzeringTeam;
+    Label antwort;
     public Quest() {
         this.root = new VBox();
-        Label antwort = new Label();
-        Button showSolution = new Button("Auflösen");
-        root.getChildren().addAll(antwort, showSolution, new HBox());
+        antwort = new Label();
+        root.getChildren().addAll(antwort, new HBox());
         AdminPlayScene.getRoot().add(root , 0, 1);
     }
 
     private HBox pointsSection(){
+        Button showSolution = new Button("Auflösen");
+        showSolution.setOnAction(event -> {
+            question.showSolution();
+        });
         ComboBox<String> teams = new ComboBox<>(PlayScreen.getTeamNames());
         buzzeringTeam = teams.valueProperty();
         Label points = new Label(Integer.toString(question.getPoints()));
@@ -47,7 +53,7 @@ public class Quest {
                  BuzzerQueue.poll();
             }
         }));
-        return new HBox(teams, points, correct, wrong);
+        return new HBox(showSolution, teams, points, correct, wrong);
     }
 
     public ObjectProperty<String> getBuzzeringTeamProperty() {
@@ -56,7 +62,11 @@ public class Quest {
 
     public void setQuestion(Question question) {
         this.question = question;
-        root.getChildren().set(2, pointsSection());
+        switch (question.getType()){
+            case ApplicationContext.QuestionTypes.TEXT -> antwort.setText(((TextQuestion) question).getAnswer());
+            case ApplicationContext.QuestionTypes.BILD -> antwort.setText(((BildQuestion) question).getAnswer());
+        }
+        root.getChildren().set(1, pointsSection());
     }
 
     public Question getQuestion() {

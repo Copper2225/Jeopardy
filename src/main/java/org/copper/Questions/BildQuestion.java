@@ -3,9 +3,12 @@ package org.copper.Questions;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
@@ -45,6 +48,7 @@ public class BildQuestion extends Question {
     public void showQuestion() {
         super.showQuestion();
         Label question = new Label(getQuestion());
+        question.getStyleClass().add("topLabel");
         ImageView imageView = new ImageView(image);
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
@@ -55,6 +59,28 @@ public class BildQuestion extends Question {
         imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().subtract(300));
         vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
         PlayScreen.setChildRoot(vBox);
+    }
+
+    @Override
+    public void showSolution(){
+        Label question = new Label(getQuestion());
+        question.getStyleClass().add("topLabel");
+        ImageView imageView = new ImageView(image);
+        imageView.setPreserveRatio(true);
+        imageView.setSmooth(true);
+        imageView.setCache(true);
+        imageView.fitHeightProperty().bind(PlayScreen.getPlayStage().heightProperty().subtract(PlayScreen.gettB().getRoot().heightProperty()).subtract(PlayScreen.getLogo().fitHeightProperty()).subtract(350));
+        VBox vBox = new VBox(question, createSpacer(false), imageView, createSpacer(false));
+        Label solution = new Label(getAnswer());
+        solution.getStyleClass().add("overImageLabel");
+        StackPane.setAlignment(solution, Pos.BOTTOM_CENTER);
+        StackPane stackPane = new StackPane(vBox, solution);
+        question.prefWidthProperty().bind(vBox.widthProperty());
+        solution.prefWidthProperty().bind(vBox.widthProperty());
+        imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().subtract(300));
+        StackPane.setMargin(solution, new Insets(0, 100, 40, 100));
+        vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
+        PlayScreen.setChildRoot(stackPane);
     }
 
     public Image getImage() {

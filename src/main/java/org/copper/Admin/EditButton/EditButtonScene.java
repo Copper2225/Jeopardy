@@ -26,11 +26,12 @@ public class EditButtonScene {
     interface Types {
         String TEXT = "Text";
         String BILD = "Bild";
+        String AUDIO = "Audio";
     }
 
     public EditButtonScene() {
         typeChoose = new ComboBox<>();
-        typeChoose.getItems().addAll(Types.TEXT, Types.BILD);
+        typeChoose.getItems().addAll(Types.TEXT, Types.BILD, Types.AUDIO);
         Button save = new Button("Speichern");
         save.setOnAction((event -> save()));
         Button cancel = new Button("Abbrechen");
@@ -61,6 +62,7 @@ public class EditButtonScene {
         switch (type){
             case Types.TEXT -> editPane = new TextEdit();
             case Types.BILD -> editPane = new BildEdit();
+            case Types.AUDIO -> editPane = new AudioEdit();
             case null -> editPane = new TextEdit();
             default -> System.out.println("default");
         }

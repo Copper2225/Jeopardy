@@ -27,6 +27,7 @@ public class ApplicationContext {
     public interface QuestionTypes {
         String TEXT = "text";
         String BILD = "bild";
+        String AUDIO = "audio";
     }
 
     private static double screenWidth;
