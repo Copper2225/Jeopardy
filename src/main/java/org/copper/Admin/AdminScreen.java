@@ -31,7 +31,7 @@ public class AdminScreen {
         adminStage.setWidth(ApplicationContext.getScreenWidth());
         adminStage.setHeight(ApplicationContext.getScreenHeight());
 //        adminStage.setMaximized(true);
-        adminStage.setAlwaysOnTop(true);
+//        adminStage.setAlwaysOnTop(true);
         adminStage.getScene().getStylesheets().add("Admin.css");
         adminStage.setOnCloseRequest((event) -> {
             stop();

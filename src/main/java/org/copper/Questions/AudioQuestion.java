@@ -21,6 +21,7 @@ import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
 import javafx.animation.TranslateTransition;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -111,7 +112,8 @@ public class AudioQuestion extends Question {
     private StackPane animateImage(){
         mediaPlayer = new MediaPlayer(audio);
 
-        Image originalImage = new Image("file:///C:/Users/Verenkotte/IdeaProjects/JeopardyGit/src/main/resources/music.png");
+        File imageFile = new File("src/main/resources/" + "music.png");
+        Image originalImage = new Image(imageFile.toURI().toString());
 
         // Erstellen eines WritableImage basierend auf dem Originalbild
         WritableImage writableImage = new WritableImage(
@@ -129,8 +131,6 @@ public class AudioQuestion extends Question {
         }
 
         ImageView imageView = new ImageView(writableImage);
-
-
 
         double totalDurationMillis = 10000; // Gesamtdauer in Millisekunden (10 Sekunden)
         double millisecondsPerX = totalDurationMillis / originalImage.getWidth();
@@ -151,7 +151,7 @@ public class AudioQuestion extends Question {
             timeline.getKeyFrames().add(keyFrame);
         }
         Duration startFadeOutTime = Duration.seconds(9);
-        Duration fadeOutDuration = Duration.seconds(1);
+        Duration fadeOutDuration = Duration.seconds(0.8);
         KeyFrame volume = new KeyFrame(startFadeOutTime, new KeyValue(mediaPlayer.volumeProperty(), 1.0));
         KeyFrame low = new KeyFrame(startFadeOutTime.add(fadeOutDuration), new KeyValue(mediaPlayer.volumeProperty(), 0.0));
         timeline.getKeyFrames().addAll(volume, low);

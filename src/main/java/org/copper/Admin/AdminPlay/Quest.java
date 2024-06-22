@@ -37,6 +37,11 @@ public class Quest {
         buzzeringTeam = teams.valueProperty();
         Label points = new Label(Integer.toString(question.getPoints()));
         Button correct = new Button("Korrekt");
+        Button add = new Button("Hinzufügen");
+        add.setOnAction(event -> {
+            Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
+            optionalTeam.ifPresent(team -> team.getPoints().set(team.getPoints().getValue() + question.getPoints()));
+        });
         Button wrong = new Button("Falsch");
         correct.setOnAction((event -> {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
@@ -53,7 +58,7 @@ public class Quest {
                  BuzzerQueue.poll();
             }
         }));
-        return new HBox(showSolution, teams, points, correct, wrong);
+        return new HBox(showSolution, teams, points, add, correct, wrong);
     }
 
     public ObjectProperty<String> getBuzzeringTeamProperty() {

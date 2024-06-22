@@ -24,6 +24,8 @@ public class Overview {
         for(int i = 0; i < ApplicationContext.getColumns(); i++){
             for(int j = 0; j < ApplicationContext.getRows(); j++){
                 Button bt = new Button(Integer.toString(ApplicationContext.getPointMatrix()[i][j]));
+                bt.prefHeightProperty().bind(grid.heightProperty().subtract((ApplicationContext.getRows() - 1) * 10).divide(ApplicationContext.getRows()));
+                bt.prefWidthProperty().bind(grid.widthProperty().subtract((ApplicationContext.getColumns() - 1) * 10).divide(ApplicationContext.getColumns()));
                 int finalI = i;
                 int finalJ = j;
                 bt.setOnAction((event -> {
@@ -33,14 +35,15 @@ public class Overview {
                         case buttonModes.SOLUTION -> Questions.getQuestions()[finalI][finalJ].showSolution();
                     }
                 }));
-                GridPane.setHgrow(bt, Priority.ALWAYS);
                 GridPane.setHalignment(bt, HPos.CENTER);
                 grid.add(bt, i, j);
             }
         }
         VBox play = new VBox(categories, grid);
         play.prefWidthProperty().bind(AdminPlayScene.getRoot().widthProperty().divide(2));
-        grid.prefWidthProperty().bind(play.widthProperty());
+        play.prefHeightProperty().bind(AdminPlayScene.getRoot().heightProperty().divide(2));
+        play.maxHeightProperty().bind(AdminPlayScene.getRoot().heightProperty().divide(2).subtract(60));
+        VBox.setVgrow(grid, Priority.ALWAYS);
         categories.prefWidthProperty().bind(play.widthProperty());
         AdminPlayScene.getRoot().add(play , 0, 0);
     }

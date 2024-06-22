@@ -9,6 +9,7 @@ public class AdminPlayScene {
     private static Quest quest;
 
     public AdminPlayScene() {
+        all.getStyleClass().add("adminPlayGrid");
         overview = new Overview();
         edit = new Edit();
         quest = new Quest();

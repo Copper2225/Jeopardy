@@ -25,5 +25,11 @@
 }
 
 .buttonGrid {
-    -fx-vgap: 30px;
+    -fx-vgap: 10px;
+    -fx-hgap: 10px;
+}
+
+.adminPlayGrid {
+    -fx-vgap: 20px;
+    -fx-hgap: 20px;
 }
