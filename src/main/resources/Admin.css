@@ -33,3 +33,27 @@
     -fx-vgap: 20px;
     -fx-hgap: 20px;
 }
+
+.play-flow-pane {
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+.play-flow-pane FlowPane {
+    -fx-hgap: 10px;
+    -fx-vgap: 10px;
+}
+
+.play-flow-pane HBox, .play-flow-pane VBox {
+    -fx-spacing: 10px;
+}
+
+.play-flow-pane ComboBox, .play-flow-pane Button, .play-flow-pane TextField {
+    -fx-font-size: 1em;
+}
+
+.buzzerQueue {
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+}

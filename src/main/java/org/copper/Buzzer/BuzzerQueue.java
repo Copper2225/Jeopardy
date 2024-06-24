@@ -1,6 +1,10 @@
 package org.copper.Buzzer;
 
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.collections.FXCollections;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.Admin.AdminScreen;
 import org.copper.Play.PlayScreen;
@@ -14,7 +18,7 @@ import java.util.function.Consumer;
 public class BuzzerQueue {
     private static final Queue<Team> queue = new LinkedList<>();
     private static final Set<Team> set = new HashSet<>();
-    private static boolean allowBuzzer = false;
+    private static BooleanProperty allowBuzzer = new SimpleBooleanProperty(false);
 
     public BuzzerQueue() {
     }
@@ -57,11 +61,15 @@ public class BuzzerQueue {
     }
 
     public static boolean isAllowBuzzer() {
+        return allowBuzzer.get();
+    }
+
+    public static BooleanProperty allowBuzzerProperty() {
         return allowBuzzer;
     }
 
     public static void setAllowBuzzer(boolean allowBuzzer) {
-        BuzzerQueue.allowBuzzer = allowBuzzer;
+        BuzzerQueue.allowBuzzer.set(allowBuzzer);
     }
 
     public boolean isEmpty() {

@@ -9,6 +9,7 @@ import org.copper.Admin.ConfigScene.ConfigScene;
 import org.copper.Admin.EditButton.EditButtonScene;
 import org.copper.Admin.EditButtons.EditButtonsScene;
 import org.copper.ApplicationContext;
+import org.copper.Play.PlayScreen;
 import org.copper.Questions.Questions;
 
 import static org.copper.Buzzer.BuzzerServer.stop;
@@ -35,6 +36,10 @@ public class AdminScreen {
         adminStage.getScene().getStylesheets().add("Admin.css");
         adminStage.setOnCloseRequest((event) -> {
             stop();
+            if( PlayScreen.getPlayStage() != null ){
+                PlayScreen.getPlayStage().close();
+            }
+
         });
         adminStage.show();
     }

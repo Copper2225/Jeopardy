@@ -45,17 +45,18 @@
   "type" : "bild"
 }, null, null, null ], [ {
   "filename" : "WM-Song feat.Joeysjungle.mp3",
-  "question" : "Wer",
-  "answer" : "Rezo",
+  "question" : "",
+  "answer" : "",
   "points" : 100,
-  "buzzer" : false,
+  "buzzer" : true,
   "type" : "audio"
 }, {
   "filename" : "WM-Song feat.Joeysjungle.mp3",
-  "question" : "",
-  "answer" : "",
+  "question" : "Wie lange",
+  "answer" : "15",
   "points" : 200,
   "buzzer" : false,
+  "dauer" : 15,
   "type" : "audio"
 }, null, null, null ], [ {
   "question" : "Frage",

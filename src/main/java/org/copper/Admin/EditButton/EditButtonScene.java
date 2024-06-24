@@ -52,6 +52,7 @@ public class EditButtonScene {
         String type = switch (question != null ? question.getType() : null){
             case ApplicationContext.QuestionTypes.TEXT -> Types.TEXT;
             case ApplicationContext.QuestionTypes.BILD -> Types.BILD;
+            case ApplicationContext.QuestionTypes.AUDIO -> Types.AUDIO;
             case null, default -> Types.TEXT;
         };
         if(type.equals(typeChoose.getValue())) switchType(type);
@@ -73,7 +74,6 @@ public class EditButtonScene {
     }
 
     private void save(){
-        System.out.println("save");
         editPane.save(index);
         AdminScreen.switchScene(ApplicationContext.AdminScenes.EDIT_BUTTONS);
     }

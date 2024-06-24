@@ -3,10 +3,7 @@ package org.copper.Admin.EditButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -30,6 +27,7 @@ public class AudioEdit extends EditPane {
     private ComboBox<String> listFiles;
     private final TextArea solutionArea;
     private final TextArea questionArea;
+    private final TextField dauer;
     private File file;
     private final CheckBox buzzer;
 
@@ -44,7 +42,8 @@ public class AudioEdit extends EditPane {
         upload.setOnAction((event -> {
             upload();
         }));
-        VBox vBox = new VBox(new HBox(upload, listFiles), buzzer, questionArea, solutionArea);
+        dauer = new TextField();
+        VBox vBox = new VBox(new HBox(upload, listFiles, dauer), buzzer, questionArea, solutionArea);
         vBox.setAlignment(Pos.TOP_CENTER);
         pane = vBox;
     }
@@ -81,16 +80,18 @@ public class AudioEdit extends EditPane {
 
     @Override
     public void load(Question question) {
-        if (question instanceof BildQuestion){
-            listFiles.setValue(((BildQuestion) question).getFilename());
-            questionArea.setText(((BildQuestion) question).getQuestion());
-            solutionArea.setText(((BildQuestion) question).getAnswer());
-            ((BildQuestion) question).setAnswer(solutionArea.getText());
+        if (question instanceof AudioQuestion){
+            listFiles.setValue(((AudioQuestion) question).getFilename());
+            dauer.setText(((AudioQuestion) question).getDauer().toString());
+            questionArea.setText(((AudioQuestion) question).getQuestion());
+            solutionArea.setText(((AudioQuestion) question).getAnswer());
+            ((AudioQuestion) question).setAnswer(solutionArea.getText());
         }
     }
 
     @Override
     public void save(int[] index) {
-        Questions.getQuestions()[index[0]][index[1]] = new AudioQuestion(file.getName(),questionArea.getText(), solutionArea.getText(), ApplicationContext.getPointMatrix()[index[0]][index[1]], buzzer.isSelected());
+        Integer dauer = this.dauer.getText().isBlank() ? null : Integer.parseInt(this.dauer.getText());
+        Questions.getQuestions()[index[0]][index[1]] = new AudioQuestion(file.getName(),questionArea.getText(), solutionArea.getText(), ApplicationContext.getPointMatrix()[index[0]][index[1]], buzzer.isSelected(), dauer);
     }
 }

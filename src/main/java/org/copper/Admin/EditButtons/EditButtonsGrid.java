@@ -33,7 +33,6 @@ public class EditButtonsGrid {
     }
 
     private void editButton(int column, int row) {
-        System.out.println(column + " + " + row);
         ApplicationContext.setCurrentIndex(new int[]{column, row});
         AdminScreen.switchScene(ApplicationContext.AdminScenes.EDIT_BUTTON);
     }

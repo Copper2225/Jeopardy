@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 public class Team {
     private String teamName;
     private String iPAddress;
-    private transient IntegerProperty points = new SimpleIntegerProperty(0);
+    private final transient IntegerProperty points = new SimpleIntegerProperty(0);
 
     public Team(String teamName) {
         this.teamName = teamName;

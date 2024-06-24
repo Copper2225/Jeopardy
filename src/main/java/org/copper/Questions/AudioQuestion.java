@@ -6,24 +6,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.geometry.Insets;
 import javafx.scene.image.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
-import javafx.animation.TranslateTransition;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static org.copper.ApplicationContext.createSpacer;
 
@@ -37,6 +34,7 @@ public class AudioQuestion extends Question {
     @JsonIgnore
     private Image image;
     private String filename;
+    private Integer dauer;
 
     @JsonCreator
     public AudioQuestion(
@@ -44,7 +42,8 @@ public class AudioQuestion extends Question {
             @JsonProperty("question") String question,
             @JsonProperty("answer") String answer,
             @JsonProperty("points") int points,
-            @JsonProperty("buzzer") boolean buzzer
+            @JsonProperty("buzzer") boolean buzzer,
+            @JsonProperty("dauer") Integer dauer
     ) {
         super(ApplicationContext.QuestionTypes.AUDIO, points, buzzer);
         this.filename = filename;
@@ -52,6 +51,7 @@ public class AudioQuestion extends Question {
         audio = new Media(target.toUri().toString());
         image = new Image("file:///C:/Users/Verenkotte/IdeaProjects/JeopardyGit/src/main/resources/music.png");
         this.question = question;
+        this.dauer = dauer;
         this.answer = answer;
     }
 
@@ -112,7 +112,7 @@ public class AudioQuestion extends Question {
     private StackPane animateImage(){
         mediaPlayer = new MediaPlayer(audio);
 
-        File imageFile = new File("src/main/resources/" + "music.png");
+        File imageFile = new File("src/main/resources/" + "WideMusic.png");
         Image originalImage = new Image(imageFile.toURI().toString());
 
         // Erstellen eines WritableImage basierend auf dem Originalbild
@@ -132,39 +132,43 @@ public class AudioQuestion extends Question {
 
         ImageView imageView = new ImageView(writableImage);
 
-        double totalDurationMillis = 10000; // Gesamtdauer in Millisekunden (10 Sekunden)
-        double millisecondsPerX = totalDurationMillis / originalImage.getWidth();
-
-        // Timeline für die Animation erstellen
         Timeline timeline = new Timeline();
-        for (int x = 0; x < originalImage.getWidth(); x++) {
-            final int currentX = x;
-            KeyFrame keyFrame = new KeyFrame(Duration.millis(millisecondsPerX * x), event -> {
-                for (int y = 0; y < originalImage.getHeight(); y++) {
-                    Color color = pixelReader.getColor(currentX, y);
-                    if (isApproximatelyWhite(color)) {
-                        pixelWriter.setColor(currentX, y, Color.rgb(50, 50, 50)); // Weiß zu Rot ändern
-                    }
-                }
-            });
-            // Create a timeline to reduce volume gradually
-            timeline.getKeyFrames().add(keyFrame);
-        }
-        Duration startFadeOutTime = Duration.seconds(9);
-        Duration fadeOutDuration = Duration.seconds(0.8);
-        KeyFrame volume = new KeyFrame(startFadeOutTime, new KeyValue(mediaPlayer.volumeProperty(), 1.0));
-        KeyFrame low = new KeyFrame(startFadeOutTime.add(fadeOutDuration), new KeyValue(mediaPlayer.volumeProperty(), 0.0));
-        timeline.getKeyFrames().addAll(volume, low);
 
-        timeline.setOnFinished((event) -> {
-            mediaPlayer.setVolume(1);
-            mediaPlayer.pause();
+        mediaPlayer.setOnPaused(timeline::pause);
+        mediaPlayer.setOnStopped(timeline::stop);
+        mediaPlayer.setOnPlaying(timeline::play);
+        mediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING && newValue.toMillis() == 0) {
+                timeline.playFromStart();
+            }
         });
-
 
         mediaPlayer.setOnReady(() -> {
             // Aktionen, die ausgeführt werden sollen, wenn die Medien bereit sind
-            System.out.println("Media is ready!");
+            double totalDurationMillis = dauer != null ? Duration.seconds(dauer).toMillis() : mediaPlayer.getTotalDuration().toMillis();
+            double millisecondsPerX = totalDurationMillis / originalImage.getWidth();
+            for (int x = 0; x < originalImage.getWidth(); x++) {
+                final int currentX = x;
+                KeyFrame keyFrame = new KeyFrame(Duration.millis(millisecondsPerX * x), event -> {
+                    for (int y = 0; y < originalImage.getHeight(); y++) {
+                        Color color = pixelReader.getColor(currentX, y);
+                        if (isApproximatelyWhite(color)) {
+                            pixelWriter.setColor(currentX, y, Color.rgb(200, 200, 200)); // Weiß zu Rot ändern
+                        }
+                    }
+                });
+                // Create a timeline to reduce volume gradually
+                timeline.getKeyFrames().add(keyFrame);
+            }
+            Duration startFadeOutTime = Duration.millis(totalDurationMillis).subtract(Duration.seconds(1));
+            Duration fadeOutDuration = Duration.seconds(1);
+            KeyFrame volume = new KeyFrame(startFadeOutTime, new KeyValue(mediaPlayer.volumeProperty(), 1.0));
+            KeyFrame low = new KeyFrame(startFadeOutTime.add(fadeOutDuration), new KeyValue(mediaPlayer.volumeProperty(), 0.0));
+            timeline.getKeyFrames().addAll(volume, low);
+            timeline.setOnFinished((event) -> {
+                mediaPlayer.setVolume(1);
+                mediaPlayer.pause();
+            });
             mediaPlayer.play();
             timeline.play();
         });
@@ -187,5 +191,17 @@ public class AudioQuestion extends Question {
                 ", image=" + image +
                 ", filename='" + filename + '\'' +
                 '}';
+    }
+
+    public Integer getDauer() {
+        return dauer;
+    }
+
+    public void setDauer(Integer dauer) {
+        this.dauer = dauer;
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 }

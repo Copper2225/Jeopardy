@@ -42,7 +42,8 @@ public class Overview {
         VBox play = new VBox(categories, grid);
         play.prefWidthProperty().bind(AdminPlayScene.getRoot().widthProperty().divide(2));
         play.prefHeightProperty().bind(AdminPlayScene.getRoot().heightProperty().divide(2));
-        play.maxHeightProperty().bind(AdminPlayScene.getRoot().heightProperty().divide(2).subtract(60));
+        play.maxHeightProperty().bind(AdminPlayScene.getRoot().heightProperty().divide(2).subtract(30));
+        play.maxWidthProperty().bind(AdminPlayScene.getRoot().widthProperty().divide(2).subtract(30));
         VBox.setVgrow(grid, Priority.ALWAYS);
         categories.prefWidthProperty().bind(play.widthProperty());
         AdminPlayScene.getRoot().add(play , 0, 0);

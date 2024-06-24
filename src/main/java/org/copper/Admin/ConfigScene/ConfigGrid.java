@@ -48,7 +48,6 @@ public class ConfigGrid {
                 });
                 Question question = Questions.getQuestions()[i][j];
                 int initialValue = question != null ? question.getPoints() : (j + 1) * 100;
-                System.out.println(question != null);
                 spinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, initialValue, 50));
                 vBox.getChildren().add(spinner);
             }

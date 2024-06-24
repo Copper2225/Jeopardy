@@ -12,17 +12,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 10px;
             box-sizing: border-box;
         }
 
-        #buzzerButton:disabled {
-            background-color: grey;
-        }
-
         #buzzerButton {
+            height: 80%;
             width: 100%;
-            height: 100%;
             font-size: 20em;
             border-radius: 50px;
             border: 0;
@@ -31,36 +26,29 @@
             box-sizing: border-box;
         }
 
-        #inputContainer {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-            width: 100%;
-        }
-
         #inputField {
             font-size: 1.5em;
             margin-bottom: 10px;
             width: 100%;
             box-sizing: border-box;
             padding: 10px;
+            height: 10%;
         }
 
         #saveButton {
             font-size: 1.5em;
             width: 100%;
+            border-radius: 50px;
             box-sizing: border-box;
             padding: 10px;
+            height: 10%;
         }
     </style>
 </head>
 <body>
+<input type="text" id="inputField" placeholder="Eingabe">
+<button id="saveButton" onclick="saveInput()">Speichern</button>
 <button id="buzzerButton" onclick="sendBuzz()">Buzz</button>
-<div id="inputContainer">
-    <input type="text" id="inputField" placeholder="Eingabe">
-    <button id="saveButton" onclick="saveInput()">Speichern</button>
-</div>
 
 <script>
     function sendBuzz() {
@@ -72,7 +60,7 @@
         })
         .then(response => {
             if (response.ok) {
-
+                // Buzz sent successfully
             } else {
                 alert('Fehler beim Senden des Buzzes.');
             }
@@ -95,15 +83,11 @@
             body: JSON.stringify({ input: inputValue })
         })
         .then(response => response.json())
-        .then(() => {
-            // Verstecke das Textfeld und den Button nach der Eingabe
-            document.getElementById('inputContainer').style.display = 'none';
-        })
         .catch(error => {
             console.error('Fehler:', error);
         });
 
-        inputField.value = ''; // Textfeld leeren
+        inputField.value = ''; // Clear the input field
     }
 </script>
 </body>

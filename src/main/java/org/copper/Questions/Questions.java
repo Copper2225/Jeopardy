@@ -18,7 +18,6 @@ public class Questions {
 
     public static void setQuestions(Question[][] questions) {
         Questions.questions = questions;
-        System.out.println(Arrays.deepToString(questions));
     }
 
     public static void setQuestion(int i, int j, Question q){

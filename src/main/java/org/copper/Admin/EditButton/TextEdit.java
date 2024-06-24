@@ -35,7 +35,6 @@ public class TextEdit extends EditPane {
 
     @Override
     public void save(int[] index) {
-        System.out.println("Save points: " + ApplicationContext.getPointMatrix()[index[0]][index[1]]);
         Questions.getQuestions()[index[0]][index[1]] = new TextQuestion(questionArea.getText(), solutionArea.getText(), ApplicationContext.getPointMatrix()[index[0]][index[1]], buzzer.isSelected());
     }
 }

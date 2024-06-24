@@ -7,12 +7,14 @@ public class AdminPlayScene {
     private static Overview overview;
     private static Edit edit;
     private static Quest quest;
+    private static Inputs inputs;
 
     public AdminPlayScene() {
         all.getStyleClass().add("adminPlayGrid");
         overview = new Overview();
         edit = new Edit();
         quest = new Quest();
+        inputs = new Inputs();
     }
 
     public static Overview getOverview() {
@@ -29,5 +31,9 @@ public class AdminPlayScene {
 
     public static Quest getQuest() {
         return quest;
+    }
+
+    public static Inputs getInputs() {
+        return inputs;
     }
 }

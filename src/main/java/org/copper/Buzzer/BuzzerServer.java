@@ -3,8 +3,11 @@ package org.copper.Buzzer;
 import static spark.Spark.*;
 
 import com.google.gson.Gson;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.copper.Admin.AdminPlay.AdminPlayScene;
+import org.copper.Play.PlayScreen;
 import spark.Spark;
 
 import java.util.*;
@@ -26,7 +29,6 @@ public class BuzzerServer {
         post("/buzz", (req, res) -> {
             if(BuzzerQueue.isAllowBuzzer()){
                 String ipAddress = req.ip();
-                System.out.println(Arrays.deepToString(teams.toArray()));
                 Optional<Team> optionalTeam = teams.stream().filter((team -> team.getiPAddress().equals(ipAddress))).findFirst();
                 optionalTeam.ifPresent(team -> buzzerQueue.offer(team));
                 return "Erfolgreich gebuzzert";
@@ -38,8 +40,23 @@ public class BuzzerServer {
         post("/save", (req, res) -> {
             Gson gson = new Gson();
             InputData inputData = gson.fromJson(req.body(), InputData.class);
-            teams.add(new Team(inputData.getInput(), req.ip()));
-            buzzerNames.add(inputData.getInput());
+            if (PlayScreen.getRoot().getChildren().get(1) == PlayScreen.getOverview().getRoot()){
+                teams.add(new Team(inputData.getInput(), req.ip()));
+                buzzerNames.add(inputData.getInput());
+            }else {
+                Optional<Team> name = PlayScreen.getTeams().stream().filter((team) -> {
+                    String ipAddress = team.getiPAddress();
+                    System.out.println(ipAddress + " " + req.ip());
+                    return ipAddress != null && ipAddress.equals(req.ip());
+                }).findFirst();
+                name.ifPresent(team -> {
+                    System.out.println("FIND");
+                    int index = PlayScreen.getTeamNames().indexOf(team.getTeamName());
+                    Platform.runLater(() -> AdminPlayScene.getInputs().getInputs()[index].setText(team.getTeamName() + ": " + inputData.getInput()));
+                });
+
+            }
+
             res.type("application/json");
             return gson.toJson(teams);
         });
