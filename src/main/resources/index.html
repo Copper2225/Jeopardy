@@ -7,7 +7,6 @@
         body, html {
             height: 100%;
             width: 100%;
-            margin: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -15,11 +14,40 @@
             box-sizing: border-box;
         }
 
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+
+        #leftPane, #rightPane {
+            box-sizing: border-box;
+            padding: 10px;
+        }
+
+        #leftPane {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 30%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #rightPane {
+            width: 100%;
+            height: 70%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         #buzzerButton {
-            height: 80%;
+            height: 100%;
             width: 100%;
             font-size: 20em;
-            border-radius: 50px;
+            border-radius: 30px;
             border: 0;
             background-color: red;
             color: white;
@@ -27,28 +55,65 @@
         }
 
         #inputField {
+            height: 70%;
             font-size: 1.5em;
-            margin-bottom: 10px;
             width: 100%;
             box-sizing: border-box;
-            padding: 10px;
-            height: 10%;
+            border-radius: 30px;
+            padding: 20px;
+            resize: none;
+            overflow-y: auto;
+            word-wrap: break-word;
+            margin-bottom: 10px;
+        }
+
+        #inputField::placeholder {
+          font-size: 1.8em;
         }
 
         #saveButton {
-            font-size: 1.5em;
+            height: 30%;
+            font-size: 4em;
             width: 100%;
-            border-radius: 50px;
+            border-radius: 30px;
             box-sizing: border-box;
-            padding: 10px;
-            height: 10%;
+        }
+
+        @media (orientation: landscape) {
+            .container {
+                flex-direction: row;
+            }
+
+            #leftPane {
+                width: 50%;
+                height: 100%;
+                justify-content: center;
+                align-items: center;
+            }
+
+            #rightPane {
+                width: 50%;
+                height: 100%;
+                align-items: center;
+            }
+
+            #buzzerButton {
+                height: 100%;
+                width: 100%;
+            }
         }
     </style>
 </head>
 <body>
-<input type="text" id="inputField" placeholder="Eingabe">
-<button id="saveButton" onclick="saveInput()">Speichern</button>
-<button id="buzzerButton" onclick="sendBuzz()">Buzz</button>
+<div class="container">
+    <div id="leftPane">
+        <textarea id="inputField" placeholder="Eingabe"></textarea>
+        <button id="saveButton" onclick="saveInput()">Senden</button>
+    </div>
+    <div id="rightPane">
+        <button id="buzzerButton" onclick="sendBuzz()"></button>
+    </div>
+</div>
 
 <script>
     function sendBuzz() {
