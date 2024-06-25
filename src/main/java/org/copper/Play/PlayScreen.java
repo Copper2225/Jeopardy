@@ -44,8 +44,8 @@ public class PlayScreen {
         scene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.F11) playStage.setFullScreen(true);
         });
-        playStage.setX(-ApplicationContext.getScreenWidth());
-        playStage.setFullScreen(true);
+//        playStage.setX(-ApplicationContext.getScreenWidth());
+//        playStage.setFullScreen(true);
         playStage.setWidth(ApplicationContext.getScreenWidth());
         playStage.setHeight(ApplicationContext.getScreenHeight());
         overview = new OverviewSzene();
@@ -56,6 +56,7 @@ public class PlayScreen {
         tB = new Teamsbar();
         logo = new ImageView(new Image("Kneipenquiz.png"));
         root = new VBox(logo, overview.getRoot(), tB.getRoot());
+        VBox.setVgrow(logo, Priority.ALWAYS);
         VBox.setVgrow(tB.getRoot(), Priority.SOMETIMES);
         VBox.setVgrow(overview.getRoot(), Priority.ALWAYS);
         scene.setRoot(root);
