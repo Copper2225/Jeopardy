@@ -51,13 +51,17 @@ public abstract class Question {
     }
 
     public void showQuestion(){
-        AdminPlayScene.getQuest().setQuestion(this);
         if (buzzer){
             BuzzerQueue.setAllowBuzzer(true);
         }
     };
 
-    abstract public void showSolution();
+    public void showSolution(){
+        if (buzzer){
+            System.out.println("DISALLOW");
+            BuzzerQueue.setAllowBuzzer(false);
+        }
+    };
 
     @Override
     public abstract String toString();

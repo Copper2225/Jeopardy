@@ -30,7 +30,15 @@ public class Overview {
                 int finalJ = j;
                 bt.setOnAction((event -> {
                     switch (AdminPlayScene.getEdit().getButtonMode()){
-                        case buttonModes.QUESTION -> Questions.getQuestions()[finalI][finalJ].showQuestion();
+                        case buttonModes.LOAD -> {
+                            AdminPlayScene.getQuest().aufgedeckt.set(false);
+                            AdminPlayScene.getQuest().setQuestion(Questions.getQuestions()[finalI][finalJ]);
+                        }
+                        case buttonModes.QUESTION -> {
+                            AdminPlayScene.getQuest().aufgedeckt.set(true);
+                            AdminPlayScene.getQuest().setQuestion(Questions.getQuestions()[finalI][finalJ]);
+                            Questions.getQuestions()[finalI][finalJ].showQuestion();
+                        }
                         case buttonModes.DISABLE -> PlayScreen.getOverview().toggleButtonDisabled(finalI, finalJ, false);
                         case buttonModes.SOLUTION -> Questions.getQuestions()[finalI][finalJ].showSolution();
                     }
@@ -40,8 +48,8 @@ public class Overview {
             }
         }
         VBox play = new VBox(categories, grid);
-        play.prefWidthProperty().bind(AdminPlayScene.getRoot().widthProperty().divide(2));
-        play.prefHeightProperty().bind(AdminPlayScene.getRoot().heightProperty().divide(2));
+        play.prefWidthProperty().bind(AdminPlayScene.getRoot().widthProperty().divide(2).subtract(30));
+        play.prefHeightProperty().bind(AdminPlayScene.getRoot().heightProperty().divide(2).subtract(30));
         play.maxHeightProperty().bind(AdminPlayScene.getRoot().heightProperty().divide(2).subtract(30));
         play.maxWidthProperty().bind(AdminPlayScene.getRoot().widthProperty().divide(2).subtract(30));
         VBox.setVgrow(grid, Priority.ALWAYS);

@@ -41,6 +41,7 @@ public class TextQuestion extends Question {
 
     @Override
     public void showSolution(){
+        super.showSolution();
         Label question = new Label(getQuestion());
         question.getStyleClass().add("topLabel");
         Label solution = new Label(getAnswer());

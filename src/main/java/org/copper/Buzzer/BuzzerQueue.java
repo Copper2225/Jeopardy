@@ -48,7 +48,7 @@ public class BuzzerQueue {
                 AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(element.getTeamName());
             }else{
                 PlayScreen.gettB().clearBuzzer();
-                AdminPlayScene.getQuest().getBuzzeringTeamProperty().set("");
+                AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(null);
             }
         }
         return element;
@@ -57,6 +57,7 @@ public class BuzzerQueue {
     public static void clear() {
         queue.clear();
         set.clear();
+        AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(null);
         PlayScreen.gettB().clearBuzzer();
     }
 
@@ -78,5 +79,9 @@ public class BuzzerQueue {
 
     public static Team peek() {
         return queue.peek();
+    }
+
+    public static Queue<Team> getQueue(){
+        return queue;
     }
 }

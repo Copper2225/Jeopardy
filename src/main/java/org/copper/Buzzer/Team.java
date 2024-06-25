@@ -39,9 +39,10 @@ public class Team {
 
     @Override
     public String toString() {
-        return "Buzzer{" +
+        return "Team{" +
                 "teamName='" + teamName + '\'' +
                 ", iPAddress='" + iPAddress + '\'' +
+                ", points=" + points +
                 '}';
     }
 }

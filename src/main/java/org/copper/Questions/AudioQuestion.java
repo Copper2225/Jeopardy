@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.scene.image.*;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -14,6 +15,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.util.Duration;
+import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
 
@@ -69,11 +71,20 @@ public class AudioQuestion extends Question {
         question.prefWidthProperty().bind(vBox.widthProperty());
         imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().subtract(300));
         vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
+        AdminPlayScene.getQuest().getPlay().textProperty().bind(
+                Bindings.when(mediaPlayer.statusProperty().isEqualTo(MediaPlayer.Status.PLAYING)).then("Playing").otherwise("Paused")
+        );
+        AdminPlayScene.getQuest().getPlay().styleProperty().bind(
+                Bindings.when(mediaPlayer.statusProperty().isEqualTo(MediaPlayer.Status.PLAYING))
+                        .then("-fx-background-color: lightgreen;")
+                        .otherwise("-fx-background-color: lightcoral;")
+        );
         PlayScreen.setChildRoot(vBox);
     }
 
     @Override
     public void showSolution(){
+        super.showSolution();
         mediaPlayer.stop();
         Label question = new Label(getQuestion());
         question.getStyleClass().add("topLabel");
@@ -142,6 +153,8 @@ public class AudioQuestion extends Question {
                 timeline.playFromStart();
             }
         });
+
+        mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
 
         mediaPlayer.setOnReady(() -> {
             // Aktionen, die ausgeführt werden sollen, wenn die Medien bereit sind

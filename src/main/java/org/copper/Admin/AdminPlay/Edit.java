@@ -42,8 +42,8 @@ public class Edit {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
             optionalTeam.ifPresent(team -> team.getPoints().set(Integer.parseInt(points.getText())));
         }));
-        bind(2, teams, points);
-        bind(3, add, rename,  set);
+        bind(teams, points);
+        bind(add, rename,  set);
         return new FlowPane(new HBox(teams, points), new HBox(add, rename, set));
     }
 
@@ -51,14 +51,11 @@ public class Edit {
         Button rename = new Button("Umbennen");
         rename.setOnAction((event -> {
             int oldIndex = teams.getSelectionModel().getSelectedIndex();
-            Optional <Team> buzzer = PlayScreen.getTeams().stream().filter(team -> team.getTeamName().equals(teams.getValue())).findAny();
-            buzzer.ifPresent(team -> {
-                PlayScreen.gettB().switchTeamName(oldIndex, points.getText());
-                team.setTeamName(points.getText());
-                team.setiPAddress(BuzzerServer.getBuzzers().get(PlayScreen.getTeams().indexOf(team)).getiPAddress());
-                PlayScreen.getTeamNames().set(oldIndex, points.getText());
-                BuzzerServer.getTeams().get(PlayScreen.getTeams().indexOf(team)).setTeamName(points.getText());
-            });
+            PlayScreen.gettB().switchTeamName(oldIndex, points.getText());
+            PlayScreen.getTeams().get(oldIndex).setTeamName(points.getText());
+            Optional<Team> buzzer = BuzzerServer.getTeams().stream().filter(team -> team.getTeamName().equals(points.getText())).findFirst();
+            buzzer.ifPresent(buzz -> PlayScreen.getTeams().get(oldIndex).setiPAddress(buzz.getiPAddress()));
+            PlayScreen.getTeamNames().set(oldIndex, points.getText());
 
         }));
         return rename;
@@ -66,7 +63,7 @@ public class Edit {
 
     private ComboBox<String> selectButtonMode(){
         ComboBox<String> modes = new ComboBox<>();
-        modes.getItems().addAll(buttonModes.QUESTION, buttonModes.SOLUTION, buttonModes.DISABLE);
+        modes.getItems().addAll(buttonModes.QUESTION, buttonModes.LOAD, buttonModes.SOLUTION, buttonModes.DISABLE);
         modes.setValue(buttonModes.QUESTION);
         modes.valueProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -77,20 +74,12 @@ public class Edit {
         return modes;
     }
 
-    private HBox overViewEdit() {
-        Button toOverview = new Button("Zur Übersicht");
-        toOverview.setOnAction((event -> {
-            PlayScreen.goToOverview();
-        }));
-        return new HBox(selectButtonMode(), toOverview);
-    }
-
     private FlowPane buzzerZone(){
         buzzerQueue = new Label();
         buzzerQueue.prefWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().subtract(70).divide(3));
-        buzzerQueue.prefHeightProperty().bind(AdminScreen.getAdminStage().heightProperty().multiply(3).subtract(280).divide(14));
+        buzzerQueue.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().multiply(3).divide(14).subtract(270/7).add(20));
         buzzerQueue.maxWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().subtract(70).divide(3));
-        buzzerQueue.maxHeightProperty().bind(AdminScreen.getAdminStage().heightProperty().multiply(3).subtract(280).divide(14));
+        buzzerQueue.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().multiply(3).divide(14).subtract(270/7).add(20));
         buzzerQueue.getStyleClass().add("buzzerQueue");
         Button next = new Button("Nächster");
         next.setOnAction(event -> BuzzerQueue.poll());
@@ -99,12 +88,13 @@ public class Edit {
             BuzzerQueue.clear();
             buzzerQueue.setText("");
         });
-        Button allow = new Button("Freigeben");
+        Button allow = new Button();
+        allow.textProperty().bind(Bindings.when(BuzzerQueue.allowBuzzerProperty()).then("Freigegeben").otherwise("Gesperrt"));
         allow.styleProperty().bind(Bindings.when(BuzzerQueue.allowBuzzerProperty()).then("-fx-background-color: lightgreen;").otherwise("-fx-background-color: lightcoral;"));
         allow.setOnAction(event -> {
             BuzzerQueue.setAllowBuzzer(!BuzzerQueue.isAllowBuzzer());
         });
-        bind(3, next, clear, allow);
+        bind(next, clear, allow);
         VBox controls = new VBox(next, clear, allow);
         return new FlowPane(new HBox(controls, buzzerQueue));
     }
@@ -115,15 +105,15 @@ public class Edit {
         Button link = new Button("Überschreiben");
         link.setOnAction(event -> {
             int oldIndex = displayNames.getSelectionModel().getSelectedIndex();
-            int newIndex = buzzerNames.getSelectionModel().getSelectedIndex();
             PlayScreen.gettB().switchTeamName(oldIndex, buzzerNames.getValue());
-            PlayScreen.getTeams().get(newIndex).setTeamName(buzzerNames.getValue());
-            PlayScreen.getTeams().get(newIndex).setiPAddress(BuzzerServer.getBuzzers().get(newIndex).getiPAddress());
+            PlayScreen.getTeams().get(oldIndex).setTeamName(buzzerNames.getValue());
+            Optional<Team> buzzer = BuzzerServer.getTeams().stream().filter(team -> team.getTeamName().equals(buzzerNames.getValue())).findFirst();
+            buzzer.ifPresent(buzz -> PlayScreen.getTeams().get(oldIndex).setiPAddress(buzz.getiPAddress()));
             PlayScreen.getTeamNames().set(oldIndex, buzzerNames.getValue());
         });
-        bind(2, buzzerNames, displayNames);
+        bind(buzzerNames, displayNames);
         ComboBox<String> selectionMode = selectButtonMode();
-        bind(2, link, selectionMode);
+        bind(link, selectionMode);
         return new FlowPane(new HBox(displayNames, buzzerNames), new HBox(selectionMode, link));
     }
 
@@ -143,12 +133,12 @@ public class Edit {
         return buttonMode;
     }
 
-    private void bind(int elements, Control... nodes){
+    private void bind(Control... nodes){
         Arrays.stream(nodes).forEach(n -> {
-            n.prefWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().subtract(80).divide(2).subtract((elements - 1) * 10).divide(elements));
-            n.prefHeightProperty().bind(AdminScreen.getAdminStage().heightProperty().subtract(80).divide(2).subtract((6) * 10).divide(7));
-            n.maxWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().subtract(80).divide(2).subtract((elements - 1) * 10).divide(elements));
-            n.maxHeightProperty().bind(AdminScreen.getAdminStage().heightProperty().subtract(80).divide(2).subtract((6) * 10).divide(7));
+            n.prefWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).subtract((nodes.length - 1) * 10).divide(nodes.length));
+            n.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(30).subtract((6) * 10).divide(7));
+            n.maxWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).subtract((nodes.length - 1) * 10).divide(nodes.length));
+            n.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(30).subtract((6) * 10).divide(7));
         });
     }
 }

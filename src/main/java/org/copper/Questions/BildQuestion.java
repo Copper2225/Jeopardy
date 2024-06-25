@@ -63,6 +63,7 @@ public class BildQuestion extends Question {
 
     @Override
     public void showSolution(){
+        super.showSolution();
         Label question = new Label(getQuestion());
         question.getStyleClass().add("topLabel");
         ImageView imageView = new ImageView(image);

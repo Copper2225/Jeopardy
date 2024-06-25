@@ -10,14 +10,19 @@ import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.Play.PlayScreen;
 import spark.Spark;
 
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.*;
 
 public class BuzzerServer {
     private static List<Team> teams = new ArrayList<>();
     private static BuzzerQueue buzzerQueue = new BuzzerQueue();
     private static ObservableList<String> buzzerNames = FXCollections.observableArrayList();
-    public static void initialize(){
+    public static void initialize() throws UnknownHostException {
         port(4567);
+
+        System.out.println(InetAddress.getLocalHost().getHostAddress());
 
         // Route für die HTML-Seite
         get("/", (req, res) -> {
@@ -29,7 +34,7 @@ public class BuzzerServer {
         post("/buzz", (req, res) -> {
             if(BuzzerQueue.isAllowBuzzer()){
                 String ipAddress = req.ip();
-                Optional<Team> optionalTeam = teams.stream().filter((team -> team.getiPAddress().equals(ipAddress))).findFirst();
+                Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> Objects.equals(team.getiPAddress(), ipAddress))).findFirst();
                 optionalTeam.ifPresent(team -> buzzerQueue.offer(team));
                 return "Erfolgreich gebuzzert";
             }
@@ -41,7 +46,7 @@ public class BuzzerServer {
             Gson gson = new Gson();
             InputData inputData = gson.fromJson(req.body(), InputData.class);
             if (PlayScreen.getRoot().getChildren().get(1) == PlayScreen.getOverview().getRoot()){
-                teams.add(new Team(inputData.getInput(), req.ip()));
+                teams.addFirst(new Team(inputData.getInput(), req.ip()));
                 buzzerNames.add(inputData.getInput());
             }else {
                 Optional<Team> name = PlayScreen.getTeams().stream().filter((team) -> {
@@ -52,7 +57,7 @@ public class BuzzerServer {
                 name.ifPresent(team -> {
                     System.out.println("FIND");
                     int index = PlayScreen.getTeamNames().indexOf(team.getTeamName());
-                    Platform.runLater(() -> AdminPlayScene.getInputs().getInputs()[index].setText(team.getTeamName() + ": " + inputData.getInput()));
+                    Platform.runLater(() -> AdminPlayScene.getInputs().getInputTexts().set(index, inputData.getInput()));
                 });
 
             }

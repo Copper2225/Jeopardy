@@ -40,7 +40,7 @@ public class Teamsbar {
         if(buzzering != null) {
             buzzering.getStyleClass().remove("buzzered");
         }
-        int index = BuzzerServer.getBuzzers().indexOf(team);
+        int index = PlayScreen.getTeams().indexOf(team);
         buzzering = buzzerIndicates[index];
         buzzering.getStyleClass().add("buzzered");
     }
