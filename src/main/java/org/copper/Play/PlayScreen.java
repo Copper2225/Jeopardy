@@ -12,6 +12,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
@@ -39,6 +41,7 @@ public class PlayScreen {
     public static void start(){
         playStage = new Stage();
         Scene scene = new Scene(new Pane());
+        scene.setFill(Paint.valueOf("black"));
         scene.getStylesheets().add("Play.css");
         playStage.setScene(scene);
         scene.setOnKeyPressed(event -> {

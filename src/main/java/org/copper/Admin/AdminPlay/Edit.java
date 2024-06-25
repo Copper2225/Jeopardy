@@ -111,10 +111,12 @@ public class Edit {
             buzzer.ifPresent(buzz -> PlayScreen.getTeams().get(oldIndex).setiPAddress(buzz.getiPAddress()));
             PlayScreen.getTeamNames().set(oldIndex, buzzerNames.getValue());
         });
-        bind(buzzerNames, displayNames);
+        bind(buzzerNames, displayNames, link);
         ComboBox<String> selectionMode = selectButtonMode();
-        bind(link, selectionMode);
-        return new FlowPane(new HBox(displayNames, buzzerNames), new HBox(selectionMode, link));
+        Button blackOut = new Button("BLACK");
+        bind(blackOut, selectionMode);
+        blackOut.setOnAction(event -> PlayScreen.getPlayStage().getScene().getRoot().setVisible(!PlayScreen.getPlayStage().getScene().getRoot().isVisible()));
+        return new FlowPane(new HBox(displayNames, buzzerNames, link), new HBox(selectionMode, blackOut));
     }
 
     public void addBuzzer(Team team){
