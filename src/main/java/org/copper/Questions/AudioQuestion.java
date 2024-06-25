@@ -66,7 +66,7 @@ public class AudioQuestion extends Question {
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         imageView.setCache(true);
-        imageView.fitHeightProperty().bind(PlayScreen.getPlayStage().heightProperty().subtract(PlayScreen.gettB().getRoot().heightProperty()).subtract(PlayScreen.getLogo().fitHeightProperty()).subtract(350));
+        imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().multiply(0.8));
         VBox vBox = new VBox(question, createSpacer(false), animateImage(), createSpacer(false));
         question.prefWidthProperty().bind(vBox.widthProperty());
         imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().subtract(300));
