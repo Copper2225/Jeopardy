@@ -1,7 +1,10 @@
 package org.copper.Play.Overview;
 
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -23,6 +26,7 @@ public class Teamsbar {
     private Label buzzering;
     private final Label[] buzzerIndicates = new Label[ApplicationContext.getTeamAmount()];
     private final Label[] teamNames = new Label[ApplicationContext.getTeamAmount()];
+    private final DoubleProperty inputSize = new SimpleDoubleProperty(2);
 
     public Teamsbar(){
         root = new HBox();
@@ -68,6 +72,7 @@ public class Teamsbar {
         input.prefWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(45)).otherwise(0));
         input.maxWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(45)).otherwise(0));
         input.getStyleClass().add("inputShow");
+        input.styleProperty().bind(Bindings.concat("-fx-font-size: ").concat(inputSize).concat("em;"));
         input.visibleProperty().bind(AdminPlayScene.getInputs().showInputsProperty());
         VBox team = new VBox(input, teamName, points);
         teamName.minHeightProperty().bind(root.heightProperty()
@@ -76,6 +81,14 @@ public class Teamsbar {
         team.getStyleClass().add("team");
         HBox.setHgrow(team, Priority.ALWAYS);
         return team;
+    }
+
+    public double getInputSize() {
+        return inputSize.get();
+    }
+
+    public DoubleProperty inputSizeProperty() {
+        return inputSize;
     }
 
     public void switchTeamName(int index, String newName){

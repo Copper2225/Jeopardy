@@ -128,5 +128,4 @@ myButton :disabled {
     -fx-border-insets: 5 10px;
     -fx-background-insets: 15px 20px;
     -fx-padding: 11px;
-    -fx-font-size: 1.3em;
 }

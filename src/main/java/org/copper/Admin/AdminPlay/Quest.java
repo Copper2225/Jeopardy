@@ -54,9 +54,9 @@ public class Quest {
         title.getStyleClass().add("answerTitle");
         antwort.getStyleClass().add("answerText");
         antwort.prefWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30));
-        antwort.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(7).subtract(180/7).add(10));
+        antwort.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(7).subtract(180/7).add(15));
         antwort.maxWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30));
-        antwort.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(7).subtract(180/7).add(10));
+        antwort.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(7).subtract(180/7).add(15));
         Button showSolution = new Button();
         showSolution.textProperty().bind(Bindings.when(aufgedeckt).then("Auflösen").otherwise("Stellen"));
         showSolution.setOnAction(event -> {
@@ -185,9 +185,9 @@ public class Quest {
     private void bind(Control... nodes){
         Arrays.stream(nodes).forEach(n -> {
             n.prefWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).subtract((nodes.length - 1) * 10).divide(nodes.length));
-            n.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(30).subtract((6) * 10).divide(7));
             n.maxWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).subtract((nodes.length - 1) * 10).divide(nodes.length));
-            n.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(30).subtract((6) * 10).divide(7));
+            n.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract((6) * 10).divide(7));
+            n.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract((6) * 10).divide(7));
         });
     }
 

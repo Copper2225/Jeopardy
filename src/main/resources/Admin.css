@@ -86,3 +86,7 @@
     -fx-wrap-text: true;
     -fx-alignment: center-left;
 }
+
+.teamInput {
+    -fx-alignment: center;
+}
