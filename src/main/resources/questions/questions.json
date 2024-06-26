@@ -22,7 +22,14 @@
   "points" : 300,
   "buzzer" : false,
   "type" : "text"
-}, null, null ], [ {
+}, {
+  "filename" : "Marvel.png",
+  "question" : "Welche Marvel Helden sind das?",
+  "answer" : "Rocket, Nebula, War Machine, Black Widow, Thor, Iron Man, Captain America, Hulk, Hawkeye, Ant-Man, Captain Marvel, Okoye",
+  "points" : 400,
+  "buzzer" : false,
+  "type" : "bild"
+}, null ], [ {
   "filename" : "Logo.jpeg",
   "question" : "",
   "answer" : "",

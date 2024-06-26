@@ -79,7 +79,7 @@ public class BildQuestion extends Question {
         question.prefWidthProperty().bind(vBox.widthProperty());
         solution.prefWidthProperty().bind(vBox.widthProperty());
         imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().subtract(300));
-        StackPane.setMargin(solution, new Insets(0, 100, 40, 100));
+        StackPane.setMargin(solution, new Insets(0, 100, 30, 100));
         vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
         PlayScreen.setChildRoot(stackPane);
     }

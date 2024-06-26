@@ -4,17 +4,13 @@ import javafx.scene.layout.GridPane;
 
 public class AdminPlayScene {
     private static final GridPane all = new GridPane();
-    private static Overview overview;
-    private static Edit edit;
-    private static Quest quest;
-    private static Inputs inputs;
+    private static Overview overview = new Overview();
+    private static Edit edit = new Edit();
+    private static Quest quest = new Quest();
+    private static Inputs inputs = new Inputs();
 
     public AdminPlayScene() {
         all.getStyleClass().add("adminPlayGrid");
-        overview = new Overview();
-        edit = new Edit();
-        quest = new Quest();
-        inputs = new Inputs();
     }
 
     public static Overview getOverview() {

@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerServer;
 import org.copper.Buzzer.Team;
@@ -60,7 +61,17 @@ public class Teamsbar {
         buzzerIndicates[number] = points;
         points.textProperty().bind(Bindings.concat("Punkte: ", PlayScreen.getTeams().get(number).getPoints().asString()));
         points.getStyleClass().add("points");
-        VBox team = new VBox(teamName, points);
+        Label input = new Label();
+        input.textProperty().bind(Bindings.valueAt(AdminPlayScene.getInputs().getInputTexts(), number));
+        input.minHeightProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().heightProperty().multiply(0.2)).otherwise(0));
+        input.maxHeightProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().heightProperty().multiply(0.2)).otherwise(0));
+        input.prefWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(45)).otherwise(0));
+        input.maxWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(45)).otherwise(0));
+        input.getStyleClass().add("inputShow");
+        input.visibleProperty().bind(AdminPlayScene.getInputs().showInputsProperty());
+        VBox team = new VBox(input, teamName, points);
+        teamName.minHeightProperty().bind(root.heightProperty()
+                .subtract(points.heightProperty()).subtract(input.heightProperty()));
         team.maxWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(30));
         team.getStyleClass().add("team");
         HBox.setHgrow(team, Priority.ALWAYS);

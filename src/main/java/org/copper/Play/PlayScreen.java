@@ -74,6 +74,7 @@ public class PlayScreen {
     public static void goToOverview(){
         if(root.getChildren().get(1) != overview.getRoot()){
             BuzzerQueue.setAllowBuzzer(false);
+            AdminPlayScene.getInputs().showInputsProperty().set(false);
             int [] index = Questions.findQuestion(AdminPlayScene.getQuest().getQuestion());
             if(index.length == 2){
                 PlayScreen.getOverview().toggleButtonDisabled(index[0], index[1], true);
