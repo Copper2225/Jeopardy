@@ -1,6 +1,7 @@
 .root {
     -fx-background-color: black;
     -fx-alignment: bottom-center;
+    // 8px is for beamer
     -fx-font-size: 15px;
 }
 

@@ -69,8 +69,8 @@ public class Teamsbar {
         input.textProperty().bind(Bindings.valueAt(AdminPlayScene.getInputs().getInputTexts(), number));
         input.minHeightProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().heightProperty().multiply(0.2)).otherwise(0));
         input.maxHeightProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().heightProperty().multiply(0.2)).otherwise(0));
-        input.prefWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(45)).otherwise(0));
-        input.maxWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(45)).otherwise(0));
+        input.prefWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(25)).otherwise(0));
+        input.maxWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(25)).otherwise(0));
         input.getStyleClass().add("inputShow");
         input.styleProperty().bind(Bindings.concat("-fx-font-size: ").concat(inputSize).concat("em;"));
         input.visibleProperty().bind(AdminPlayScene.getInputs().showInputsProperty());

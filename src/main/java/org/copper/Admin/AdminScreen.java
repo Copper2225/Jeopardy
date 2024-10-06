@@ -1,6 +1,7 @@
 package org.copper.Admin;
 
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
@@ -27,6 +28,9 @@ public class AdminScreen {
         configScene = new ConfigScene();
         editButtonScene = new EditButtonScene();
         adminScene = new Scene(new Pane());
+        adminScene.setOnKeyPressed(event -> {
+            if(event.getCode() == KeyCode.F11) adminStage.setFullScreen(true);
+        });
         adminStage.setScene(adminScene);
         adminStage.setX(ApplicationContext.getScreenWidth() + 10);
         adminStage.setWidth(ApplicationContext.getScreenWidth());

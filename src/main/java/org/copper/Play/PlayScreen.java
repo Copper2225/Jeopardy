@@ -8,25 +8,20 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerQueue;
-import org.copper.Buzzer.BuzzerServer;
 import org.copper.Buzzer.Team;
 import org.copper.Play.Overview.OverviewSzene;
 import org.copper.Play.Overview.Teamsbar;
-import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PlayScreen {
@@ -44,6 +39,7 @@ public class PlayScreen {
         scene.setFill(Paint.valueOf("black"));
         scene.getStylesheets().add("Play.css");
         playStage.setScene(scene);
+        playStage.setAlwaysOnTop(true);
         scene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.F11) playStage.setFullScreen(true);
         });

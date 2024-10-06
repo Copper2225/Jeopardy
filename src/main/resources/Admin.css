@@ -85,6 +85,7 @@
 .teamCheck {
     -fx-wrap-text: true;
     -fx-alignment: center-left;
+    -fx-font-size: 1.3em;
 }
 
 .teamInput {
