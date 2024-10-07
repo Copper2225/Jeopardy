@@ -3,7 +3,10 @@ package org.copper.Questions;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javafx.beans.binding.Bindings;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -60,9 +63,21 @@ public class ChoiceQuestion extends Question {
             letter.getStyleClass().add("choiceLetter");
             HBox choice = new HBox(letter, text);
             choice.getStyleClass().add("choiceBox");
-            choice.prefWidthProperty().bind(questRoot.widthProperty().divide(2).subtract(40));
+            choice.prefWidthProperty().bind(
+                    Bindings.when(Bindings.createBooleanBinding(
+                                    () -> solutions.length%2 == 1,
+                                    questRoot.widthProperty()
+                            ))
+                            .then(questRoot.widthProperty())
+                            .otherwise(questRoot.widthProperty().divide(2)).subtract(40)
+            );
             choice.prefHeightProperty().bind(questRoot.heightProperty().subtract(question.heightProperty()).divide(solutions.length/2).subtract(30));
-            gridPane.add(choice, i%2, i/2 );
+            if(solutions.length%2 == 1){
+                VBox.setMargin(choice, new Insets(0, 30, 30, 30));
+                questRoot.getChildren().add(choice);
+            } else {
+                gridPane.add(choice, i%2, i/2 );
+            }
         }
 
         questRoot.getStyleClass().addAll("stackQuestion");
