@@ -4,7 +4,6 @@ import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import org.copper.Admin.AdminScreen;
@@ -15,7 +14,6 @@ import org.copper.Play.PlayScreen;
 
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
 public class Edit {
     private String buttonMode = buttonModes.QUESTION;
@@ -34,13 +32,13 @@ public class Edit {
         Button add = new Button("Verändern");
         add.setOnAction((event -> {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
-            optionalTeam.ifPresent(team -> team.getPoints().set(team.getPoints().getValue() + Integer.parseInt(points.getText())));
+            optionalTeam.ifPresent(team -> team.pointsProperty().set(team.pointsProperty().getValue() + Integer.parseInt(points.getText())));
         }));
         Button rename = getRename(teams, points);
         Button set = new Button("Setzen");
         set.setOnAction((event -> {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
-            optionalTeam.ifPresent(team -> team.getPoints().set(Integer.parseInt(points.getText())));
+            optionalTeam.ifPresent(team -> team.pointsProperty().set(Integer.parseInt(points.getText())));
         }));
         bind(teams, points);
         bind(add, rename,  set);

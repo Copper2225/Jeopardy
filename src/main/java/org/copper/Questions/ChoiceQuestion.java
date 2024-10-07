@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static org.copper.ApplicationContext.createSpacer;
+
 public class ChoiceQuestion extends Question {
 
     @JsonIgnore
@@ -73,7 +75,12 @@ public class ChoiceQuestion extends Question {
         super.showSolution();
         Label question = new Label(getQuestion());
         question.getStyleClass().add("topLabel");
-
+        Label solution = new Label(getAnswer());
+        solution.getStyleClass().add("textQuestion");
+        VBox vBox = new VBox(question, createSpacer(false), solution, createSpacer(false));
+        question.prefWidthProperty().bind(vBox.widthProperty());
+        vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
+        PlayScreen.setChildRoot(vBox);
     }
 
     public String getQuestion() {

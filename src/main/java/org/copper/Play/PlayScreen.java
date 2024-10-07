@@ -20,6 +20,7 @@ import org.copper.Buzzer.Team;
 import org.copper.Play.Overview.OverviewSzene;
 import org.copper.Play.Overview.Teamsbar;
 import org.copper.Questions.Questions;
+import org.copper.Saver.PointsSaver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +49,7 @@ public class PlayScreen {
         playStage.setWidth(ApplicationContext.getScreenWidth());
         playStage.setHeight(ApplicationContext.getScreenHeight());
         overview = new OverviewSzene();
-        for(int i = 0; i < ApplicationContext.getTeamAmount(); i++){
-            teams.add(new Team("Team " + (i + 1)));
-            teamNames.add("Team " + (i + 1));
-        }
+        PointsSaver.loadPoints(teams, teamNames);
         tB = new Teamsbar();
         logo = new ImageView(new Image("Kneipenquiz.png"));
         root = new VBox(logo, overview.getRoot(), tB.getRoot());

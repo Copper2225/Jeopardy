@@ -4,21 +4,14 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
-import org.copper.Buzzer.BuzzerServer;
 import org.copper.Buzzer.Team;
 import org.copper.Play.PlayScreen;
-import org.copper.Questions.ChoiceQuestion;
-
-import static org.copper.ApplicationContext.createSpacer;
 
 public class Teamsbar {
     private final HBox root;
@@ -64,7 +57,7 @@ public class Teamsbar {
         teamName.getStyleClass().add("teamName");
         Label points = new Label();
         buzzerIndicates[number] = points;
-        points.textProperty().bind(Bindings.concat("Punkte: ", PlayScreen.getTeams().get(number).getPoints().asString()));
+        points.textProperty().bind(Bindings.concat("Punkte: ", PlayScreen.getTeams().get(number).pointsProperty().asString()));
         points.getStyleClass().add("points");
         Label input = new Label();
         input.textProperty().bind(Bindings.valueAt(AdminPlayScene.getInputs().getInputTexts(), number));

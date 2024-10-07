@@ -7,7 +7,6 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -15,7 +14,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import org.copper.Admin.AdminScreen;
@@ -93,13 +91,13 @@ public class Quest {
         Button add = new Button("Hinzufügen");
         add.setOnAction(event -> {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
-            optionalTeam.ifPresent(team -> team.getPoints().set(team.getPoints().getValue() + question.getPoints()));
+            optionalTeam.ifPresent(team -> team.pointsProperty().set(team.pointsProperty().getValue() + question.getPoints()));
         });
         Button wrong = new Button("Falsch");
         listCorrect.setOnAction((event -> {
             for(int i = 0; i < ApplicationContext.getTeamAmount(); i++){
                 if(AdminPlayScene.getInputs().getInputs()[i].isSelected()){
-                    PlayScreen.getTeams().get(i).getPoints().set(PlayScreen.getTeams().get(i).getPoints().getValue() + question.getPoints());
+                    PlayScreen.getTeams().get(i).pointsProperty().set(PlayScreen.getTeams().get(i).pointsProperty().getValue() + question.getPoints());
                 }
             }
             PlayScreen.goToOverview();
@@ -107,7 +105,7 @@ public class Quest {
         wrong.setOnAction((event -> {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
             optionalTeam.ifPresent(team -> {
-                team.getPoints().set(team.getPoints().getValue() - (question.getPoints() / ApplicationContext.getWrongMultiplier()));
+                team.pointsProperty().set(team.pointsProperty().getValue() - (question.getPoints() / ApplicationContext.getWrongMultiplier()));
             });
             if(question.isBuzzer()){
                  BuzzerQueue.poll();

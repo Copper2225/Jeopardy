@@ -59,7 +59,6 @@ public abstract class Question {
 
     public void showSolution(){
         if (buzzer){
-            System.out.println("DISALLOW");
             BuzzerQueue.setAllowBuzzer(false);
         }
     };

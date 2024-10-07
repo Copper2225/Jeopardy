@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
 import org.copper.Questions.Questions;
+import org.copper.Saver.CategoriesSaver;
 
 import static org.copper.Buzzer.BuzzerServer.stop;
 
@@ -25,6 +26,7 @@ public class OverviewSzene {
     public OverviewSzene() {
         HBox categories = new HBox();
         categories.getStyleClass().add("categories");
+        boolean[][] disabledMatrix = CategoriesSaver.loadCategories();
         for(int i = 0; i < ApplicationContext.getColumns(); i++){
             Label label = new Label(ApplicationContext.getCategories()[i]);
             categories.getChildren().add(label);
@@ -33,6 +35,7 @@ public class OverviewSzene {
             for (int j = 0; j < ApplicationContext.getRows(); j++){
                 Button bt = new Button(Integer.toString(ApplicationContext.getPointMatrix()[i][j]));
                 bt.getStyleClass().add("myButton");
+                bt.setDisable(disabledMatrix[i][j]);
                 bt.prefHeightProperty().bind(grid.heightProperty().subtract(40*2).subtract((ApplicationContext.getRows() - 1) * 30).divide(ApplicationContext.getRows()));
                 PlayScreen.bindProperties(bt.prefWidthProperty(), ApplicationContext.Layouts.WITDH, 30, ApplicationContext.getColumns(), 30);
                 grid.add(bt, i, j);
@@ -52,6 +55,7 @@ public class OverviewSzene {
                 node.setDisable(!node.isDisabled() || alwaysDisable);
             }
         }
+        CategoriesSaver.saveCategories(grid);
     }
 
     public VBox getRoot() {
