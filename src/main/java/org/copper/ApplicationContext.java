@@ -1,7 +1,9 @@
 package org.copper;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -28,6 +30,7 @@ public class ApplicationContext {
         String TEXT = "text";
         String BILD = "bild";
         String AUDIO = "audio";
+        String CHOICE = "choice";
     }
 
     private static double screenWidth;
@@ -46,6 +49,8 @@ public class ApplicationContext {
         screenHeight = bounds.getHeight()/2;
         screenWidth = bounds.getWidth()/2;
     }
+
+    private static BooleanProperty isChoiceQuestion = new SimpleBooleanProperty(false);
 
     public static void bindProperties(DoubleProperty property, Layouts layout, int padding, int elements, int spacing) {
         ReadOnlyDoubleProperty adminProp = switch (layout){
@@ -144,5 +149,17 @@ public class ApplicationContext {
 
     public static void setWrongMultiplier(int wrongMultiplier) {
         ApplicationContext.wrongMultiplier = wrongMultiplier;
+    }
+
+    public boolean isIsChoiceQuestion() {
+        return isChoiceQuestion.get();
+    }
+
+    public static BooleanProperty isChoiceQuestionProperty() {
+        return isChoiceQuestion;
+    }
+
+    public static void setIsChoiceQuestion(boolean isChoiceQuestion) {
+        ApplicationContext.isChoiceQuestion.set(isChoiceQuestion);
     }
 }

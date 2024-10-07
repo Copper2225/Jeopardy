@@ -23,10 +23,7 @@ import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerQueue;
 import org.copper.Buzzer.Team;
 import org.copper.Play.PlayScreen;
-import org.copper.Questions.AudioQuestion;
-import org.copper.Questions.BildQuestion;
-import org.copper.Questions.Question;
-import org.copper.Questions.TextQuestion;
+import org.copper.Questions.*;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -68,6 +65,7 @@ public class Quest {
                     case ApplicationContext.QuestionTypes.TEXT -> antwort.setText(((TextQuestion) question).getAnswer());
                     case ApplicationContext.QuestionTypes.BILD -> antwort.setText(((BildQuestion) question).getAnswer());
                     case ApplicationContext.QuestionTypes.AUDIO -> antwort.setText(((AudioQuestion) question).getAnswer());
+                    case ApplicationContext.QuestionTypes.CHOICE -> antwort.setText(((ChoiceQuestion) question).getAnswer());
                 }
                 aufgedeckt.set(true);
             }
@@ -131,15 +129,17 @@ public class Quest {
                 case ApplicationContext.QuestionTypes.TEXT -> antwort.setText(((TextQuestion) question).getQuestion());
                 case ApplicationContext.QuestionTypes.BILD -> antwort.setText(((BildQuestion) question).getQuestion());
                 case ApplicationContext.QuestionTypes.AUDIO -> antwort.setText(((AudioQuestion) question).getQuestion());
+                case ApplicationContext.QuestionTypes.CHOICE -> antwort.setText(((ChoiceQuestion) question).getQuestion());
             }
         }else{
             switch (question.getType()){
                 case ApplicationContext.QuestionTypes.TEXT -> antwort.setText(((TextQuestion) question).getAnswer());
                 case ApplicationContext.QuestionTypes.BILD -> antwort.setText(((BildQuestion) question).getAnswer());
                 case ApplicationContext.QuestionTypes.AUDIO -> antwort.setText(((AudioQuestion) question).getAnswer());
+                case ApplicationContext.QuestionTypes.CHOICE -> antwort.setText(((ChoiceQuestion) question).getAnswer());
             }
         }
-
+        ApplicationContext.isChoiceQuestionProperty().set(question instanceof ChoiceQuestion);
         AdminPlayScene.getInputs().reset();
         PlayScreen.setChildRoot(new HBox());
         root.getChildren().set(2, Objects.equals(question.getType(), ApplicationContext.QuestionTypes.AUDIO) ? mediaZone : toOverview);

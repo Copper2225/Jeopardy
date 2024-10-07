@@ -61,6 +61,7 @@ myButton :disabled {
     -fx-background-radius: 30px;
     -fx-border-insets: 0 75px 10px;
     -fx-background-insets: 25px 100px 35px;
+    -fx-padding: 15px;
 }
 
 .textQuestion Label {
@@ -76,7 +77,6 @@ myButton :disabled {
 
 .bildQuestion {
     -fx-alignment: top-center;
-    -fx-padding: 15px;
 }
 
 .topLabel {
@@ -129,4 +129,23 @@ myButton :disabled {
     -fx-border-insets: 5 10px;
     -fx-background-insets: 15px 20px;
     -fx-padding: 11px;
+}
+
+.choiceBox {
+    -fx-background-radius: 50px;
+    -fx-background-color: #202020;
+    -fx-alignment: center-left;
+}
+
+.choiceLetter {
+    -fx-background-color: teal;
+    -fx-font-size: 3em;
+    -fx-background-radius: 50px 0 0 50px;
+    -fx-alignment: center;
+}
+
+.choiceText {
+    -fx-alignment: top-left;
+    -fx-padding: 20px;
+    -fx-font-size: 2em;
 }

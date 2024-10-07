@@ -50,7 +50,14 @@
   "points" : 200,
   "buzzer" : false,
   "type" : "bild"
-}, null, null, null ], [ {
+}, null, null, {
+  "question" : "Bester Techniker",
+  "correctIndex" : 2,
+  "solutions" : [ "Max", "Börger", "Otte", "Copper" ],
+  "points" : 500,
+  "type" : "choice",
+  "buzzer" : false
+} ], [ {
   "filename" : "WM-Song feat.Joeysjungle.mp3",
   "question" : "",
   "answer" : "",

@@ -16,7 +16,8 @@ import org.copper.Buzzer.BuzzerQueue;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = TextQuestion.class, name = ApplicationContext.QuestionTypes.TEXT),
         @JsonSubTypes.Type(value = BildQuestion.class, name = ApplicationContext.QuestionTypes.BILD),
-        @JsonSubTypes.Type(value = AudioQuestion.class, name = ApplicationContext.QuestionTypes.AUDIO)
+        @JsonSubTypes.Type(value = AudioQuestion.class, name = ApplicationContext.QuestionTypes.AUDIO),
+        @JsonSubTypes.Type(value = ChoiceQuestion.class, name = ApplicationContext.QuestionTypes.CHOICE)
 })
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public abstract class Question {
