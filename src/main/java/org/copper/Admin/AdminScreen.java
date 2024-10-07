@@ -5,7 +5,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
-import org.copper.Admin.AdminPlay.Overview;
 import org.copper.Admin.ConfigScene.ConfigScene;
 import org.copper.Admin.EditButton.EditButtonScene;
 import org.copper.Admin.EditButtons.EditButtonsScene;

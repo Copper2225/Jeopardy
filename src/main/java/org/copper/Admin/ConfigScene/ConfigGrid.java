@@ -5,22 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import org.copper.ApplicationContext;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Random;
 
 public class ConfigGrid {
     private final HBox hBox;

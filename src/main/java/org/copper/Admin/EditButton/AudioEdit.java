@@ -4,15 +4,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import org.copper.Admin.AdminScreen;
 import org.copper.ApplicationContext;
 import org.copper.Questions.AudioQuestion;
-import org.copper.Questions.BildQuestion;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
 

@@ -1,14 +1,11 @@
 package org.copper.Admin.EditButtons;
 
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.copper.Admin.AdminScreen;
 import org.copper.ApplicationContext;
-
-import java.util.Arrays;
 
 public class EditButtonsGrid {
     private final HBox hBox;

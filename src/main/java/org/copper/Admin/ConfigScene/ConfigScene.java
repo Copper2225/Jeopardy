@@ -1,12 +1,7 @@
 package org.copper.Admin.ConfigScene;
 
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
-
 
 public class ConfigScene {
     private final VBox vBox;

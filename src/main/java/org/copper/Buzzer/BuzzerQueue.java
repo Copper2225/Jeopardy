@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 public class BuzzerQueue {
     private static final Queue<Team> queue = new LinkedList<>();
     private static final Set<Team> set = new HashSet<>();
-    private static BooleanProperty allowBuzzer = new SimpleBooleanProperty(false);
+    private static final BooleanProperty allowBuzzer = new SimpleBooleanProperty(false);
 
     public BuzzerQueue() {
     }

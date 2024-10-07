@@ -17,7 +17,6 @@ import org.copper.ApplicationContext;
 import org.copper.Questions.BildQuestion;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
-import org.copper.Questions.TextQuestion;
 
 import java.io.File;
 import java.io.IOException;

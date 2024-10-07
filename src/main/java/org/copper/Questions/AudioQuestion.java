@@ -22,7 +22,6 @@ import org.copper.Play.PlayScreen;
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static org.copper.ApplicationContext.createSpacer;
 
@@ -32,9 +31,9 @@ public class AudioQuestion extends Question {
     @JsonIgnore
     private MediaPlayer mediaPlayer;
     @JsonIgnore
-    private Media audio;
+    private final Media audio;
     @JsonIgnore
-    private Image image;
+    private final Image image;
     private String filename;
     private Integer dauer;
 

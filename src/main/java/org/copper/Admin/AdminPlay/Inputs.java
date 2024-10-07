@@ -4,18 +4,14 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import org.copper.Admin.AdminScreen;
 import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
-
-import java.util.Arrays;
 
 public class Inputs {
     VBox root;

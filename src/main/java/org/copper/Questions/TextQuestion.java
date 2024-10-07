@@ -3,12 +3,8 @@ package org.copper.Questions;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextFlow;
 import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
 

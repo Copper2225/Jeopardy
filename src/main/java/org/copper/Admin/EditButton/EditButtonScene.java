@@ -1,20 +1,14 @@
 package org.copper.Admin.EditButton;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import org.copper.Admin.AdminScreen;
 import org.copper.ApplicationContext;
-import org.copper.Questions.BildQuestion;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
-import org.copper.Questions.TextQuestion;
 
 public class EditButtonScene {
     private final VBox root;
@@ -39,12 +33,7 @@ public class EditButtonScene {
         cancel.setOnAction((event -> AdminScreen.switchScene(ApplicationContext.AdminScenes.EDIT_BUTTONS)));
         HBox menu = new HBox(typeChoose, save, cancel);
         root = new VBox(menu, new Pane());
-        typeChoose.valueProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observableValue, String string, String t1) {
-                switchType(t1);
-            }
-        });
+        typeChoose.valueProperty().addListener((observableValue, string, t1) -> switchType(t1));
     }
 
     public void loadConfig(){

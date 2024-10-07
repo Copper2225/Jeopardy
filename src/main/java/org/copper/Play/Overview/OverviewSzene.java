@@ -1,22 +1,16 @@
 package org.copper.Play.Overview;
 
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
-import org.copper.Questions.Questions;
 import org.copper.Saver.CategoriesSaver;
-
-import static org.copper.Buzzer.BuzzerServer.stop;
 
 public class OverviewSzene {
     private VBox root;

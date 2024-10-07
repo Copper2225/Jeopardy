@@ -15,8 +15,6 @@ import org.copper.Play.PlayScreen;
 
 public class Teamsbar {
     private final HBox root;
-
-    private IntegerProperty points;
     private Label buzzering;
     private final Label[] buzzerIndicates = new Label[ApplicationContext.getTeamAmount()];
     private final Label[] teamNames = new Label[ApplicationContext.getTeamAmount()];

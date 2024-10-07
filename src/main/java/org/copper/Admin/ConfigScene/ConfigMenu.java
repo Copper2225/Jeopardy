@@ -6,7 +6,6 @@ import javafx.scene.layout.HBox;
 import org.copper.Admin.AdminScreen;
 import org.copper.Admin.EditButtons.EditButtonsScene;
 import org.copper.ApplicationContext;
-import org.copper.Questions.Questions;
 
 import java.io.File;
 import java.io.IOException;

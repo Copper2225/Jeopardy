@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
-import org.copper.Questions.BildQuestion;
 import org.copper.Questions.ChoiceQuestion;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;

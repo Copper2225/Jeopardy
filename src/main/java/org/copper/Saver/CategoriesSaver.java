@@ -2,18 +2,13 @@ package org.copper.Saver;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import org.copper.ApplicationContext;
-import org.copper.Buzzer.Team;
-import org.copper.Play.PlayScreen;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
-import java.util.List;
 
 public class CategoriesSaver {
     public static void saveCategories(GridPane grid) {
