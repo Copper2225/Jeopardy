@@ -54,9 +54,10 @@ public class BuzzerServer {
                     return ipAddress != null && ipAddress.equals(req.ip());
                 }).findFirst();
                 name.ifPresent(team -> {
-                    System.out.println("FIND");
                     int index = PlayScreen.getTeamNames().indexOf(team.getTeamName());
-                    Platform.runLater(() -> AdminPlayScene.getInputs().getInputTexts().set(index, inputData.getInput()));
+                    if(!AdminPlayScene.getInputs().isShowInputs()){
+                        Platform.runLater(() -> AdminPlayScene.getInputs().getInputTexts().set(index, inputData.getInput()));
+                    }
                 });
 
             }

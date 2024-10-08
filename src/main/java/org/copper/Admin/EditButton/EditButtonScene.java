@@ -39,7 +39,6 @@ public class EditButtonScene {
     public void loadConfig(){
         index = ApplicationContext.getCurrentIndex();
         question = Questions.getQuestions()[index[0]][index[1]];
-        System.out.println(question);
         String type = switch (question != null ? question.getType() : null){
             case ApplicationContext.QuestionTypes.TEXT -> Types.TEXT;
             case ApplicationContext.QuestionTypes.BILD -> Types.BILD;

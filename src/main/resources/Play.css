@@ -42,13 +42,13 @@ myButton :disabled {
     -fx-padding: 10px 10px 0;
     -fx-background-color: #C0597D;
     -fx-background-radius: 10px 10px 0 0;
-    -fx-font-size: 2.5em;
-    -fx-min-width: 230px;
+    -fx-font-size: 2.3em;
+    -fx-min-width: 200px;
     -fx-alignment: center;
 }
 
 .teamName {
-    -fx-font-size: 2em;
+    -fx-font-size: 1.8em;
     -fx-wrap-text: true;
     -fx-text-alignment: center;
 }
@@ -139,6 +139,13 @@ myButton :disabled {
 
 .choiceLetter {
     -fx-background-color: teal;
+    -fx-font-size: 3em;
+    -fx-background-radius: 50px 0 0 50px;
+    -fx-alignment: center;
+}
+
+.correctLetter {
+    -fx-background-color: springgreen;
     -fx-font-size: 3em;
     -fx-background-radius: 50px 0 0 50px;
     -fx-alignment: center;

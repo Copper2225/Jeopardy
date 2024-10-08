@@ -146,7 +146,6 @@ public class Quest {
 
     private HBox mediaZone() {
         play.setOnAction(event -> {
-            System.out.println(((AudioQuestion) question).getMediaPlayer().getStatus());
             if(((AudioQuestion) question).getMediaPlayer().getStatus() == MediaPlayer.Status.PAUSED){
                 ((AudioQuestion) question).getMediaPlayer().play();
             }else{

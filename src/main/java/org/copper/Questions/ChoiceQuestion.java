@@ -43,7 +43,7 @@ public class ChoiceQuestion extends Question {
         this.solutions = solutions;
         shuffledOptions = Arrays.asList(Arrays.copyOf(solutions, solutions.length));
         Collections.shuffle(shuffledOptions);
-        answer = (char)(65 + shuffledOptions.indexOf(solutions[correctIndex])) + ": " + solutions[correctIndex];
+        answer = String.valueOf((char)(65 + shuffledOptions.indexOf(solutions[correctIndex])));
     }
 
     @Override
@@ -87,15 +87,44 @@ public class ChoiceQuestion extends Question {
 
     @Override
     public void showSolution(){
-        super.showSolution();
+        super.showQuestion();
         Label question = new Label(getQuestion());
         question.getStyleClass().add("topLabel");
-        Label solution = new Label(getAnswer());
-        solution.getStyleClass().add("textQuestion");
-        VBox vBox = new VBox(question, createSpacer(false), solution, createSpacer(false));
-        question.prefWidthProperty().bind(vBox.widthProperty());
-        vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
-        PlayScreen.setChildRoot(vBox);
+        GridPane gridPane = new GridPane();
+        VBox questRoot = new VBox(question, gridPane);
+        for(int i = 0 ; i < solutions.length; i++) {
+            Label text = new Label(shuffledOptions.get(i));
+            text.prefHeightProperty().bind(questRoot.heightProperty().subtract(question.heightProperty()).divide(solutions.length/2).subtract(30));
+            text.getStyleClass().add("choiceText");
+            Label letter = new Label(String.valueOf(Character.toChars(65 + i)));
+            letter.prefHeightProperty().bind(questRoot.heightProperty().subtract(question.heightProperty()).divide(solutions.length/2).subtract(30));
+            letter.prefWidthProperty().bind(questRoot.widthProperty().divide(2).subtract(40).multiply(0.1));
+            letter.getStyleClass().add("choiceLetter");
+            if(letter.getText().equals(answer)){
+                letter.getStyleClass().add("correctLetter");
+            }
+            HBox choice = new HBox(letter, text);
+            choice.getStyleClass().add("choiceBox");
+            choice.prefWidthProperty().bind(
+                    Bindings.when(Bindings.createBooleanBinding(
+                                    () -> solutions.length%2 == 1,
+                                    questRoot.widthProperty()
+                            ))
+                            .then(questRoot.widthProperty())
+                            .otherwise(questRoot.widthProperty().divide(2)).subtract(40)
+            );
+            choice.prefHeightProperty().bind(questRoot.heightProperty().subtract(question.heightProperty()).divide(solutions.length/2).subtract(30));
+            if(solutions.length%2 == 1){
+                VBox.setMargin(choice, new Insets(0, 30, 30, 30));
+                questRoot.getChildren().add(choice);
+            } else {
+                gridPane.add(choice, i%2, i/2 );
+            }
+        }
+
+        questRoot.getStyleClass().addAll("stackQuestion");
+        question.prefWidthProperty().bind(questRoot.widthProperty());
+        PlayScreen.setChildRoot(questRoot);
     }
 
     public String getQuestion() {
