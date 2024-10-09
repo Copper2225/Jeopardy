@@ -25,7 +25,7 @@ public class ConfigMenu {
             AdminScreen.switchScene(ApplicationContext.AdminScenes.EDIT_BUTTONS);
             ApplicationContext.setCategories(Arrays.stream(ConfigScene.getGrid().getCategoryFields()).map(TextField::getText).toArray(String[]::new));
             ObjectMapper mapper = new ObjectMapper();
-            File fCategories = new File("src/main/resources/" + "questions/categories" +".json");
+            File fCategories = new File("src/main/resources/" + "quizzes/" + ApplicationContext.getQuizName() + "/questions/categories" +".json");
             try {
                 mapper.writerWithDefaultPrettyPrinter().writeValue(fCategories, ApplicationContext.getCategories());
             }catch (IOException e){

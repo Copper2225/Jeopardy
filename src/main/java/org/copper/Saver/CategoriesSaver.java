@@ -13,7 +13,7 @@ import java.io.IOException;
 public class CategoriesSaver {
     public static void saveCategories(GridPane grid) {
         ObjectMapper mapper = new ObjectMapper();
-        File fPoints = new File("src/main/resources/savings/categories.json");
+        File fPoints = new File("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/savings/categories.json");
         try {
             boolean[][] disabledMatrix = new boolean[ApplicationContext.getColumns()][ApplicationContext.getRows()];
             for (Node node : grid.getChildren()) {
@@ -29,7 +29,7 @@ public class CategoriesSaver {
     public static boolean[][] loadCategories(){
         ObjectMapper mapper = new ObjectMapper();
         try {
-            File fPoints = new File("src/main/resources/" + "savings/categories" +".json");
+            File fPoints = new File("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/savings/categories.json");
             boolean[][] teamsFile = mapper.readValue(fPoints, new TypeReference<>() {});
             return teamsFile;
         } catch (Exception e) {

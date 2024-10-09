@@ -64,7 +64,10 @@ public class Inputs {
             Alert alert = new Alert(Alert.AlertType.NONE);
             alert.initOwner(AdminScreen.getAdminStage());
             alert.initModality(Modality.WINDOW_MODAL);
-            alert.contentTextProperty().bind(Bindings.valueAt(inputTexts, i));
+            Label alertLabel = new Label();
+            alertLabel.textProperty().bind(Bindings.valueAt(inputTexts, i));
+            alertLabel.setWrapText(false);
+            alert.getDialogPane().setContent(alertLabel);
             alert.titleProperty().bind(Bindings.valueAt(PlayScreen.getTeamNames(), i));
             alert.getButtonTypes().add(ButtonType.CLOSE);
             alert.show();

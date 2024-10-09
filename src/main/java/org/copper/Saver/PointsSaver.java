@@ -15,7 +15,7 @@ import java.util.List;
 public class PointsSaver {
     public static void savePoints() {
         ObjectMapper mapper = new ObjectMapper();
-        File fPoints = new File("src/main/resources/savings/points.json");
+        File fPoints = new File("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/savings/points.json");
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(fPoints, PlayScreen.getTeams());
         } catch (IOException e) {
@@ -27,7 +27,7 @@ public class PointsSaver {
     public static void loadPoints(List<Team> teams, ObservableList<String> teamNames){
         ObjectMapper mapper = new ObjectMapper();
         try {
-            File fPoints = new File("src/main/resources/" + "savings/points" +".json");
+            File fPoints = new File("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/savings/points.json");
             ArrayList<Team> teamsFile = mapper.readValue(fPoints, new TypeReference<>() {});
             for (int i = 0; i < ApplicationContext.getTeamAmount(); i++){
                 teams.add(new Team(teamsFile.get(i).getTeamName(), teamsFile.get(i).getiPAddress(), teamsFile.get(i).pointsProperty().get()));

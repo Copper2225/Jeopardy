@@ -43,6 +43,7 @@ public class ApplicationContext {
     private static int[][] pointMatrix = new int[columns][rows];
     private static String[] categories = new String[columns];
     private static int wrongMultiplier = 2;
+    private static String quizName = "testing";
 
     public static void loadApplicationContext(){
         Rectangle2D bounds = Screen.getPrimary().getBounds();
@@ -161,5 +162,13 @@ public class ApplicationContext {
 
     public static void setIsChoiceQuestion(boolean isChoiceQuestion) {
         ApplicationContext.isChoiceQuestion.set(isChoiceQuestion);
+    }
+
+    public static String getQuizName() {
+        return quizName;
+    }
+
+    public static void setQuizName(String quizName) {
+        ApplicationContext.quizName = quizName;
     }
 }

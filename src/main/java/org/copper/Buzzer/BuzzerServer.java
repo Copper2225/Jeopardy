@@ -48,18 +48,19 @@ public class BuzzerServer {
                 teams.addFirst(new Team(inputData.getInput(), req.ip()));
                 buzzerNames.add(inputData.getInput());
             }else {
-                Optional<Team> name = PlayScreen.getTeams().stream().filter((team) -> {
+                if(!inputData.getInput().isEmpty()){
+                    Optional<Team> name = PlayScreen.getTeams().stream().filter((team) -> {
                     String ipAddress = team.getiPAddress();
                     System.out.println(ipAddress + " " + req.ip());
                     return ipAddress != null && ipAddress.equals(req.ip());
                 }).findFirst();
-                name.ifPresent(team -> {
-                    int index = PlayScreen.getTeamNames().indexOf(team.getTeamName());
-                    if(!AdminPlayScene.getInputs().isShowInputs()){
-                        Platform.runLater(() -> AdminPlayScene.getInputs().getInputTexts().set(index, inputData.getInput()));
-                    }
-                });
-
+                    name.ifPresent(team -> {
+                        int index = PlayScreen.getTeamNames().indexOf(team.getTeamName());
+                        if(!AdminPlayScene.getInputs().isShowInputs()){
+                            Platform.runLater(() -> AdminPlayScene.getInputs().getInputTexts().set(index, inputData.getInput()));
+                        }
+                    });
+                }
             }
 
             res.type("application/json");

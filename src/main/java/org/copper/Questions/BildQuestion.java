@@ -36,7 +36,7 @@ public class BildQuestion extends Question {
     ) {
         super(ApplicationContext.QuestionTypes.BILD, points, buzzer);
         this.filename = filename;
-        Path target = Paths.get("src/main/resources/images/" + filename);
+        Path target = Paths.get("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/images/" + filename);
         image = new Image(target.toUri().toString());
         this.answer = answer;
         this.question = question;

@@ -48,7 +48,7 @@ public class AudioEdit extends EditPane {
         file = fileChooser.showOpenDialog(null);
         if (file != null) {
             Path source = Paths.get(file.getAbsolutePath());
-            Path target = Paths.get("src/main/resources/audios/" + file.getName());
+            Path target = Paths.get("src/main/resources/quizzes/"+ ApplicationContext.getQuizName() + "/audios/" + file.getName());
             try {
                 if (!Files.exists(target)) {
                     Files.copy(source, target);
@@ -60,7 +60,7 @@ public class AudioEdit extends EditPane {
     }
 
     private void loadFiles(){
-        File resourcesDirectory = new File("src/main/resources/audios");
+        File resourcesDirectory = new File("src/main/resources/quizzes/"+ ApplicationContext.getQuizName() + "/audios");
         String[] fileNames = resourcesDirectory.list();
         listFiles = new ComboBox<String>();
         if(fileNames != null){
@@ -69,7 +69,7 @@ public class AudioEdit extends EditPane {
         listFiles.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String string, String t1) {
-                file = new File("src/main/resources/audios/" + t1);
+                file = new File("src/main/resources/quizzes/"+ ApplicationContext.getQuizName() + "/audios/" + t1);
             }
         });
     }
@@ -78,7 +78,9 @@ public class AudioEdit extends EditPane {
     public void load(Question question) {
         if (question instanceof AudioQuestion){
             listFiles.setValue(((AudioQuestion) question).getFilename());
-            dauer.setText(((AudioQuestion) question).getDauer().toString());
+            if(((AudioQuestion) question).getDauer() != null) {
+                dauer.setText(((AudioQuestion) question).getDauer().toString());
+            }
             questionArea.setText(((AudioQuestion) question).getQuestion());
             solutionArea.setText(((AudioQuestion) question).getAnswer());
             ((AudioQuestion) question).setAnswer(solutionArea.getText());

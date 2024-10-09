@@ -32,8 +32,6 @@ public class AudioQuestion extends Question {
     private MediaPlayer mediaPlayer;
     @JsonIgnore
     private final Media audio;
-    @JsonIgnore
-    private final Image image;
     private String filename;
     private Integer dauer;
 
@@ -48,9 +46,8 @@ public class AudioQuestion extends Question {
     ) {
         super(ApplicationContext.QuestionTypes.AUDIO, points, buzzer);
         this.filename = filename;
-        Path target = Paths.get("src/main/resources/audios/" + filename);
+        Path target = Paths.get("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/audios/" + filename);
         audio = new Media(target.toUri().toString());
-        image = new Image("file:///C:/Users/Verenkotte/IdeaProjects/JeopardyGit/src/main/resources/music.png");
         this.question = question;
         this.dauer = dauer;
         this.answer = answer;
@@ -61,14 +58,8 @@ public class AudioQuestion extends Question {
         super.showQuestion();
         Label question = new Label(getQuestion());
         question.getStyleClass().add("topLabel");
-        ImageView imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
-        imageView.setSmooth(true);
-        imageView.setCache(true);
-        imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().multiply(0.8));
         VBox vBox = new VBox(question, createSpacer(false), animateImage(), createSpacer(false));
         question.prefWidthProperty().bind(vBox.widthProperty());
-        imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().subtract(300));
         vBox.getStyleClass().addAll("stackQuestion", "bildQuestion");
         AdminPlayScene.getQuest().getPlay().textProperty().bind(
                 Bindings.when(mediaPlayer.statusProperty().isEqualTo(MediaPlayer.Status.PLAYING)).then("Playing").otherwise("Paused")
@@ -200,7 +191,6 @@ public class AudioQuestion extends Question {
                 "question='" + question + '\'' +
                 ", answer='" + answer + '\'' +
                 ", audio=" + mediaPlayer +
-                ", image=" + image +
                 ", filename='" + filename + '\'' +
                 '}';
     }

@@ -54,7 +54,7 @@ public class ConfigGrid {
 
     private void load(){
         ObjectMapper mapper = new ObjectMapper();
-        File fCategories = new File("src/main/resources/" + "questions/categories" +".json");
+        File fCategories = new File("src/main/resources/" + "quizzes/" + ApplicationContext.getQuizName() + "/questions/categories" +".json");
         try {
             ApplicationContext.setCategories(mapper.readValue(fCategories, new TypeReference<>() {}));
             for (int i = 0; i < ApplicationContext.getCategories().length; i++){

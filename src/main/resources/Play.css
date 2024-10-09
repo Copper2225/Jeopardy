@@ -152,7 +152,7 @@ myButton :disabled {
 }
 
 .choiceText {
-    -fx-alignment: top-left;
+    -fx-alignment: center-left;
     -fx-padding: 20px;
-    -fx-font-size: 2em;
+    -fx-font-size: 3em;
 }

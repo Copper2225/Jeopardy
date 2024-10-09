@@ -57,7 +57,7 @@ public class BildEdit extends EditPane {
         file = fileChooser.showOpenDialog(null);
         if (file != null) {
             Path source = Paths.get(file.getAbsolutePath());
-            Path target = Paths.get("src/main/resources/images/" + file.getName());
+            Path target = Paths.get("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/images/" + file.getName());
             try {
                 if (!Files.exists(target)) {
                     Files.copy(source, target);
@@ -71,7 +71,7 @@ public class BildEdit extends EditPane {
     }
 
     private void loadFiles(){
-        File resourcesDirectory = new File("src/main/resources/images");
+        File resourcesDirectory = new File("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/images");
         String[] fileNames = resourcesDirectory.list();
         listFiles = new ComboBox<String>();
         if(fileNames != null){
@@ -80,7 +80,7 @@ public class BildEdit extends EditPane {
         listFiles.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String string, String t1) {
-                file = new File("src/main/resources/images/" + t1);
+                file = new File("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/images/" + t1);
                 preview.setImage(new Image(file.toURI().toString()));
             }
         });

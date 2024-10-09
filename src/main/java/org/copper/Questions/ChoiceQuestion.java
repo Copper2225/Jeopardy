@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.beans.binding.Bindings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -17,12 +16,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.copper.ApplicationContext.createSpacer;
-
 public class ChoiceQuestion extends Question {
 
     @JsonIgnore
     private String answer;
+    @JsonIgnore
+    private final boolean forceUnderneath = true;
     @JsonIgnore
     List<String> shuffledOptions;
     private String question;
@@ -63,16 +62,17 @@ public class ChoiceQuestion extends Question {
             letter.getStyleClass().add("choiceLetter");
             HBox choice = new HBox(letter, text);
             choice.getStyleClass().add("choiceBox");
+            boolean horizontal = solutions.length%2 == 1 || forceUnderneath;
             choice.prefWidthProperty().bind(
                     Bindings.when(Bindings.createBooleanBinding(
-                                    () -> solutions.length%2 == 1,
+                                    () -> horizontal,
                                     questRoot.widthProperty()
                             ))
                             .then(questRoot.widthProperty())
                             .otherwise(questRoot.widthProperty().divide(2)).subtract(40)
             );
             choice.prefHeightProperty().bind(questRoot.heightProperty().subtract(question.heightProperty()).divide(solutions.length/2).subtract(30));
-            if(solutions.length%2 == 1){
+            if(horizontal){
                 VBox.setMargin(choice, new Insets(0, 30, 30, 30));
                 questRoot.getChildren().add(choice);
             } else {
@@ -105,16 +105,17 @@ public class ChoiceQuestion extends Question {
             }
             HBox choice = new HBox(letter, text);
             choice.getStyleClass().add("choiceBox");
+            boolean horizontal = solutions.length%2 == 1 || forceUnderneath;
             choice.prefWidthProperty().bind(
                     Bindings.when(Bindings.createBooleanBinding(
-                                    () -> solutions.length%2 == 1,
+                                    () -> horizontal,
                                     questRoot.widthProperty()
                             ))
                             .then(questRoot.widthProperty())
                             .otherwise(questRoot.widthProperty().divide(2)).subtract(40)
             );
             choice.prefHeightProperty().bind(questRoot.heightProperty().subtract(question.heightProperty()).divide(solutions.length/2).subtract(30));
-            if(solutions.length%2 == 1){
+            if(horizontal){
                 VBox.setMargin(choice, new Insets(0, 30, 30, 30));
                 questRoot.getChildren().add(choice);
             } else {

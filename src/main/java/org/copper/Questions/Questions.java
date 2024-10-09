@@ -26,7 +26,7 @@ public class Questions {
 
     public static void save(){
         ObjectMapper mapper = new ObjectMapper();
-        File fQuestions = new File("src/main/resources/" + "questions/questions" +".json");
+        File fQuestions = new File("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/questions/questions.json");
         try {
             mapper.writerWithDefaultPrettyPrinter().writeValue(fQuestions, Questions.getQuestions());
         }catch (IOException e){
@@ -47,7 +47,7 @@ public class Questions {
 
     public static void load(){
         ObjectMapper mapper = new ObjectMapper();
-        File fQuestions = new File("src/main/resources/" + "questions/questions" +".json");
+        File fQuestions = new File("src/main/resources/quizzes/" + ApplicationContext.getQuizName() + "/questions/questions.json");
         try {
             Questions.setQuestions(mapper.readValue(fQuestions, new TypeReference<Question[][]>() {
             }));
