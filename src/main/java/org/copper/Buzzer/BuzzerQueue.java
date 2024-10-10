@@ -44,7 +44,7 @@ public class BuzzerQueue {
             set.add(element);
             updateAllTeamsPositions();
             if(wasEmpty && currentBuzzerStatus.isEqualTo(buzzerStates[1]).get()){
-                PlayScreen.gettB().buzzer(element);
+                PlayScreen.getTb().buzzer(element);
                 mP.play();
                 Platform.runLater(() -> AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(element.getTeamName()));
             }
@@ -59,12 +59,14 @@ public class BuzzerQueue {
             AdminPlayScene.getEdit().removeBuzzer();
             updateAllTeamsPositions();
             if(peek() != null){
-                PlayScreen.gettB().buzzer(peek());
-                AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(element.getTeamName());
+                PlayScreen.getTb().buzzer(peek());
+                AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(peek().getTeamName());
             }else{
-                PlayScreen.gettB().clearBuzzer();
+                PlayScreen.getTb().clearBuzzer();
                 AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(null);
             }
+        } else {
+            AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(null);
         }
     }
 
@@ -73,7 +75,7 @@ public class BuzzerQueue {
         set.clear();
         updateAllTeamsPositions();
         AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(null);
-        PlayScreen.gettB().clearBuzzer();
+        PlayScreen.getTb().clearBuzzer();
     }
 
     public static void toggleStatus() {

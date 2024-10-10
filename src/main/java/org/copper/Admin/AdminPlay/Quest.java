@@ -24,7 +24,6 @@ import org.copper.Play.PlayScreen;
 import org.copper.Questions.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Quest {
     FlowPane root;
@@ -97,13 +96,7 @@ public class Quest {
         points.getItems().addAll(pointsSet.stream().sorted().toList());
         points.getStyleClass().add("questionPoints");
         Button listCorrect = new Button("☑ Übersicht");
-        Button add = new Button("Hinzufügen");
-        add.setOnAction(event -> {
-            Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
-            optionalTeam.ifPresent(team -> team.pointsProperty().set(team.pointsProperty().getValue() + points.getValue()));
-            points.getSelectionModel().selectPrevious();
-            teams.getSelectionModel().select("");
-        });
+        Button add = getAddButton(teams);
         Button wrong = new Button("Falsch");
         listCorrect.setOnAction((event -> {
             for(int i = 0; i < ApplicationContext.getTeamAmount(); i++){
@@ -120,11 +113,28 @@ public class Quest {
             });
             if(BuzzerQueue.isAllowBuzzer()){
                  BuzzerQueue.poll();
+            } else {
+                teams.getSelectionModel().select("");
             }
         }));
         bind(teams, points);
         bind(add, listCorrect, wrong);
         return new VBox(new HBox(teams, points), new HBox(wrong, listCorrect, add));
+    }
+
+    private Button getAddButton(ComboBox<String> teams) {
+        Button add = new Button("Hinzufügen");
+        add.setOnAction(event -> {
+            Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
+            optionalTeam.ifPresent(team -> team.pointsProperty().set(team.pointsProperty().getValue() + points.getValue()));
+            points.getSelectionModel().selectPrevious();
+            if(BuzzerQueue.isAllowBuzzer()){
+                BuzzerQueue.poll();
+            } else {
+                teams.getSelectionModel().select("");
+            }
+        });
+        return add;
     }
 
     public ObjectProperty<String> getBuzzeringTeamProperty() {

@@ -48,6 +48,10 @@ public class Teamsbar {
         buzzering = null;
     }
 
+    public TeamTile[] getTeams() {
+        return teams;
+    }
+
     public void switchTeamName(int index, String newName){
         teams[index].getTeamName().setText(newName);
     }

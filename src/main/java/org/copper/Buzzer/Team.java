@@ -20,6 +20,8 @@ public class Team {
     private final transient IntegerProperty points = new SimpleIntegerProperty(0);
     @JsonIgnore
     private final StringProperty buzzerPosition = new SimpleStringProperty("");
+    @JsonIgnore
+    private final BooleanProperty show = new SimpleBooleanProperty(false);
 
     private void savePoints() {
         points.addListener(new ChangeListener<Number>() {
@@ -112,6 +114,18 @@ public class Team {
 
     public void setBuzzerPosition(String buzzerPosition) {
         this.buzzerPosition.set(buzzerPosition);
+    }
+
+    public boolean isShow() {
+        return show.get();
+    }
+
+    public BooleanProperty showProperty() {
+        return show;
+    }
+
+    public void setShow(boolean show) {
+        this.show.set(show);
     }
 
     @Override

@@ -8,7 +8,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import org.copper.Admin.AdminScreen;
 import org.copper.ApplicationContext;
 import org.copper.Play.Overview.TeamTile;
@@ -40,20 +39,20 @@ public class Inputs {
         Button showInputs = new Button("Zeigen");
         showInputs.setOnAction(event -> AdminPlayScene.getInputs().showInputsProperty().set(!AdminPlayScene.getInputs().isShowInputs()));
         showInputs.prefWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).multiply(0.84));
-        showInputs.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
-        showInputs.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
+        showInputs.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(ApplicationContext.getTeamAmount()));
+        showInputs.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(ApplicationContext.getTeamAmount()));
         Button bigger = new Button("+");
         bigger.setOnAction(event -> TeamTile.inputSize.set(TeamTile.inputSize.get() + 0.1));
         bigger.minWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).multiply(0.08));
         bigger.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(30).divide(ApplicationContext.getTeamAmount() + 1));
         bigger.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(30).divide(ApplicationContext.getTeamAmount() + 1));
-        bigger.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
-        bigger.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
+        bigger.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(ApplicationContext.getTeamAmount()));
+        bigger.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(ApplicationContext.getTeamAmount()));
         Button smaller = new Button("-");
         smaller.setOnAction(event -> TeamTile.inputSize.set(TeamTile.inputSize.get() - 0.1));
         smaller.minWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).multiply(0.08));
-        smaller.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
-        smaller.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
+        smaller.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(ApplicationContext.getTeamAmount()));
+        smaller.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(ApplicationContext.getTeamAmount()));
         showBox.getChildren().addAll(smaller, showInputs, bigger);
         root.getChildren().add(showBox);
         AdminPlayScene.getRoot().add(root ,1, 1);
@@ -61,17 +60,27 @@ public class Inputs {
 
     private Button getButton(int i) {
         Button showDetailed = new Button();
+        showDetailed.styleProperty().bind(
+                Bindings.when(PlayScreen.getTeams().get(i).showProperty())
+                        .then("-fx-background-color: lightgreen;")
+                        .otherwise("-fx-background-color: lightcoral;")
+        );
         showDetailed.setOnAction(event -> {
-            Alert alert = new Alert(Alert.AlertType.NONE);
-            alert.initOwner(AdminScreen.getAdminStage());
-            alert.initModality(Modality.WINDOW_MODAL);
-            Label alertLabel = new Label();
-            alertLabel.textProperty().bind(Bindings.valueAt(inputTexts, i));
-            alertLabel.setWrapText(false);
-            alert.getDialogPane().setContent(alertLabel);
-            alert.titleProperty().bind(Bindings.valueAt(PlayScreen.getTeamNames(), i));
-            alert.getButtonTypes().add(ButtonType.CLOSE);
-            alert.show();
+//            Alert alert = new Alert(Alert.AlertType.NONE);
+//            alert.initOwner(AdminScreen.getAdminStage());
+//            alert.initModality(Modality.WINDOW_MODAL);
+//            Label alertLabel = new Label();
+//            alertLabel.textProperty().bind(Bindings.valueAt(inputTexts, i));
+//            alertLabel.setWrapText(false);
+//            alert.getDialogPane().setContent(alertLabel);
+//            alert.titleProperty().bind(Bindings.valueAt(PlayScreen.getTeamNames(), i));
+//            alert.getButtonTypes().add(ButtonType.CLOSE);
+//            alert.show();
+            boolean newValue = !PlayScreen.getTeams().get(i).isShow();
+            PlayScreen.getTeams().get(i).setShow(newValue);
+            if(newValue){
+                AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(PlayScreen.getTeamNames().get(i));
+            }
         });
         return showDetailed;
     }
@@ -82,8 +91,8 @@ public class Inputs {
         c.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(showBox.heightProperty()).divide(ApplicationContext.getTeamAmount()));
         c.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(showBox.heightProperty()).divide(ApplicationContext.getTeamAmount()));
         bt.minWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).multiply(0.08));
-        bt.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
-        bt.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
+        bt.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(ApplicationContext.getTeamAmount()));
+        bt.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(ApplicationContext.getTeamAmount()));
     }
 
     public ObservableList<String> getInputTexts() {

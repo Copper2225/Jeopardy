@@ -49,7 +49,7 @@ public class Edit {
         Button rename = new Button("Umbennen");
         rename.setOnAction((event -> {
             int oldIndex = teams.getSelectionModel().getSelectedIndex();
-            PlayScreen.gettB().switchTeamName(oldIndex, points.getText());
+            PlayScreen.getTb().switchTeamName(oldIndex, points.getText());
             PlayScreen.getTeams().get(oldIndex).setTeamName(points.getText());
             Optional<Team> buzzer = BuzzerServer.getTeams().stream().filter(team -> team.getTeamName().equals(points.getText())).findFirst();
             buzzer.ifPresent(buzz -> PlayScreen.getTeams().get(oldIndex).setiPAddress(buzz.getiPAddress()));
@@ -111,7 +111,7 @@ public class Edit {
         Button link = new Button("Überschreiben");
         link.setOnAction(event -> {
             int oldIndex = displayNames.getSelectionModel().getSelectedIndex();
-            PlayScreen.gettB().switchTeamName(oldIndex, buzzerNames.getValue());
+            PlayScreen.getTb().switchTeamName(oldIndex, buzzerNames.getValue());
             PlayScreen.getTeams().get(oldIndex).setTeamName(buzzerNames.getValue());
             Optional<Team> buzzer = BuzzerServer.getTeams().stream().filter(team -> team.getTeamName().equals(buzzerNames.getValue())).findFirst();
             buzzer.ifPresent(buzz -> PlayScreen.getTeams().get(oldIndex).setiPAddress(buzz.getiPAddress()));

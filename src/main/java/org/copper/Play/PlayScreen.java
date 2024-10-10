@@ -99,7 +99,7 @@ public class PlayScreen {
         property.bind(adminProp.subtract(padding*2).subtract((elements - 1) * spacing).divide(elements));
     }
 
-    public static Teamsbar gettB() {
+    public static Teamsbar getTb() {
         return tB;
     }
 

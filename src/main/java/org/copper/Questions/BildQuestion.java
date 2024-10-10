@@ -51,7 +51,7 @@ public class BildQuestion extends Question {
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         imageView.setCache(true);
-        imageView.fitHeightProperty().bind(PlayScreen.getPlayStage().heightProperty().subtract(PlayScreen.gettB().getRoot().heightProperty()).subtract(PlayScreen.getLogo().fitHeightProperty()).subtract(350));
+        imageView.fitHeightProperty().bind(PlayScreen.getPlayStage().heightProperty().subtract(PlayScreen.getTb().getRoot().heightProperty()).subtract(PlayScreen.getLogo().fitHeightProperty()).subtract(350));
         VBox vBox = new VBox(question, createSpacer(false), imageView, createSpacer(false));
         question.prefWidthProperty().bind(vBox.widthProperty());
         imageView.fitWidthProperty().bind(PlayScreen.getPlayStage().widthProperty().subtract(300));
@@ -68,7 +68,7 @@ public class BildQuestion extends Question {
         imageView.setPreserveRatio(true);
         imageView.setSmooth(true);
         imageView.setCache(true);
-        imageView.fitHeightProperty().bind(PlayScreen.getPlayStage().heightProperty().subtract(PlayScreen.gettB().getRoot().heightProperty()).subtract(PlayScreen.getLogo().fitHeightProperty()).subtract(350));
+        imageView.fitHeightProperty().bind(PlayScreen.getPlayStage().heightProperty().subtract(PlayScreen.getTb().getRoot().heightProperty()).subtract(PlayScreen.getLogo().fitHeightProperty()).subtract(350));
         VBox vBox = new VBox(question, createSpacer(false), imageView, createSpacer(false));
         Label solution = new Label(getAnswer());
         solution.getStyleClass().add("overImageLabel");

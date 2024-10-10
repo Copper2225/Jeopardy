@@ -2,7 +2,6 @@ package org.copper.Play.Overview;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableIntegerValue;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -10,18 +9,13 @@ import javafx.scene.layout.VBox;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerQueue;
-import org.copper.Buzzer.Team;
 import org.copper.Play.PlayScreen;
-
-import java.util.LinkedList;
 
 public class TeamTile {
     private VBox root;
     public static final DoubleProperty inputSize = new SimpleDoubleProperty(2);
     private Label buzzerIndicate;
     private Label teamName;
-    private final BooleanProperty show = new SimpleBooleanProperty(false);
-    private final StringProperty buzzerIndex = new SimpleStringProperty("");
     public TeamTile(int number, ReadOnlyDoubleProperty teamsBarHeight){
         teamName = new Label(PlayScreen.getTeams().get(number).getTeamName());
         teamName.getStyleClass().add("teamName");
@@ -31,7 +25,7 @@ public class TeamTile {
         points.getStyleClass().add("points");
         Label input = new Label();
         input.textProperty().bind(
-                Bindings.when(BuzzerQueue.currentBuzzerStatusProperty().isNotEqualTo(BuzzerQueue.getBuzzerStates()[2]))
+                Bindings.when(BuzzerQueue.currentBuzzerStatusProperty().isNotEqualTo(BuzzerQueue.getBuzzerStates()[2]).or(PlayScreen.getTeams().get(number).showProperty()))
                         .then(Bindings.valueAt(AdminPlayScene.getInputs().getInputTexts(), number))
                         .otherwise(PlayScreen.getTeams().get(number).buzzerPositionProperty())
         );
@@ -41,7 +35,7 @@ public class TeamTile {
         input.maxWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(25)).otherwise(0));
         input.getStyleClass().add("inputShow");
         input.styleProperty().bind(Bindings.concat("-fx-font-size: ").concat(Bindings.when(input.textProperty().length().isEqualTo(1)).then(inputSize.multiply(5)).otherwise(inputSize)).concat("em;"));
-        input.visibleProperty().bind(AdminPlayScene.getInputs().showInputsProperty().or(show));
+        input.visibleProperty().bind(AdminPlayScene.getInputs().showInputsProperty());
         root = new VBox(input, teamName, points);
         teamName.minHeightProperty().bind(teamsBarHeight
                 .subtract(points.heightProperty()).subtract(input.heightProperty()));
@@ -76,29 +70,5 @@ public class TeamTile {
 
     public void setTeamName(Label teamName) {
         this.teamName = teamName;
-    }
-
-    public boolean isShow() {
-        return show.get();
-    }
-
-    public BooleanProperty showProperty() {
-        return show;
-    }
-
-    public void setShow(boolean show) {
-        this.show.set(show);
-    }
-
-    public String getBuzzerIndex() {
-        return buzzerIndex.get();
-    }
-
-    public StringProperty buzzerIndexProperty() {
-        return buzzerIndex;
-    }
-
-    public void setBuzzerIndex(String buzzerIndex) {
-        this.buzzerIndex.set(buzzerIndex);
     }
 }
