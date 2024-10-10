@@ -21,7 +21,7 @@ public class BuzzerQueue {
     private static final StringProperty currentBuzzerStatus = new SimpleStringProperty(buzzerStates[0]);
 
     public BuzzerQueue() {
-        Path target = Paths.get("src/main/resources/Buzzer.wav");
+        Path target = Paths.get("src/main/resources/Buzzer.mp3");
         Media buzzSound = new Media(target.toUri().toString());
         mP = new MediaPlayer(buzzSound);
         mP.setOnEndOfMedia(() -> {
@@ -43,7 +43,7 @@ public class BuzzerQueue {
             queue.offer(element);
             set.add(element);
             updateAllTeamsPositions();
-            if(wasEmpty && currentBuzzerStatus.isEqualTo(buzzerStates[0]).get()){
+            if(wasEmpty && currentBuzzerStatus.isEqualTo(buzzerStates[1]).get()){
                 PlayScreen.gettB().buzzer(element);
                 mP.play();
                 Platform.runLater(() -> AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(element.getTeamName()));
