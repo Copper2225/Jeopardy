@@ -87,10 +87,18 @@ public class Edit {
             buzzerQueue.setText("");
         });
         Button allow = new Button();
-        allow.textProperty().bind(Bindings.when(BuzzerQueue.allowBuzzerProperty()).then("Freigegeben").otherwise("Gesperrt"));
-        allow.styleProperty().bind(Bindings.when(BuzzerQueue.allowBuzzerProperty()).then("-fx-background-color: lightgreen;").otherwise("-fx-background-color: lightcoral;"));
+        allow.textProperty().bind(BuzzerQueue.currentBuzzerStatusProperty());
+        allow.styleProperty().bind(
+                Bindings.when(BuzzerQueue.currentBuzzerStatusProperty().isEqualTo(BuzzerQueue.getBuzzerStates()[0]))
+                        .then("-fx-background-color: lightcoral;")
+                        .otherwise(
+                                Bindings.when(BuzzerQueue.currentBuzzerStatusProperty().isEqualTo(BuzzerQueue.getBuzzerStates()[1]))
+                                        .then("-fx-background-color: lightgreen;")
+                                        .otherwise("-fx-background-color: khaki;")
+                        )
+        );
         allow.setOnAction(event -> {
-            BuzzerQueue.setAllowBuzzer(!BuzzerQueue.isAllowBuzzer());
+            BuzzerQueue.toggleStatus();
         });
         bind(next, clear, allow);
         VBox controls = new VBox(next, clear, allow);

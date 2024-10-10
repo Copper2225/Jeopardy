@@ -19,7 +19,7 @@ public class TextQuestion extends Question {
             @JsonProperty("question") String question,
             @JsonProperty("answer") String answer,
             @JsonProperty("points") int points,
-            @JsonProperty("buzzer") boolean buzzer
+            @JsonProperty("buzzer") int buzzer
     ) {
         super(ApplicationContext.QuestionTypes.TEXT, points, buzzer);
         this.question = question;

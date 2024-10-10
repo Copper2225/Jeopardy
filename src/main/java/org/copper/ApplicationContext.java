@@ -44,6 +44,7 @@ public class ApplicationContext {
     private static String[] categories = new String[columns];
     private static int wrongMultiplier = 2;
     private static String quizName = "testing";
+    private static int[] defaultPointValues = {100, 200, 300, 400, 500};
 
     public static void loadApplicationContext(){
         Rectangle2D bounds = Screen.getPrimary().getBounds();
@@ -170,5 +171,13 @@ public class ApplicationContext {
 
     public static void setQuizName(String quizName) {
         ApplicationContext.quizName = quizName;
+    }
+
+    public static int[] getDefaultPointValues() {
+        return defaultPointValues;
+    }
+
+    public static void setDefaultPointValues(int[] defaultPointValues) {
+        ApplicationContext.defaultPointValues = defaultPointValues;
     }
 }

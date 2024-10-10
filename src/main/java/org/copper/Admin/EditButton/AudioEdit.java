@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import org.copper.ApplicationContext;
+import org.copper.Buzzer.BuzzerQueue;
 import org.copper.Questions.AudioQuestion;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class AudioEdit extends EditPane {
     private final FileChooser fileChooser;
@@ -39,7 +41,7 @@ public class AudioEdit extends EditPane {
             upload();
         }));
         dauer = new TextField();
-        VBox vBox = new VBox(new HBox(upload, listFiles, dauer), buzzer, questionArea, solutionArea);
+        VBox vBox = new VBox(new HBox(typeChoose, upload, listFiles, dauer), buzzer, questionArea, solutionArea);
         vBox.setAlignment(Pos.TOP_CENTER);
         pane = vBox;
     }
@@ -75,7 +77,7 @@ public class AudioEdit extends EditPane {
     }
 
     @Override
-    public void load(Question question) {
+    public void loadSpecific(Question question) {
         if (question instanceof AudioQuestion){
             listFiles.setValue(((AudioQuestion) question).getFilename());
             if(((AudioQuestion) question).getDauer() != null) {
@@ -90,6 +92,6 @@ public class AudioEdit extends EditPane {
     @Override
     public void save(int[] index) {
         Integer dauer = this.dauer.getText().isBlank() ? null : Integer.parseInt(this.dauer.getText());
-        Questions.getQuestions()[index[0]][index[1]] = new AudioQuestion(file.getName(),questionArea.getText(), solutionArea.getText(), ApplicationContext.getPointMatrix()[index[0]][index[1]], buzzer.isSelected(), dauer);
+        Questions.getQuestions()[index[0]][index[1]] = new AudioQuestion(file.getName(),questionArea.getText(), solutionArea.getText(), ApplicationContext.getPointMatrix()[index[0]][index[1]], Arrays.asList(BuzzerQueue.getBuzzerStates()).indexOf(typeChoose.getValue()), dauer);
     }
 }

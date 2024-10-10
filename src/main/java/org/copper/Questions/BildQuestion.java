@@ -32,7 +32,7 @@ public class BildQuestion extends Question {
             @JsonProperty("question") String question,
             @JsonProperty("answer") String answer,
             @JsonProperty("points") int points,
-            @JsonProperty("buzzer") boolean buzzer
+            @JsonProperty("buzzer") int buzzer
     ) {
         super(ApplicationContext.QuestionTypes.BILD, points, buzzer);
         this.filename = filename;

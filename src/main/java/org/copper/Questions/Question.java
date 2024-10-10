@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import org.copper.Admin.AdminPlay.AdminPlayScene;
 import org.copper.ApplicationContext;
 import org.copper.Buzzer.BuzzerQueue;
 
@@ -22,9 +23,9 @@ import org.copper.Buzzer.BuzzerQueue;
 public abstract class Question {
     private final String type;
     private int points;
-    private boolean buzzer;
+    private int buzzer;
 
-    public Question(@JsonProperty("type") String type, @JsonProperty("points") int points, @JsonProperty("buzzer") boolean buzzer) {
+    public Question(@JsonProperty("type") String type, @JsonProperty("points") int points, @JsonProperty("buzzer") int buzzer) {
         this.type = type;
         this.points = points;
         this.buzzer = buzzer;
@@ -42,24 +43,21 @@ public abstract class Question {
         this.points = points;
     }
 
-    public boolean isBuzzer() {
+    public int getBuzzer() {
         return buzzer;
     }
 
-    public void setBuzzer(boolean buzzer) {
+    public void setBuzzer(int buzzer) {
         this.buzzer = buzzer;
     }
 
     public void showQuestion(){
-        if (buzzer){
-            BuzzerQueue.setAllowBuzzer(true);
-        }
+        AdminPlayScene.getQuest().setPointsValue(points);
+        BuzzerQueue.setStatus(buzzer);
     };
 
     public void showSolution(){
-        if (buzzer){
-            BuzzerQueue.setAllowBuzzer(false);
-        }
+        BuzzerQueue.setStatus(0);
     };
 
     @Override

@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import org.copper.Admin.AdminScreen;
 import org.copper.ApplicationContext;
+import org.copper.Play.Overview.TeamTile;
 import org.copper.Play.PlayScreen;
 
 public class Inputs {
@@ -42,14 +43,14 @@ public class Inputs {
         showInputs.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
         showInputs.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
         Button bigger = new Button("+");
-        bigger.setOnAction(event -> PlayScreen.gettB().inputSizeProperty().set(PlayScreen.gettB().getInputSize() + 0.1));
+        bigger.setOnAction(event -> TeamTile.inputSize.set(TeamTile.inputSize.get() + 0.1));
         bigger.minWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).multiply(0.08));
         bigger.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(30).divide(ApplicationContext.getTeamAmount() + 1));
         bigger.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(30).divide(ApplicationContext.getTeamAmount() + 1));
         bigger.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
         bigger.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
         Button smaller = new Button("-");
-        smaller.setOnAction(event -> PlayScreen.gettB().inputSizeProperty().set(PlayScreen.gettB().getInputSize() - 0.1));
+        smaller.setOnAction(event -> TeamTile.inputSize.set(TeamTile.inputSize.get() - 0.1));
         smaller.minWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().divide(2).subtract(30).multiply(0.08));
         smaller.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));
         smaller.maxHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().divide(2).subtract(90).divide(7));

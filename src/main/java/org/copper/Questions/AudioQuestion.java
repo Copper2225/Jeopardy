@@ -41,7 +41,7 @@ public class AudioQuestion extends Question {
             @JsonProperty("question") String question,
             @JsonProperty("answer") String answer,
             @JsonProperty("points") int points,
-            @JsonProperty("buzzer") boolean buzzer,
+            @JsonProperty("buzzer") int buzzer,
             @JsonProperty("dauer") Integer dauer
     ) {
         super(ApplicationContext.QuestionTypes.AUDIO, points, buzzer);

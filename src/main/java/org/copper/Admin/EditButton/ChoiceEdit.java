@@ -6,9 +6,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import org.copper.ApplicationContext;
+import org.copper.Buzzer.BuzzerQueue;
 import org.copper.Questions.ChoiceQuestion;
 import org.copper.Questions.Question;
 import org.copper.Questions.Questions;
+
+import java.util.Arrays;
 
 public class ChoiceEdit extends EditPane {
 
@@ -18,7 +21,7 @@ public class ChoiceEdit extends EditPane {
     public ChoiceEdit() {
         super();
         questionArea = new TextArea();
-        pane = new VBox(questionArea, generateOptions());
+        pane = new VBox(typeChoose, questionArea, generateOptions());
     }
 
     private FlowPane generateOptions(){
@@ -42,7 +45,7 @@ public class ChoiceEdit extends EditPane {
     }
 
     @Override
-    public void load(Question question) {
+    public void loadSpecific(Question question) {
         if (question instanceof ChoiceQuestion) {
             names.setAll(((ChoiceQuestion) question).getSolutions());
             questionArea.setText(((ChoiceQuestion) question).getQuestion());
@@ -52,6 +55,6 @@ public class ChoiceEdit extends EditPane {
 
     @Override
     public void save(int[] index){
-        Questions.getQuestions()[index[0]][index[1]] = new ChoiceQuestion(questionArea.getText(), names.indexOf(correctAnswer.getText()), names.toArray(String[]::new), ApplicationContext.getPointMatrix()[index[0]][index[1]]);
+        Questions.getQuestions()[index[0]][index[1]] = new ChoiceQuestion(questionArea.getText(), names.indexOf(correctAnswer.getText()), names.toArray(String[]::new), Arrays.asList(BuzzerQueue.getBuzzerStates()).indexOf(typeChoose.getValue()), ApplicationContext.getPointMatrix()[index[0]][index[1]]);
     }
 }

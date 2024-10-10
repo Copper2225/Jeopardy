@@ -1,17 +1,25 @@
 package org.copper.Buzzer;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.application.Platform;
+import javafx.beans.property.*;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableIntegerValue;
+import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
 import org.copper.Saver.PointsSaver;
+
+import java.util.LinkedList;
+import java.util.Optional;
 
 public class Team {
     private String teamName;
     private String iPAddress;
-    private final transient IntegerProperty points = new SimpleIntegerProperty(0);  // Use transient for Jackson
+    private final transient IntegerProperty points = new SimpleIntegerProperty(0);
+    @JsonIgnore
+    private final StringProperty buzzerPosition = new SimpleStringProperty("");
 
     private void savePoints() {
         points.addListener(new ChangeListener<Number>() {
@@ -45,9 +53,17 @@ public class Team {
                 @JsonProperty("points") int points) {
         this.teamName = teamName;
         this.iPAddress = iPAddress;
-        this.points.set(points);  // Deserialize points as an int
+        this.points.set(points);
         savePoints();
     }
+
+    public void updateBuzzerPosition(){
+        Optional<Team> matchingTeam = BuzzerQueue.getQueue().stream()
+                .filter(team -> team.equals(this))
+                .findFirst();
+
+        Platform.runLater(() -> buzzerPosition.set(matchingTeam.map(team -> Integer.toString(((LinkedList<Team>) BuzzerQueue.getQueue()).indexOf(team)+1)).orElse("")));
+    };
 
     // Getter for teamName
     public String getTeamName() {
@@ -84,6 +100,18 @@ public class Team {
     // Getter for the IntegerProperty (not used by Jackson)
     public IntegerProperty pointsProperty() {
         return points;
+    }
+
+    public String getBuzzerPosition() {
+        return buzzerPosition.get();
+    }
+
+    public StringProperty buzzerPositionProperty() {
+        return buzzerPosition;
+    }
+
+    public void setBuzzerPosition(String buzzerPosition) {
+        this.buzzerPosition.set(buzzerPosition);
     }
 
     @Override

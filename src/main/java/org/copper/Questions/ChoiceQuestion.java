@@ -34,9 +34,10 @@ public class ChoiceQuestion extends Question {
             @JsonProperty("question") String question,
             @JsonProperty("correctIndex") int correctIndex,
             @JsonProperty("solutions") String[] solutions,
+            @JsonProperty("buzzer") int buzzer,
             @JsonProperty("points") int points
     ) {
-        super(ApplicationContext.QuestionTypes.CHOICE, points, false);
+        super(ApplicationContext.QuestionTypes.CHOICE, points, buzzer);
         this.question = question;
         this.correctIndex = correctIndex;
         this.solutions = solutions;

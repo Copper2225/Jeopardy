@@ -23,9 +23,8 @@ import org.copper.Buzzer.Team;
 import org.copper.Play.PlayScreen;
 import org.copper.Questions.*;
 
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Quest {
     FlowPane root;
@@ -36,6 +35,7 @@ public class Quest {
     HBox mediaZone = mediaZone();
     Button toOverview = toOverview();
     BooleanProperty aufgedeckt = new SimpleBooleanProperty(false);
+    ComboBox<Integer> points = new ComboBox<Integer>();
     public Quest() {
         root = new FlowPane();
         root.getStyleClass().add("play-flow-pane");
@@ -85,19 +85,30 @@ public class Quest {
                 }
             }
         });
-        Label points = new Label(Integer.toString(question.getPoints()) + " Punkte");
+        Set<Integer> pointsSet = new HashSet<>();
+        int[] defaultPointValues = ApplicationContext.getDefaultPointValues();
+        Arrays.stream(defaultPointValues)
+                .boxed()
+                .forEach(pointsSet::add);
+        Arrays.stream(ApplicationContext.getPointMatrix())
+                .flatMapToInt(Arrays::stream)
+                .boxed()
+                .forEach(pointsSet::add);
+        points.getItems().addAll(pointsSet.stream().sorted().toList());
         points.getStyleClass().add("questionPoints");
         Button listCorrect = new Button("☑ Übersicht");
         Button add = new Button("Hinzufügen");
         add.setOnAction(event -> {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
-            optionalTeam.ifPresent(team -> team.pointsProperty().set(team.pointsProperty().getValue() + question.getPoints()));
+            optionalTeam.ifPresent(team -> team.pointsProperty().set(team.pointsProperty().getValue() + points.getValue()));
+            points.getSelectionModel().selectPrevious();
+            teams.getSelectionModel().select("");
         });
         Button wrong = new Button("Falsch");
         listCorrect.setOnAction((event -> {
             for(int i = 0; i < ApplicationContext.getTeamAmount(); i++){
                 if(AdminPlayScene.getInputs().getInputs()[i].isSelected()){
-                    PlayScreen.getTeams().get(i).pointsProperty().set(PlayScreen.getTeams().get(i).pointsProperty().getValue() + question.getPoints());
+                    PlayScreen.getTeams().get(i).pointsProperty().set(PlayScreen.getTeams().get(i).pointsProperty().getValue() + points.getValue());
                 }
             }
             PlayScreen.goToOverview();
@@ -105,9 +116,9 @@ public class Quest {
         wrong.setOnAction((event -> {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
             optionalTeam.ifPresent(team -> {
-                team.pointsProperty().set(team.pointsProperty().getValue() - (question.getPoints() / ApplicationContext.getWrongMultiplier()));
+                team.pointsProperty().set(team.pointsProperty().getValue() - (points.getValue() / ApplicationContext.getWrongMultiplier()));
             });
-            if(question.isBuzzer()){
+            if(BuzzerQueue.isAllowBuzzer()){
                  BuzzerQueue.poll();
             }
         }));
@@ -118,6 +129,10 @@ public class Quest {
 
     public ObjectProperty<String> getBuzzeringTeamProperty() {
         return buzzeringTeam;
+    }
+
+    public void setPointsValue(int number) {
+        points.getSelectionModel().select(Integer.valueOf(number));
     }
 
     public void setQuestion(Question question) {
