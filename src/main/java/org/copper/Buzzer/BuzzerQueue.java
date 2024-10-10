@@ -2,30 +2,26 @@ package org.copper.Buzzer;
 
 import javafx.application.Platform;
 import javafx.beans.property.*;
-import javafx.beans.value.ObservableIntegerValue;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
-import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
-import java.util.function.Consumer;
 
 public class BuzzerQueue {
     private static final Queue<Team> queue = new LinkedList<>();
     private static final Set<Team> set = new HashSet<>();
-    private static final IntegerProperty[] teamPositions = new IntegerProperty[ApplicationContext.getTeamAmount()];
     private static final BooleanProperty allowBuzzer = new SimpleBooleanProperty(false);
     private static MediaPlayer mP;
     private static String[] buzzerStates = {"", "Buzzer", "Queue"};
     private static final StringProperty currentBuzzerStatus = new SimpleStringProperty(buzzerStates[0]);
 
     public BuzzerQueue() {
-        Path target = Paths.get("src/main/resources/Buzzer.mp3");
+        Path target = Paths.get("src/main/resources/Buzzer.wav");
         Media buzzSound = new Media(target.toUri().toString());
         mP = new MediaPlayer(buzzSound);
         mP.setOnEndOfMedia(() -> {
@@ -41,7 +37,7 @@ public class BuzzerQueue {
         }
     }
 
-    public boolean offer(Team element) {
+    public void offer(Team element) {
         if (!set.contains(element)) {
             boolean wasEmpty = queue.isEmpty();
             queue.offer(element);
@@ -53,12 +49,10 @@ public class BuzzerQueue {
                 Platform.runLater(() -> AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(element.getTeamName()));
             }
             AdminPlayScene.getEdit().addBuzzer(element);
-            return true;
         }
-        return false;
     }
 
-    public static Team poll() {
+    public static void poll() {
         Team element = queue.poll();
         if (element != null) {
             set.remove(element);
@@ -72,7 +66,6 @@ public class BuzzerQueue {
                 AdminPlayScene.getQuest().getBuzzeringTeamProperty().set(null);
             }
         }
-        return element;
     }
 
     public static void clear() {
@@ -110,16 +103,8 @@ public class BuzzerQueue {
         return allowBuzzer.get();
     }
 
-    public static BooleanProperty allowBuzzerProperty() {
-        return allowBuzzer;
-    }
-
     public static void setAllowBuzzer(boolean allowBuzzer) {
         BuzzerQueue.allowBuzzer.set(allowBuzzer);
-    }
-
-    public boolean isEmpty() {
-        return queue.isEmpty();
     }
 
     public static Team peek() {
@@ -130,6 +115,14 @@ public class BuzzerQueue {
         return queue;
     }
 
+    public static String[] getBuzzerStates() {
+        return buzzerStates;
+    }
+
+    public static StringProperty currentBuzzerStatusProperty() {
+        return currentBuzzerStatus;
+    }
+
     public static MediaPlayer getmP() {
         return mP;
     }
@@ -138,20 +131,8 @@ public class BuzzerQueue {
         BuzzerQueue.mP = mP;
     }
 
-    public static String[] getBuzzerStates() {
-        return buzzerStates;
-    }
-
     public static void setBuzzerStates(String[] buzzerStates) {
         BuzzerQueue.buzzerStates = buzzerStates;
-    }
-
-    public static String getCurrentBuzzerStatus() {
-        return currentBuzzerStatus.get();
-    }
-
-    public static StringProperty currentBuzzerStatusProperty() {
-        return currentBuzzerStatus;
     }
 
     public static void setCurrentBuzzerStatus(String currentBuzzerStatus) {
