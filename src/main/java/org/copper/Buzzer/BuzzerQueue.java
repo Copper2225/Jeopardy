@@ -25,7 +25,7 @@ public class BuzzerQueue {
         Media buzzSound = new Media(target.toUri().toString());
         mP = new MediaPlayer(buzzSound);
         mP.setOnEndOfMedia(() -> {
-            mP.pause();
+            mP.stop();
             mP.seek(Duration.ZERO);
         });
         mP.setVolume(0.6);
