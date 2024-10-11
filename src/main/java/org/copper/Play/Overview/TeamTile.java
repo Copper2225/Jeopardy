@@ -34,7 +34,7 @@ public class TeamTile {
         input.prefWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(25)).otherwise(0));
         input.maxWidthProperty().bind(Bindings.when(AdminPlayScene.getInputs().showInputsProperty()).then(PlayScreen.getPlayStage().widthProperty().divide(ApplicationContext.getTeamAmount()).subtract(25)).otherwise(0));
         input.getStyleClass().add("inputShow");
-        input.styleProperty().bind(Bindings.concat("-fx-font-size: ").concat(Bindings.when(input.textProperty().length().isEqualTo(1)).then(inputSize.multiply(5)).otherwise(inputSize)).concat("em;"));
+        input.styleProperty().bind(Bindings.concat("-fx-font-size: ").concat(Bindings.when(input.textProperty().length().lessThanOrEqualTo(2)).then(inputSize.multiply(5)).otherwise(inputSize)).concat("em;"));
         input.visibleProperty().bind(AdminPlayScene.getInputs().showInputsProperty());
         root = new VBox(input, teamName, points);
         teamName.minHeightProperty().bind(teamsBarHeight

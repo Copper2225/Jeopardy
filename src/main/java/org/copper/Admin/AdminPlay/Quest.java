@@ -79,7 +79,7 @@ public class Quest {
         buzzeringTeam.addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(question instanceof AudioQuestion && newValue != null){
+                if(question instanceof AudioQuestion && newValue != null && !BuzzerQueue.currentBuzzerStatusProperty().isEqualTo(BuzzerQueue.getBuzzerStates()[2]).get()){
                     ((AudioQuestion) question).getMediaPlayer().pause();
                 }
             }
@@ -128,9 +128,26 @@ public class Quest {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();
             optionalTeam.ifPresent(team -> team.pointsProperty().set(team.pointsProperty().getValue() + points.getValue()));
             points.getSelectionModel().selectPrevious();
-            if(BuzzerQueue.isAllowBuzzer()){
+            if(BuzzerQueue.currentBuzzerStatusProperty().isEqualTo(BuzzerQueue.getBuzzerStates()[1]).get()){
                 BuzzerQueue.poll();
-            } else {
+            } else if (BuzzerQueue.currentBuzzerStatusProperty().isEqualTo(BuzzerQueue.getBuzzerStates()[2]).get()) {
+                optionalTeam.ifPresent(team -> {
+                    Optional<Team> newTeam = PlayScreen.getTeams().stream().filter(team1 -> {
+                        try {
+                            return Integer.valueOf(team1.buzzerPositionProperty().get())
+                                    .equals(Integer.parseInt(team.buzzerPositionProperty().get()) + 1);
+                        } catch (NumberFormatException numberFormatException) {
+                            return false;
+                        }
+                    }).findFirst();
+
+                    newTeam.ifPresentOrElse(
+                            newOne -> teams.getSelectionModel().select(newOne.getTeamName()),
+                            () -> teams.getSelectionModel().select("")
+                    );
+                });
+
+            }else {
                 teams.getSelectionModel().select("");
             }
         });
