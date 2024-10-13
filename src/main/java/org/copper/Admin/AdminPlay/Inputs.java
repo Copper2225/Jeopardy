@@ -66,16 +66,6 @@ public class Inputs {
                         .otherwise("-fx-background-color: lightcoral;")
         );
         showDetailed.setOnAction(event -> {
-//            Alert alert = new Alert(Alert.AlertType.NONE);
-//            alert.initOwner(AdminScreen.getAdminStage());
-//            alert.initModality(Modality.WINDOW_MODAL);
-//            Label alertLabel = new Label();
-//            alertLabel.textProperty().bind(Bindings.valueAt(inputTexts, i));
-//            alertLabel.setWrapText(false);
-//            alert.getDialogPane().setContent(alertLabel);
-//            alert.titleProperty().bind(Bindings.valueAt(PlayScreen.getTeamNames(), i));
-//            alert.getButtonTypes().add(ButtonType.CLOSE);
-//            alert.show();
             boolean newValue = !PlayScreen.getTeams().get(i).isShow();
             PlayScreen.getTeams().get(i).setShow(newValue);
             if(newValue){

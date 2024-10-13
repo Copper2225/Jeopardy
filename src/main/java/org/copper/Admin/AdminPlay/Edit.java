@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class Edit {
     private String buttonMode = buttonModes.QUESTION;
-    private Label buzzerQueue;
+    private ListView<String> buzzerQueue;
     private FlowPane root = new FlowPane();
 
     public Edit() {
@@ -73,7 +73,7 @@ public class Edit {
     }
 
     private FlowPane buzzerZone(){
-        buzzerQueue = new Label();
+        buzzerQueue = new ListView<>();
         buzzerQueue.prefWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().subtract(70).divide(3));
         buzzerQueue.prefHeightProperty().bind(AdminScreen.getAdminStage().getScene().heightProperty().multiply(3).divide(14).subtract(270/7).add(20));
         buzzerQueue.maxWidthProperty().bind(AdminScreen.getAdminStage().widthProperty().subtract(70).divide(3));
@@ -84,7 +84,7 @@ public class Edit {
         Button clear = new Button("Leeren");
         clear.setOnAction(event -> {
             BuzzerQueue.clear();
-            buzzerQueue.setText("");
+            buzzerQueue.getItems().clear();
         });
         Button allow = new Button();
         allow.textProperty().bind(BuzzerQueue.currentBuzzerStatusProperty());
@@ -126,15 +126,15 @@ public class Edit {
     }
 
     public void addBuzzer(Team team){
-        Platform.runLater(() -> buzzerQueue.setText((buzzerQueue.getText() + "\n" + team.getTeamName()).trim()));
+        buzzerQueue.getItems().add(0, team.getTeamName());
+        buzzerQueue.getSelectionModel().select(0);
     }
 
     public void removeBuzzer(){
-        int index = buzzerQueue.getText().indexOf("\n");
-        if (index > 0){
-            buzzerQueue.setText(buzzerQueue.getText().substring(buzzerQueue.getText().indexOf("\n")).trim());
+        int index = buzzerQueue.getSelectionModel().getSelectedIndex();
+        if (index >= 0){
+            buzzerQueue.getItems().remove(index);
         }
-        else buzzerQueue.setText("");
     }
 
     public String getButtonMode() {
