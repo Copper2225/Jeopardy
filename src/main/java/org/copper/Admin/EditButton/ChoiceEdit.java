@@ -46,10 +46,10 @@ public class ChoiceEdit extends EditPane {
 
     @Override
     public void loadSpecific(Question question) {
-        if (question instanceof ChoiceQuestion) {
-            names.setAll(((ChoiceQuestion) question).getSolutions());
-            questionArea.setText(((ChoiceQuestion) question).getQuestion());
-            correctAnswer.setText(((ChoiceQuestion) question).getSolutions()[((ChoiceQuestion) question).getCorrectIndex()]);
+        if (question instanceof ChoiceQuestion cQ) {
+            names.setAll(cQ.getSolutions());
+            questionArea.setText(cQ.getQuestion());
+            correctAnswer.setText(cQ.getSolutions()[cQ.getCorrectIndex()]);
         }
     }
 

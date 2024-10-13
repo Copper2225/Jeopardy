@@ -22,11 +22,12 @@ public class EditButtonScene {
         String BILD = "Bild";
         String AUDIO = "Audio";
         String CHOICE = "Choice";
+        String LIST = "List";
     }
 
     public EditButtonScene() {
         typeChoose = new ComboBox<>();
-        typeChoose.getItems().addAll(Types.TEXT, Types.BILD, Types.AUDIO, Types.CHOICE);
+        typeChoose.getItems().addAll(Types.TEXT, Types.BILD, Types.AUDIO, Types.CHOICE, Types.LIST);
         Button save = new Button("Speichern");
         save.setOnAction((event -> save()));
         Button cancel = new Button("Abbrechen");
@@ -44,6 +45,7 @@ public class EditButtonScene {
             case ApplicationContext.QuestionTypes.BILD -> Types.BILD;
             case ApplicationContext.QuestionTypes.AUDIO -> Types.AUDIO;
             case ApplicationContext.QuestionTypes.CHOICE -> Types.CHOICE;
+            case ApplicationContext.QuestionTypes.LIST -> Types.LIST;
             case null, default -> Types.TEXT;
         };
         if(type.equals(typeChoose.getValue())) switchType(type);
@@ -56,6 +58,7 @@ public class EditButtonScene {
             case Types.BILD -> editPane = new BildEdit();
             case Types.AUDIO -> editPane = new AudioEdit();
             case Types.CHOICE -> editPane = new ChoiceEdit();
+            case Types.LIST -> editPane = new ListEdit();
             case null -> editPane = new TextEdit();
             default -> System.out.println("default");
         }

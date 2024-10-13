@@ -24,9 +24,9 @@ public class TextEdit extends EditPane {
 
     @Override
     public void loadSpecific(Question question) {
-        if(question instanceof TextQuestion){
-            questionArea.setText(((TextQuestion) question).getQuestion());
-            solutionArea.setText(((TextQuestion) question).getAnswer());
+        if(question instanceof TextQuestion tQ){
+            questionArea.setText(tQ.getQuestion());
+            solutionArea.setText(tQ.getAnswer());
         }else {
             questionArea.clear();
             solutionArea.clear();

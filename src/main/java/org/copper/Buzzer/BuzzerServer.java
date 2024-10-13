@@ -59,7 +59,7 @@ public class BuzzerServer {
                         if(BuzzerQueue.currentBuzzerStatusProperty().isEqualTo(BuzzerQueue.getBuzzerStates()[2]).get()){
                             buzzerQueue.offer(team);
                         }
-                        if(!AdminPlayScene.getInputs().isShowInputs() || (BuzzerQueue.currentBuzzerStatusProperty().isEqualTo(BuzzerQueue.getBuzzerStates()[2])).get() && !PlayScreen.getTeams().get(index).isShow() && !team.buzzerPositionProperty().isNotEmpty().get()){
+                        if(!AdminPlayScene.getInputs().isShowInputs() || (BuzzerQueue.currentBuzzerStatusProperty().isEqualTo(BuzzerQueue.getBuzzerStates()[2])).get() && !PlayScreen.getTeams().get(index).isShow() && !team.buzzerPositionProperty().getValue().isEmpty()){
                             Platform.runLater(() -> AdminPlayScene.getInputs().getInputTexts().set(index, inputData.getInput()));
                         }
                     });

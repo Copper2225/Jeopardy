@@ -88,11 +88,11 @@ public class BildEdit extends EditPane {
 
     @Override
     public void loadSpecific(Question question) {
-        if (question instanceof BildQuestion){
-            listFiles.setValue(((BildQuestion) question).getFilename());
-            questionArea.setText(((BildQuestion) question).getQuestion());
-            solutionArea.setText(((BildQuestion) question).getAnswer());
-            ((BildQuestion) question).setAnswer(solutionArea.getText());
+        if (question instanceof BildQuestion bQ){
+            listFiles.setValue(bQ.getFilename());
+            questionArea.setText(bQ.getQuestion());
+            solutionArea.setText(bQ.getAnswer());
+            bQ.setAnswer(solutionArea.getText());
         }
     }
 

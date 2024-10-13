@@ -78,14 +78,14 @@ public class AudioEdit extends EditPane {
 
     @Override
     public void loadSpecific(Question question) {
-        if (question instanceof AudioQuestion){
-            listFiles.setValue(((AudioQuestion) question).getFilename());
-            if(((AudioQuestion) question).getDauer() != null) {
+        if (question instanceof AudioQuestion aQ){
+            listFiles.setValue(aQ.getFilename());
+            if(aQ.getDauer() != null) {
                 dauer.setText(((AudioQuestion) question).getDauer().toString());
             }
-            questionArea.setText(((AudioQuestion) question).getQuestion());
-            solutionArea.setText(((AudioQuestion) question).getAnswer());
-            ((AudioQuestion) question).setAnswer(solutionArea.getText());
+            questionArea.setText(aQ.getQuestion());
+            solutionArea.setText(aQ.getAnswer());
+            aQ.setAnswer(solutionArea.getText());
         }
     }
 

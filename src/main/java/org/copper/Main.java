@@ -13,6 +13,8 @@ public class Main extends Application {
     @Override
     public void start(Stage admin) throws Exception {
         ApplicationContext.loadApplicationContext();
+        admin.setX(-ApplicationContext.getScreenWidth() * 4);
+        admin.setMaximized(true);
         AdminScreen.setAdminStage(admin);
         AdminScreen.loadAdmin();
         AdminScreen.switchScene(ApplicationContext.AdminScenes.CONFIG);

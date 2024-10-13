@@ -9,8 +9,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableIntegerValue;
 import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.Node;
+import org.copper.Admin.AdminPlay.AdminPlayScene;
+import org.copper.Questions.ListQuestion;
 import org.copper.Saver.PointsSaver;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Optional;
 
@@ -64,7 +68,19 @@ public class Team {
                 .filter(team -> team.equals(this))
                 .findFirst();
 
-        Platform.runLater(() -> buzzerPosition.set(matchingTeam.map(team -> Integer.toString(((LinkedList<Team>) BuzzerQueue.getQueue()).indexOf(team)+1)).orElse("")));
+        if (AdminPlayScene.getQuest().getQuestion() instanceof ListQuestion lQ) {
+            System.out.println(buzzerPosition.getValue().trim().isEmpty());
+            if(lQ.isHintRank()){
+                long number = Arrays.stream(lQ.getHintLabels()).filter(Node::isVisible).count();
+                if(matchingTeam.isPresent()){
+                    if (buzzerPosition.getValue().trim().isEmpty()) Platform.runLater(() -> buzzerPosition.set(Long.toString(number)));
+                } else {
+                    Platform.runLater(() -> buzzerPosition.set(""));
+                }
+            }
+        } else {
+            Platform.runLater(() -> buzzerPosition.set(matchingTeam.map(team -> Integer.toString(((LinkedList<Team>) BuzzerQueue.getQueue()).indexOf(team)+1)).orElse("")));
+        }
     };
 
     // Getter for teamName

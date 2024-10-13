@@ -6,7 +6,9 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 import org.copper.Admin.AdminPlay.AdminPlayScene;
+import org.copper.ApplicationContext;
 import org.copper.Play.PlayScreen;
+import org.copper.Questions.ListQuestion;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;

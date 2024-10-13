@@ -31,6 +31,7 @@ public class ApplicationContext {
         String BILD = "bild";
         String AUDIO = "audio";
         String CHOICE = "choice";
+        String LIST = "list";
     }
 
     private static double screenWidth;

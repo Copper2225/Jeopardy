@@ -32,6 +32,7 @@ public class Quest {
     Label antwort = new Label();
     Button play = new Button();
     HBox mediaZone = mediaZone();
+    HBox listZone = listZone();
     Button toOverview = toOverview();
     BooleanProperty aufgedeckt = new SimpleBooleanProperty(false);
     ComboBox<Integer> points = new ComboBox<Integer>();
@@ -170,6 +171,7 @@ public class Quest {
                 case ApplicationContext.QuestionTypes.BILD -> antwort.setText(((BildQuestion) question).getQuestion());
                 case ApplicationContext.QuestionTypes.AUDIO -> antwort.setText(((AudioQuestion) question).getQuestion());
                 case ApplicationContext.QuestionTypes.CHOICE -> antwort.setText(((ChoiceQuestion) question).getQuestion());
+                case ApplicationContext.QuestionTypes.LIST -> antwort.setText(((ListQuestion) question).getQuestion());
             }
         }else{
             switch (question.getType()){
@@ -177,12 +179,17 @@ public class Quest {
                 case ApplicationContext.QuestionTypes.BILD -> antwort.setText(((BildQuestion) question).getAnswer());
                 case ApplicationContext.QuestionTypes.AUDIO -> antwort.setText(((AudioQuestion) question).getAnswer());
                 case ApplicationContext.QuestionTypes.CHOICE -> antwort.setText(((ChoiceQuestion) question).getAnswer());
+                case ApplicationContext.QuestionTypes.LIST -> antwort.setText("Antwort: " + ((ListQuestion) question).getAnswer() + "\n" + "Next: " + ((ListQuestion) question).getHints()[0]);
             }
         }
         ApplicationContext.isChoiceQuestionProperty().set(question instanceof ChoiceQuestion);
         AdminPlayScene.getInputs().reset();
         PlayScreen.setChildRoot(new HBox());
-        root.getChildren().set(2, Objects.equals(question.getType(), ApplicationContext.QuestionTypes.AUDIO) ? mediaZone : toOverview);
+        root.getChildren().set(2, Objects.equals(question.getType(), ApplicationContext.QuestionTypes.LIST)
+                ? listZone
+                : (Objects.equals(question.getType(), ApplicationContext.QuestionTypes.AUDIO)
+                ? mediaZone
+                : toOverview));
         root.getChildren().set(1, pointsSection());
     }
 
@@ -206,6 +213,19 @@ public class Quest {
         }));
         bind(begin, toOverview, play);
         return new HBox(begin, toOverview, play);
+    }
+
+    private HBox listZone() {
+        Button next = new Button("Next");
+        next.setOnAction(event -> {
+            ((ListQuestion) question).next();
+        });
+        Button toOverview = new Button("Zur Übersicht");
+        toOverview.setOnAction((event -> {
+            PlayScreen.goToOverview();
+        }));
+        bind(toOverview, next);
+        return new HBox(toOverview, next);
     }
 
     public Button toOverview(){
@@ -232,5 +252,9 @@ public class Quest {
 
     public Button getPlay() {
         return play;
+    }
+
+    public Label getAntwort() {
+        return antwort;
     }
 }

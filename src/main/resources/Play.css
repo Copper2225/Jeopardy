@@ -156,3 +156,9 @@ myButton :disabled {
     -fx-padding: 20px;
     -fx-font-size: 3em;
 }
+
+.listHint {
+    -fx-alignment: center-left;
+    -fx-padding: 20px 80px;
+    -fx-font-size: 3em;
+}
