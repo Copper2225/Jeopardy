@@ -3,6 +3,7 @@ package org.copper.Play.Overview;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.*;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -19,9 +20,10 @@ public class TeamTile {
     public TeamTile(int number, ReadOnlyDoubleProperty teamsBarHeight){
         teamName = new Label(PlayScreen.getTeams().get(number).getTeamName());
         teamName.getStyleClass().add("teamName");
+        teamName.setTextOverrun(OverrunStyle.ELLIPSIS);
         Label points = new Label();
         buzzerIndicate = points;
-        points.textProperty().bind(Bindings.concat("Punkte: ", PlayScreen.getTeams().get(number).pointsProperty().asString()));
+        points.textProperty().bind(PlayScreen.getTeams().get(number).pointsProperty().asString());
         points.getStyleClass().add("points");
         Label input = new Label();
         input.textProperty().bind(

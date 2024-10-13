@@ -76,7 +76,11 @@ public class ListQuestion extends Question {
     public void next() {
         for (int i = 0; i < hintLabels.length; i++) {
             if(!hintLabels[i].isVisible()) {
-                AdminPlayScene.getQuest().getAntwort().setText("Antwort: " + answer + "\n" + "Next: " + hints[i]);
+                if( i == hintLabels.length -1){
+                    AdminPlayScene.getQuest().getAntwort().setText("Antwort: " + answer);
+                } else {
+                    AdminPlayScene.getQuest().getAntwort().setText("Antwort: " + answer + "\n" + "Next: " + hints[i+1]);
+                }
                 hintLabels[i].setVisible(true);
                 break;
             }

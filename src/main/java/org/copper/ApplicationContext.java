@@ -36,10 +36,10 @@ public class ApplicationContext {
 
     private static double screenWidth;
     private static double screenHeight;
-
     private static int columns = 6;
     private static int rows = 5;
     private static int teamAmount = 8;
+    private static boolean showLogo = true;
     private static int[] currentIndex = new int[2];
     private static int[][] pointMatrix = new int[columns][rows];
     private static String[] categories = new String[columns];
@@ -73,12 +73,10 @@ public class ApplicationContext {
     public static Node createSpacer(boolean horizontal) {
         final Region spacer = new Region();
         if(horizontal){
-            // Make it always grow or shrink according to the available space
             HBox.setHgrow(spacer, Priority.ALWAYS);
         }else{
             VBox.setVgrow(spacer, Priority.ALWAYS);
         }
-
         return spacer;
     }
 
@@ -180,5 +178,13 @@ public class ApplicationContext {
 
     public static void setDefaultPointValues(int[] defaultPointValues) {
         ApplicationContext.defaultPointValues = defaultPointValues;
+    }
+
+    public static boolean isShowLogo() {
+        return showLogo;
+    }
+
+    public static void setShowLogo(boolean showLogo) {
+        ApplicationContext.showLogo = showLogo;
     }
 }

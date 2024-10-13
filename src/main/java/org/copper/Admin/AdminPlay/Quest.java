@@ -96,7 +96,7 @@ public class Quest {
                 .forEach(pointsSet::add);
         points.getItems().addAll(pointsSet.stream().sorted().toList());
         points.getStyleClass().add("questionPoints");
-        Button listCorrect = new Button("☑ Übersicht");
+        Button listCorrect = new Button("☑ Korrekt");
         Button add = getAddButton(teams);
         Button wrong = new Button("Falsch");
         listCorrect.setOnAction((event -> {
@@ -104,8 +104,10 @@ public class Quest {
                 if(AdminPlayScene.getInputs().getInputs()[i].isSelected()){
                     PlayScreen.getTeams().get(i).pointsProperty().set(PlayScreen.getTeams().get(i).pointsProperty().getValue() + points.getValue());
                 }
+                AdminPlayScene.getInputs().getInputs()[i].setSelected(false);
             }
-            PlayScreen.goToOverview();
+            points.getSelectionModel().selectPrevious();
+//            PlayScreen.goToOverview();
         }));
         wrong.setOnAction((event -> {
             Optional<Team> optionalTeam = PlayScreen.getTeams().stream().filter((team -> team.getTeamName().equals(teams.getValue()))).findFirst();

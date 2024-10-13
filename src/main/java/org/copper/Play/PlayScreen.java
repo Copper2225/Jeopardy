@@ -4,6 +4,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +23,7 @@ import org.copper.Play.Overview.Teamsbar;
 import org.copper.Questions.Questions;
 import org.copper.Saver.PointsSaver;
 
+import javax.script.Bindings;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class PlayScreen {
     private static OverviewSzene overview;
     private static VBox root;
     private static Teamsbar tB;
-    private static ImageView logo;
+    private static ImageView logo = new ImageView();
     private static final List<Team> teams = new ArrayList<>();
     private static ObservableList<String> teamNames = FXCollections.observableArrayList();
 
@@ -51,17 +53,26 @@ public class PlayScreen {
         overview = new OverviewSzene();
         PointsSaver.loadPoints(teams, teamNames);
         tB = new Teamsbar();
-        logo = new ImageView(new Image("Kneipenquiz.png"));
-        root = new VBox(logo, overview.getRoot(), tB.getRoot());
+        logo.setImage(new Image("Kneipenquiz.png"));
+        root = new VBox();
+        if(ApplicationContext.isShowLogo()) {
+            root.getChildren().add(logo);
+        }
+        root.getChildren().addAll(overview.getRoot(), tB.getRoot());
+        root.setAlignment(Pos.TOP_CENTER);
         VBox.setVgrow(logo, Priority.ALWAYS);
         VBox.setVgrow(tB.getRoot(), Priority.SOMETIMES);
         VBox.setVgrow(overview.getRoot(), Priority.ALWAYS);
         scene.setRoot(root);
+        logo.setPreserveRatio(true);
+        logo.setFitHeight(logo.getImage().getHeight()/15*15);
+        System.out.println(logo.getImage().getHeight());
         playStage.show();
     }
 
     public static void setChildRoot(Pane childRoot) {
-        root.getChildren().set(1, childRoot);
+        root.getChildren().set(ApplicationContext.isShowLogo() ? 1 : 0, childRoot);
+//        logo.setVisible(childRoot.equals(overview.getRoot()) && ApplicationContext.isShowLogo());
         VBox.setVgrow(childRoot, Priority.ALWAYS);
     }
 
@@ -74,9 +85,8 @@ public class PlayScreen {
                 PlayScreen.getOverview().toggleButtonDisabled(index[0], index[1], true);
             }
             BuzzerQueue.clear();
-            root.getChildren().set(1, overview.getRoot());
+            setChildRoot(overview.getRoot());
         }
-
     }
 
     public static Stage getPlayStage() {
